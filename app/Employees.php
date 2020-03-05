@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $address
  * @property string $dateBirth
  * @property string $phoneNumber
- * @property string $isDeleted
  * @property string $createdAt
  * @property string $updatedAt
  * @property string $deletedAt
@@ -81,7 +80,7 @@ class Employees extends Model
     /**
      * @var array
      */
-    protected $fillable = ['name', 'address', 'dateBirth', 'phoneNumber', 'isDeleted', 'updatedAt', 'createdAt', 'deletedAt', 'role', 'createdBy', 'updatedBy', 'deletedBy', 'username', 'password'];
+    protected $fillable = ['name', 'address', 'dateBirth', 'phoneNumber', 'createdAt', 'updatedAt', 'deletedAt', 'role', 'createdBy', 'updatedBy', 'deletedBy', 'username', 'password'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

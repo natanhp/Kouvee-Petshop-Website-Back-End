@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $name
  * @property string $address
  * @property string $phoneNumber
- * @property string $isDeleted
  * @property string $createdAt
  * @property string $updatedAt
  * @property string $deletedAt
@@ -24,6 +23,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Suppliers extends Model
 {
+
+    use SoftDeletes;
+    
     /**
      * The table associated with the model.
      * 
@@ -45,7 +47,7 @@ class Suppliers extends Model
     /**
      * @var array
      */
-    protected $fillable = ['name', 'address', 'phoneNumber', 'isDeleted', 'createdAt', 'updatedAt', 'deletedAt', 'createdBy', 'updatedBy', 'deletedBy'];
+    protected $fillable = ['name', 'address', 'phoneNumber', 'createdAt', 'updatedAt', 'deletedAt', 'createdBy', 'updatedBy', 'deletedBy'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
