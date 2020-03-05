@@ -283,7 +283,8 @@ class EmployeesController extends Controller {
      *             type="integer",
      *             format="int64"
      *         ),
-	 * 		   @OA\Parameter(
+     *     ),
+	 * 	   @OA\Parameter(
      *         name="ownderId",
      *         in="path",
      *         description="Owner who delted the employee",
@@ -292,7 +293,7 @@ class EmployeesController extends Controller {
      *             type="integer",
      *             format="int64"
      *         ),
-     *     ),
+	 * 	   ),
      *     @OA\Response(
      *         response=400,
      *         description="Employee not deleted it's because either the deletion failed or employee to be deleted not found",

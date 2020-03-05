@@ -189,7 +189,7 @@
                 ]
             }
         },
-        "/api/v1/employees/delete/{id}": {
+        "/api/v1/employees/delete/{id}/{ownderId}": {
             "delete": {
                 "tags": [
                     "employees"
@@ -201,6 +201,16 @@
                         "name": "id",
                         "in": "path",
                         "description": "Employee id to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "ownderId",
+                        "in": "path",
+                        "description": "Owner who delted the employee",
                         "required": true,
                         "schema": {
                             "type": "integer",
