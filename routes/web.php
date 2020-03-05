@@ -22,7 +22,7 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         $router->post('insert', 'EmployeesController@insert');
         $router->get('getbyid/{id}', 'EmployeesController@getEmployeeById');
         $router->post('update', 'EmployeesController@update');
-        $router->delete('delete/{id}', 'EmployeesController@delete');
+        $router->delete('delete/{id}/{ownderId}', 'EmployeesController@delete');
     });
 
     $router->post('login', 'AuthController@authenticate');

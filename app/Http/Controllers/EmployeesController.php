@@ -271,13 +271,22 @@ class EmployeesController extends Controller {
 	
 	/**
      * @OA\Delete(
-     *     path="/api/v1/employees/delete/{id}",
+     *     path="/api/v1/employees/delete/{id}/{ownderId}",
      *     tags={"employees"},
      *     summary="Deletes an employee",
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         description="Employee id to delete",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int64"
+     *         ),
+	 * 		   @OA\Parameter(
+     *         name="ownderId",
+     *         in="path",
+     *         description="Owner who delted the employee",
      *         required=true,
      *         @OA\Schema(
      *             type="integer",
@@ -293,10 +302,12 @@ class EmployeesController extends Controller {
      *     },
      * )
      */
-	public function delete($id) {
+	public function delete($id, $ownerId) {
 		$employee = Employees::find($id);
 		
 		if($employee->delete()) {
+			$employee->deletedBy = $ownerId;
+			$employee->save();
 			return response()->json([
 				"message" => "Employee deleted",
 				"data" => []
