@@ -271,7 +271,7 @@ class EmployeesController extends Controller {
 	
 	/**
      * @OA\Delete(
-     *     path="/api/v1/employees/delete/{id}/{ownderId}",
+     *     path="/api/v1/employees/delete/{id}/{ownerId}",
      *     tags={"employees"},
      *     summary="Deletes an employee",
      *     @OA\Parameter(
@@ -285,7 +285,7 @@ class EmployeesController extends Controller {
      *         ),
      *     ),
 	 * 	   @OA\Parameter(
-     *         name="ownderId",
+     *         name="ownerId",
      *         in="path",
      *         description="Owner who delted the employee",
      *         required=true,
@@ -354,7 +354,7 @@ class EmployeesController extends Controller {
 
 			return response()->json([
 				"message" => "Employee restored",
-				"data" => []
+				"data" => $employee
 			], 200);
 		} else {
 			return response()->json([
