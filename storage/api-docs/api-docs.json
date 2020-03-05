@@ -229,6 +229,37 @@
                     }
                 ]
             }
+        },
+        "/api/v1/employees/restore/{id}": {
+            "get": {
+                "tags": [
+                    "employees"
+                ],
+                "description": "Restore the delted employee",
+                "operationId": "App\\Http\\Controllers\\EmployeesController::restore",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of employee",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Get an employee by id"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
         }
     },
     "components": {

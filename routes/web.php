@@ -23,6 +23,8 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         $router->get('getbyid/{id}', 'EmployeesController@getEmployeeById');
         $router->post('update', 'EmployeesController@update');
         $router->delete('delete/{id}/{ownderId}', 'EmployeesController@delete');
+        $router->get('restore/{id}', 'EmployeesController@restore');
+
     });
 
     $router->post('login', 'AuthController@authenticate');

@@ -317,7 +317,50 @@ class EmployeesController extends Controller {
 			return response()->json([
 				"message" => "Employee not deleted",
 				"data" => []
-			]);
+			], 400);
+		}
+	}
+
+
+	/**
+    * @OA\Get(
+	*     path="/api/v1/employees/restore/{id}",
+	*	  tags={"employees"},
+	*     description="Restore the delted employee",
+	*	  security={
+    *     	{"bearerAuth": {}},
+	*     },
+	*	@OA\Parameter(
+    *         name="id",
+    *         in="path",
+    *         description="Id of employee",
+    *         required=true,
+    *         @OA\Schema(
+    *             type="integer",
+    *             format="int64"
+    *         )
+    *     ),
+    *     @OA\Response(response="default", description="Get an employee by id")
+    * ),
+    */
+	public function restore($id) {
+		$employee = Employees::onlyTrashed()->where('id', $id);
+		
+		if($employee) {
+			$employee->restore();
+			$employee = Employees::find($id);
+			$employee->deletedBy = NULL;
+			$employee->save();
+
+			return response()->json([
+				"message" => "Employee restored",
+				"data" => []
+			], 200);
+		} else {
+			return response()->json([
+				"message" => "Employee not restored",
+				"data" => []
+			], 400);
 		}
 	}
 }
