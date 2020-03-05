@@ -25,6 +25,36 @@ class AuthController extends Controller {
         return JWT::encode($payload, env('JWT_SECRET'));
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/v1/login",
+     *     tags={"employees"},
+     *     summary="Employee login",
+     *     @OA\Response(
+     *         response=400,
+     *         description="Error"
+     *     ),
+     *     @OA\RequestBody(
+     *         description="Input data format",
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(
+     *                 type="object",
+	 * 				   @OA\Property(
+     *                     property="username",
+     *                     description="The username of the employee",
+     *                     type="string",
+     *                 ),
+     *                 @OA\Property(
+     *                     property="password",
+     *                     description="The password of the employee",
+     *                     type="password",
+     *                 )
+     *             )
+     *         )
+     *     )
+     * )
+     */
     public function authenticate() {
         $employee = Employees::where('username', $this->request->username)->first();
 
