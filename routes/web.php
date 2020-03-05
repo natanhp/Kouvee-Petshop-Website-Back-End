@@ -22,10 +22,21 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         $router->post('insert', 'EmployeesController@insert');
         $router->get('getbyid/{id}', 'EmployeesController@getEmployeeById');
         $router->post('update', 'EmployeesController@update');
-        $router->delete('delete/{id}/{ownderId}', 'EmployeesController@delete');
+        $router->delete('delete/{id}/{ownerId}', 'EmployeesController@delete');
         $router->get('restore/{id}', 'EmployeesController@restore');
 
     });
 
     $router->post('login', 'AuthController@authenticate');
+
+    $router->group(['prefix' => 'suppliers', 'middleware' => 'jwt.auth'], function () use ($router) {
+        $router->get('getall', 'SuppliersController@getAll');
+        $router->post('insert', 'SuppliersController@insert');
+        $router->get('getbyid/{id}', 'SuppliersController@getSupplierById');
+        $router->post('update', 'SuppliersController@update');
+        $router->delete('delete/{id}/{ownerId}', 'SuppliersController@delete');
+        $router->get('restore/{id}', 'SuppliersController@restore');
+
+    });
+
 });
