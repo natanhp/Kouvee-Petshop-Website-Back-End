@@ -81,7 +81,7 @@ class Employees extends Model
     /**
      * @var array
      */
-    protected $fillable = ['name', 'address', 'dateBirth', 'phoneNumber', 'isDeleted', 'createdAt', 'deletedAt', 'role', 'createdBy', 'updatedBy', 'deletedBy', 'username', 'password'];
+    protected $fillable = ['name', 'address', 'dateBirth', 'phoneNumber', 'isDeleted', 'updatedAt', 'createdAt', 'deletedAt', 'role', 'createdBy', 'updatedBy', 'deletedBy', 'username', 'password'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
