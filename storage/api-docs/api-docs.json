@@ -1,0 +1,235 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Kouvee Petshop Documentation",
+        "contact": {
+            "name": "Natan Hari P.",
+            "email": "natanhp@protonmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/v1/employees/getall": {
+            "get": {
+                "tags": [
+                    "employees"
+                ],
+                "description": "Get all employees",
+                "operationId": "App\\Http\\Controllers\\EmployeesController::getAll",
+                "responses": {
+                    "default": {
+                        "description": "Get all employees"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/employees/insert": {
+            "post": {
+                "tags": [
+                    "employees"
+                ],
+                "summary": "Insert a new employee",
+                "operationId": "App\\Http\\Controllers\\EmployeesController::insert",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "The name of the employee",
+                                        "type": "string"
+                                    },
+                                    "address": {
+                                        "description": "The address of the employee",
+                                        "type": "string"
+                                    },
+                                    "dateBirth": {
+                                        "description": "The birth date of the employee",
+                                        "type": "string"
+                                    },
+                                    "phoneNumber": {
+                                        "description": "The phone number of the emploeyee",
+                                        "type": "string"
+                                    },
+                                    "role": {
+                                        "description": "The role of the employee",
+                                        "type": "string"
+                                    },
+                                    "username": {
+                                        "description": "The username of the employee",
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "description": "The password of the employee",
+                                        "type": "string"
+                                    },
+                                    "createdBy": {
+                                        "description": "The foreign key of the owner who creates the employee",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/employees/getbyid/{id}": {
+            "get": {
+                "tags": [
+                    "employees"
+                ],
+                "description": "Get an employee by id",
+                "operationId": "App\\Http\\Controllers\\EmployeesController::getEmployeeById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of employee",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Get an employee by id"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/employees/update": {
+            "post": {
+                "tags": [
+                    "employees"
+                ],
+                "summary": "Update an employee",
+                "operationId": "App\\Http\\Controllers\\EmployeesController::update",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "description": "The id of the employee",
+                                        "type": "integer"
+                                    },
+                                    "name": {
+                                        "description": "The name of the employee",
+                                        "type": "string"
+                                    },
+                                    "address": {
+                                        "description": "The address of the employee",
+                                        "type": "string"
+                                    },
+                                    "dateBirth": {
+                                        "description": "The birth date of the employee",
+                                        "type": "string"
+                                    },
+                                    "phoneNumber": {
+                                        "description": "The phone number of the emploeyee",
+                                        "type": "string"
+                                    },
+                                    "role": {
+                                        "description": "The role of the employee",
+                                        "type": "string"
+                                    },
+                                    "username": {
+                                        "description": "The username of the employee",
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "description": "The password of the employee",
+                                        "type": "string"
+                                    },
+                                    "updatedBy": {
+                                        "description": "The foreign key of the owner who updates the employee",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/employees/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "employees"
+                ],
+                "summary": "Deletes an employee",
+                "operationId": "App\\Http\\Controllers\\EmployeesController::delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Employee id to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Employee not deleted it's because either the deletion failed or employee to be deleted not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "name": "Authorization",
+                "in": "header",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    }
+}
