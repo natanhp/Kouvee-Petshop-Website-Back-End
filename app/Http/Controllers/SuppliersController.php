@@ -286,7 +286,7 @@ class SuppliersController extends Controller {
     *             format="int64"
     *         )
     *     ),
-    *     @OA\Response(response="default", description="Get an supplier by id")
+    *     @OA\Response(response="default", description="Restored the deleted supplier")
     * ),
     */
 	public function restore($id) {

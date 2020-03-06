@@ -340,7 +340,7 @@ class EmployeesController extends Controller {
     *             format="int64"
     *         )
     *     ),
-    *     @OA\Response(response="default", description="Get an employee by id")
+    *     @OA\Response(response="default", description="Restore the deleted employee")
     * ),
     */
 	public function restore($id) {
