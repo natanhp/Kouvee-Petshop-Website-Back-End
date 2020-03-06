@@ -746,7 +746,7 @@
         "/api/v1/products/delete/{id}/{ownerId}": {
             "delete": {
                 "tags": [
-                    "product"
+                    "products"
                 ],
                 "summary": "Deletes a product",
                 "operationId": "App\\Http\\Controllers\\ProductsController::delete",

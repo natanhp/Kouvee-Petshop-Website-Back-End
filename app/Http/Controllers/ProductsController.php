@@ -292,7 +292,7 @@ class ProductsController extends Controller {
 	/**
      * @OA\Delete(
      *     path="/api/v1/products/delete/{id}/{ownerId}",
-     *     tags={"product"},
+     *     tags={"products"},
      *     summary="Deletes a product",
      *     @OA\Parameter(
      *         name="id",
@@ -374,7 +374,7 @@ class ProductsController extends Controller {
 
 			return response()->json([
 				"message" => "Product restored",
-				"data" => $product
+				"data" => $product->makeHidden(['image'])
 			], 200);
 		} else {
 			return response()->json([
