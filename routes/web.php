@@ -29,7 +29,7 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
 
     $router->post('login', 'AuthController@authenticate');
 
-    $router->group(['prefix' => 'suppliers', 'middleware' => 'jwt.auth'], function () use ($router) {
+    $router->group(['prefix' => 'suppliers', 'middleware' => ['jwt.auth', 'only.owner']], function () use ($router) {
         $router->get('getall', 'SuppliersController@getAll');
         $router->post('insert', 'SuppliersController@insert');
         $router->get('getbyid/{id}', 'SuppliersController@getSupplierById');
@@ -49,5 +49,20 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         $router->get('getallpets/{id}', 'CustomersController@getAllCustomerPetsByCustomerId');
 
     });
+
+    $router->group(['prefix' => 'products', 'middleware' => ['jwt.auth', 'only.owner']], function () use ($router) {
+        $router->post('insert', 'ProductsController@insert');
+        $router->post('update', 'ProductsController@update');
+        $router->delete('delete/{id}/{ownerId}', 'ProductsController@delete');
+        $router->get('restore/{id}', 'ProductsController@restore');
+
+    });
+
+    $router->group(['prefix' => 'noa/products'], function () use ($router) {
+        $router->get('getall', 'ProductsController@getAll');
+        $router->get('getbyid/{id}', 'ProductsController@getProductById');
+        $router->get('getimagebyid/{id}', 'ProductsController@getProductImageById');
+    });
+
 
 });

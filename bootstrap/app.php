@@ -84,6 +84,10 @@ $app->routeMiddleware([
     'jwt.auth' => App\Http\Middleware\JwtMiddleware::class,
 ]);
 
+$app->routeMiddleware([
+    'only.owner' => App\Http\Middleware\OnlyOwnerMiddleware::class,
+]);
+
 /*
 |--------------------------------------------------------------------------
 | Register Service Providers

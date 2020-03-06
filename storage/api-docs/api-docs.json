@@ -118,7 +118,7 @@
                 "tags": [
                     "customers"
                 ],
-                "description": "Get an customer by id",
+                "description": "Get a customer by id",
                 "operationId": "App\\Http\\Controllers\\CustomersController::getCustomerById",
                 "parameters": [
                     {
@@ -134,7 +134,7 @@
                 ],
                 "responses": {
                     "default": {
-                        "description": "Get an customer by id"
+                        "description": "Get a customer by id"
                     }
                 },
                 "security": [
@@ -149,7 +149,7 @@
                 "tags": [
                     "customers"
                 ],
-                "summary": "Update an customer",
+                "summary": "Update a customer",
                 "operationId": "App\\Http\\Controllers\\CustomersController::update",
                 "requestBody": {
                     "description": "Input data format",
@@ -204,7 +204,7 @@
                 "tags": [
                     "customers"
                 ],
-                "summary": "Deletes an customer",
+                "summary": "Deletes a customer",
                 "operationId": "App\\Http\\Controllers\\CustomersController::delete",
                 "parameters": [
                     {
@@ -545,6 +545,495 @@
                 "responses": {
                     "default": {
                         "description": "Restore the deleted employee"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/noa/products/getall": {
+            "get": {
+                "tags": [
+                    "products"
+                ],
+                "description": "Get all products",
+                "operationId": "App\\Http\\Controllers\\ProductsController::getAll",
+                "responses": {
+                    "default": {
+                        "description": "Get all products"
+                    }
+                }
+            }
+        },
+        "/api/v1/products/insert": {
+            "post": {
+                "tags": [
+                    "products"
+                ],
+                "summary": "Insert a new product",
+                "operationId": "App\\Http\\Controllers\\ProductsController::insert",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "productName": {
+                                        "description": "The name of the product",
+                                        "type": "string"
+                                    },
+                                    "productQuantity": {
+                                        "description": "The quantity of the product",
+                                        "type": "integer"
+                                    },
+                                    "productPrice": {
+                                        "description": "The price of the product",
+                                        "type": "double"
+                                    },
+                                    "meassurement": {
+                                        "description": "The meassurement of the product e.g kg, pcs, liter",
+                                        "type": "string"
+                                    },
+                                    "createdBy": {
+                                        "description": "The foreign key of the owner who creates the product",
+                                        "type": "integer"
+                                    },
+                                    "image": {
+                                        "description": "The image of the product (65Kb)",
+                                        "type": "file",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        }
+                                    },
+                                    "minimumQty": {
+                                        "description": "The minimum quantity of the product",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/noa/products/getbyid/{id}": {
+            "get": {
+                "tags": [
+                    "products"
+                ],
+                "description": "Get a product by id",
+                "operationId": "App\\Http\\Controllers\\ProductsController::getProductById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of products",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Get a products by id"
+                    }
+                }
+            }
+        },
+        "/api/v1/noa/products/getimagebyid/{id}": {
+            "get": {
+                "tags": [
+                    "products"
+                ],
+                "description": "Get a product image by id",
+                "operationId": "App\\Http\\Controllers\\ProductsController::getProductImageById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of products",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Get a products by id"
+                    }
+                }
+            }
+        },
+        "/api/v1/products/update": {
+            "post": {
+                "tags": [
+                    "products"
+                ],
+                "summary": "Update a product",
+                "operationId": "App\\Http\\Controllers\\ProductsController::update",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "productName": {
+                                        "description": "The name of the product",
+                                        "type": "string"
+                                    },
+                                    "productQuantity": {
+                                        "description": "The quantity of the product",
+                                        "type": "integer"
+                                    },
+                                    "productPrice": {
+                                        "description": "The price of the product",
+                                        "type": "double"
+                                    },
+                                    "meassurement": {
+                                        "description": "The meassurement of the product e.g kg, pcs, liter",
+                                        "type": "string"
+                                    },
+                                    "updatedBy": {
+                                        "description": "The foreign key of the owner who updates the product",
+                                        "type": "integer"
+                                    },
+                                    "image": {
+                                        "description": "The image of the product (65Kb)",
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "minimumQty": {
+                                        "description": "The minimum quantity of the product",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/products/delete/{id}/{ownerId}": {
+            "delete": {
+                "tags": [
+                    "product"
+                ],
+                "summary": "Deletes a product",
+                "operationId": "App\\Http\\Controllers\\ProductsController::delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Product id to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "ownerId",
+                        "in": "path",
+                        "description": "Owner who delted the product",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Product not deleted it's because either the deletion failed or product to be deleted not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/products/restore/{id}": {
+            "get": {
+                "tags": [
+                    "products"
+                ],
+                "description": "Restore the delted product",
+                "operationId": "App\\Http\\Controllers\\ProductsController::restore",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of product",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Restore the deleted product"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/services/getall": {
+            "get": {
+                "tags": [
+                    "services"
+                ],
+                "description": "Get all services",
+                "operationId": "App\\Http\\Controllers\\ServicesController::getAll",
+                "responses": {
+                    "default": {
+                        "description": "Get all services"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/services/insert": {
+            "post": {
+                "tags": [
+                    "services"
+                ],
+                "summary": "Insert a new service",
+                "operationId": "App\\Http\\Controllers\\ServicesController::insert",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "The name of the customer",
+                                        "type": "string"
+                                    },
+                                    "address": {
+                                        "description": "The address of the customer",
+                                        "type": "string"
+                                    },
+                                    "dateBirth": {
+                                        "description": "The birth date of the customer",
+                                        "type": "string"
+                                    },
+                                    "phoneNumber": {
+                                        "description": "The phone number of the customer",
+                                        "type": "string"
+                                    },
+                                    "createdBy": {
+                                        "description": "The foreign key of the owner who creates the customer",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/services/getbyid/{id}": {
+            "get": {
+                "tags": [
+                    "services"
+                ],
+                "description": "Get an service by id",
+                "operationId": "App\\Http\\Controllers\\ServicesController::getServiceById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of customer",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Get a service by id"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/services/update": {
+            "post": {
+                "tags": [
+                    "services"
+                ],
+                "summary": "Update a service",
+                "operationId": "App\\Http\\Controllers\\ServicesController::update",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "description": "The id of the customer",
+                                        "type": "integer"
+                                    },
+                                    "name": {
+                                        "description": "The name of the customer",
+                                        "type": "string"
+                                    },
+                                    "address": {
+                                        "description": "The address of the customer",
+                                        "type": "string"
+                                    },
+                                    "dateBirth": {
+                                        "description": "The birth date of the customer",
+                                        "type": "string"
+                                    },
+                                    "phoneNumber": {
+                                        "description": "The phone number of the customer",
+                                        "type": "string"
+                                    },
+                                    "updatedBy": {
+                                        "description": "The foreign key of the owner who updates the service",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/services/delete/{id}/{ownerId}": {
+            "delete": {
+                "tags": [
+                    "services"
+                ],
+                "summary": "Deletes a service",
+                "operationId": "App\\Http\\Controllers\\ServicesController::delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Customer id to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "ownerId",
+                        "in": "path",
+                        "description": "Owner who delted the customer",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Customer not deleted it's because either the deletion failed or customer to be deleted not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/services/restore/{id}": {
+            "get": {
+                "tags": [
+                    "services"
+                ],
+                "description": "Restore the delted service",
+                "operationId": "App\\Http\\Controllers\\ServicesController::restore",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of customer",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Restore the deleted customer"
                     }
                 },
                 "security": [
