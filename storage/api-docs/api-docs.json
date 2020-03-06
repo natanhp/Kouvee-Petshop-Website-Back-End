@@ -693,9 +693,13 @@
                 "requestBody": {
                     "description": "Input data format",
                     "content": {
-                        "application/x-www-form-urlencoded": {
+                        "multipart/form-data": {
                             "schema": {
                                 "properties": {
+                                    "id": {
+                                        "description": "The id of the product",
+                                        "type": "integer"
+                                    },
                                     "productName": {
                                         "description": "The name of the product",
                                         "type": "string"

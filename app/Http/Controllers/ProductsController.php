@@ -208,9 +208,14 @@ class ProductsController extends Controller {
      *     @OA\RequestBody(
      *         description="Input data format",
      *         @OA\MediaType(
-     *             mediaType="application/x-www-form-urlencoded",
+     *             mediaType="multipart/form-data",
      *             @OA\Schema(
      *                 type="object",
+     *                     @OA\Property(
+     *                     property="id",
+     *                     description="The id of the product",
+     *                     type="integer",
+     *                 ),
      *                 @OA\Property(
      *                     property="productName",
      *                     description="The name of the product",
@@ -255,13 +260,14 @@ class ProductsController extends Controller {
     public function update(Request $request) {
 
         $this->validate($request, [
+            'id' => 'required',
             'productName' => 'required',
             'productQuantity' => 'required|numeric',
             'productPrice' => 'required|numeric',
             'meassurement' => 'required',
-            'createdBy' => 'required',
+            'updatedBy' => 'required',
             'minimumQty' => 'required',
-            'image' => 'required|mimes:jpeg|size:65',
+            'image' => 'mimes:jpeg|size:65',
         ]);
 
 		$product = Product::find($request->id);
@@ -269,17 +275,19 @@ class ProductsController extends Controller {
             $product->id = $request->id;
 			$product->productName = $request->productName;
             $file = $request->file('image');
-            $product->image = $file->openFile()->fread($file->getSize());
+            if($file != null) {
+                $product->image = $file->openFile()->fread($file->getSize());
+            }
             $product->minimumQty = $request->minimumQty;
             $product->productQuantity = $request->productQuantity;
             $product->productPrice = $request->productPrice;
             $product->meassurement = $request->meassurement;
-            $product->createdBy = $request->createdBy;
+            $product->updatedBy = $request->createdBy;
 
 			if($product->save()) {
 				return response()->json([
 					"message" => "Product updated",
-					"data" => $product
+					"data" => $product->makeHidden(['image'])
 				], 200);
 			}
 		}
