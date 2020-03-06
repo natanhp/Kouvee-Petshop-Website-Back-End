@@ -43,6 +43,265 @@
                 }
             }
         },
+        "/api/v1/customers/getall": {
+            "get": {
+                "tags": [
+                    "customers"
+                ],
+                "description": "Get all customers",
+                "operationId": "App\\Http\\Controllers\\CustomersController::getAll",
+                "responses": {
+                    "default": {
+                        "description": "Get all customers"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/customers/insert": {
+            "post": {
+                "tags": [
+                    "customers"
+                ],
+                "summary": "Insert a new customer",
+                "operationId": "App\\Http\\Controllers\\CustomersController::insert",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "The name of the customer",
+                                        "type": "string"
+                                    },
+                                    "address": {
+                                        "description": "The address of the customer",
+                                        "type": "string"
+                                    },
+                                    "dateBirth": {
+                                        "description": "The birth date of the customer",
+                                        "type": "string"
+                                    },
+                                    "phoneNumber": {
+                                        "description": "The phone number of the customer",
+                                        "type": "string"
+                                    },
+                                    "createdBy": {
+                                        "description": "The foreign key of the owner who creates the customer",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/customers/getbyid/{id}": {
+            "get": {
+                "tags": [
+                    "customers"
+                ],
+                "description": "Get an customer by id",
+                "operationId": "App\\Http\\Controllers\\CustomersController::getCustomerById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of customer",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Get an customer by id"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/customers/update": {
+            "post": {
+                "tags": [
+                    "customers"
+                ],
+                "summary": "Update an customer",
+                "operationId": "App\\Http\\Controllers\\CustomersController::update",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "description": "The id of the customer",
+                                        "type": "integer"
+                                    },
+                                    "name": {
+                                        "description": "The name of the customer",
+                                        "type": "string"
+                                    },
+                                    "address": {
+                                        "description": "The address of the customer",
+                                        "type": "string"
+                                    },
+                                    "dateBirth": {
+                                        "description": "The birth date of the customer",
+                                        "type": "string"
+                                    },
+                                    "phoneNumber": {
+                                        "description": "The phone number of the customer",
+                                        "type": "string"
+                                    },
+                                    "updatedBy": {
+                                        "description": "The foreign key of the owner who updates the customer",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/customers/delete/{id}/{ownerId}": {
+            "delete": {
+                "tags": [
+                    "customers"
+                ],
+                "summary": "Deletes an customer",
+                "operationId": "App\\Http\\Controllers\\CustomersController::delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Customer id to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "ownerId",
+                        "in": "path",
+                        "description": "Owner who delted the customer",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Customer not deleted it's because either the deletion failed or customer to be deleted not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/customers/restore/{id}": {
+            "get": {
+                "tags": [
+                    "customers"
+                ],
+                "description": "Restore the delted customer",
+                "operationId": "App\\Http\\Controllers\\CustomersController::restore",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of customer",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Restore the deleted customer"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/customers/getallpets/{id}": {
+            "get": {
+                "tags": [
+                    "customers"
+                ],
+                "description": "Get all of the customer's pets by customer id",
+                "operationId": "App\\Http\\Controllers\\CustomersController::getAllCustomerPetsByCustomerId",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of customer",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "All of customer's pets"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/employees/getall": {
             "get": {
                 "tags": [
@@ -223,7 +482,7 @@
                 ]
             }
         },
-        "/api/v1/employees/delete/{id}/{ownderId}": {
+        "/api/v1/employees/delete/{id}/{ownerId}": {
             "delete": {
                 "tags": [
                     "employees"
@@ -242,7 +501,7 @@
                         }
                     },
                     {
-                        "name": "ownderId",
+                        "name": "ownerId",
                         "in": "path",
                         "description": "Owner who delted the employee",
                         "required": true,
@@ -285,7 +544,7 @@
                 ],
                 "responses": {
                     "default": {
-                        "description": "Get an employee by id"
+                        "description": "Restore the deleted employee"
                     }
                 },
                 "security": [
@@ -505,7 +764,7 @@
                 ],
                 "responses": {
                     "default": {
-                        "description": "Get an supplier by id"
+                        "description": "Restored the deleted supplier"
                     }
                 },
                 "security": [
