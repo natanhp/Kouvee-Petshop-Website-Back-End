@@ -13,7 +13,7 @@
 
 $router->group(['prefix' => 'api/v1'], function () use ($router) {
 
-    $router->group(['prefix' => 'employees', 'middleware' => 'jwt.auth'], function () use ($router) {
+    $router->group(['prefix' => 'employees', 'middleware' => ['jwt.auth', 'only.owner']], function () use ($router) {
         $router->get('getall', 'EmployeesController@getAll');
         $router->post('insert', 'EmployeesController@insert');
         $router->get('getbyid/{id}', 'EmployeesController@getEmployeeById');
