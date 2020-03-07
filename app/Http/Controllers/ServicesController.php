@@ -148,28 +148,13 @@ class ServicesController extends Controller {
      *                 type="object",
 	 * 				   @OA\Property(
      *                     property="id",
-     *                     description="The id of the customer",
+     *                     description="The id of the service",
      *                     type="integer",
      *                 ),
      *                 @OA\Property(
-     *                     property="name",
-     *                     description="The name of the customer",
+     *                     property="serviceName",
+     *                     description="The name of the service",
      *                     type="string",
-     *                 ),
-     *                 @OA\Property(
-     *                     property="address",
-     *                     description="The address of the customer",
-     *                     type="string"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="dateBirth",
-     *                     description="The birth date of the customer",
-     *                     type="string"
-     *                 ),
-     *                 @OA\Property(
-     *                     property="phoneNumber",
-     *                     description="The phone number of the customer",
-     *                     type="string"
      *                 ),
      *                 @OA\Property(
      *                     property="updatedBy",
@@ -184,16 +169,15 @@ class ServicesController extends Controller {
     public function update(Request $request) {
 
         $this->validate($request, [
-            'dateBirth' => 'date',
-            'phoneNumber' => 'numeric',
+            'id' => 'required|numeric',
+            'serviceName' => 'required',
+            'updatedBy' => 'required|numeric'
         ]);
 
 		$service = Service::find($request->id);
 		if($service) {
-			$service->name = $request->name;
-			$service->address = $request->address;
-			$service->dateBirth = $request->dateBirth;
-			$service->phoneNumber = $request->phoneNumber;
+            $service->id = $request->id;
+			$service->serviceName = $request->serviceName;
 			$service->updatedBy = $request->updatedBy;
 
 			if($service->save()) {
