@@ -390,6 +390,39 @@ class ProductsController extends Controller {
 				"data" => []
 			], 400);
 		}
-	}
+    }
+    
+    /**
+    * @OA\Get(
+	*     path="/api/v1/noa/products/getbyname/{name}",
+	*	  tags={"products"},
+    *     description="Get a product by name",
+	*	@OA\Parameter(
+    *         name="name",
+    *         in="path",
+    *         description="Name of the products",
+    *         required=true,
+    *         @OA\Schema(
+    *             type="string"
+    *         )
+    *     ),
+    *     @OA\Response(response="default", description="Get products by name")
+    * ),
+    */
+    public function getProductByName($name) {
+        $product = Product::where('productName', 'LIKE', "%$name%")->get();
+
+        if($product) {
+            return response()->json([
+                "message" => "Success",
+                "data" => $product->makeHidden(['image'])
+            ], 200);
+        } else {
+            return response()->json([
+                "message" => "Product not found",
+                "data" => []
+            ], 400);
+        }
+    }
 }
 ?>
