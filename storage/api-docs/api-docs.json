@@ -145,7 +145,7 @@
             }
         },
         "/api/v1/customers/update": {
-            "post": {
+            "put": {
                 "tags": [
                     "customers"
                 ],
@@ -446,7 +446,7 @@
             }
         },
         "/api/v1/employees/update": {
-            "post": {
+            "put": {
                 "tags": [
                     "employees"
                 ],
@@ -980,7 +980,7 @@
             }
         },
         "/api/v1/products/update": {
-            "post": {
+            "put": {
                 "tags": [
                     "products"
                 ],
@@ -1203,13 +1203,13 @@
                 "tags": [
                     "services"
                 ],
-                "description": "Get an service by id",
+                "description": "Get a pet by id",
                 "operationId": "App\\Http\\Controllers\\ServicesController::getServiceById",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Id of the service",
+                        "description": "Id of the pet",
                         "required": true,
                         "schema": {
                             "type": "integer",
@@ -1219,7 +1219,7 @@
                 ],
                 "responses": {
                     "default": {
-                        "description": "Get a service by id"
+                        "description": "Get a pet by id"
                     }
                 },
                 "security": [
@@ -1229,18 +1229,18 @@
                 ]
             }
         },
-        "/api/v1/services/getbyname/{serviceName}": {
+        "/api/v1/services/getbyname/{name}": {
             "get": {
                 "tags": [
                     "services"
                 ],
-                "description": "Get an service by service name",
+                "description": "Get a pet by service name",
                 "operationId": "App\\Http\\Controllers\\ServicesController::getServiceByName",
                 "parameters": [
                     {
-                        "name": "serviceName",
+                        "name": "name",
                         "in": "path",
-                        "description": "Name of the service",
+                        "description": "Name of the pet",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -1249,7 +1249,7 @@
                 ],
                 "responses": {
                     "default": {
-                        "description": "Get a service by service name"
+                        "description": "Get a pet by service name"
                     }
                 },
                 "security": [
@@ -1260,7 +1260,7 @@
             }
         },
         "/api/v1/services/update": {
-            "post": {
+            "put": {
                 "tags": [
                     "services"
                 ],
@@ -1472,7 +1472,7 @@
             }
         },
         "/api/v1/suppliers/update": {
-            "post": {
+            "put": {
                 "tags": [
                     "suppliers"
                 ],

@@ -76,6 +76,8 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         $router->delete('delete/{id}/{csId}', 'PetsController@delete');
         $router->get('restore/{id}', 'PetsController@restore');
         $router->put('update', 'PetsController@update');
+        $router->get('getbyid/{id}', 'PetsController@getServiceById');
+        $router->get('getbyname/{name}', 'PetsController@getServiceByName');
     });
 
 
