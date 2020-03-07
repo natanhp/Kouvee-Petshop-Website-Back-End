@@ -217,7 +217,7 @@ class ServicesController extends Controller {
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
-     *         description="Customer id to delete",
+     *         description="Service id to delete",
      *         required=true,
      *         @OA\Schema(
      *             type="integer",
@@ -227,7 +227,7 @@ class ServicesController extends Controller {
 	 * 	   @OA\Parameter(
      *         name="ownerId",
      *         in="path",
-     *         description="Owner who delted the customer",
+     *         description="Owner who deletes the service",
      *         required=true,
      *         @OA\Schema(
      *             type="integer",
@@ -236,7 +236,7 @@ class ServicesController extends Controller {
 	 * 	   ),
      *     @OA\Response(
      *         response=400,
-     *         description="Customer not deleted it's because either the deletion failed or customer to be deleted not found",
+     *         description="Service not deleted it's because either the deletion failed or service to be deleted not found",
      *     ),
      *     security={
      *         {"bearerAuth": {}}
@@ -266,21 +266,21 @@ class ServicesController extends Controller {
     * @OA\Get(
 	*     path="/api/v1/services/restore/{id}",
 	*	  tags={"services"},
-	*     description="Restore the delted service",
+	*     description="Restore the deleted service",
 	*	  security={
     *     	{"bearerAuth": {}},
 	*     },
 	*	@OA\Parameter(
     *         name="id",
     *         in="path",
-    *         description="Id of customer",
+    *         description="Id of a service",
     *         required=true,
     *         @OA\Schema(
     *             type="integer",
     *             format="int64"
     *         )
     *     ),
-    *     @OA\Response(response="default", description="Restore the deleted customer")
+    *     @OA\Response(response="default", description="Restore the deleted service")
     * ),
     */
 	public function restore($id) {
@@ -288,12 +288,12 @@ class ServicesController extends Controller {
 		
 		if($service) {
 			$service->restore();
-			$service = Customers::find($id);
+			$service = Service::find($id);
 			$service->deletedBy = NULL;
 			$service->save();
 
 			return response()->json([
-				"message" => "Customer restored",
+				"message" => "Service restored",
 				"data" => $service
 			], 200);
 		} else {

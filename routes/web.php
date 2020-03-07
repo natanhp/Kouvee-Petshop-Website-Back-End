@@ -11,10 +11,6 @@
 |
 */
 
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-
-
 $router->group(['prefix' => 'api/v1'], function () use ($router) {
 
     $router->group(['prefix' => 'employees', 'middleware' => 'jwt.auth'], function () use ($router) {
@@ -67,6 +63,8 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
 
     $router->group(['prefix' => 'services', 'middleware' => ['jwt.auth', 'only.owner']], function () use ($router) {
         $router->post('insert', 'ServicesController@insert');
+        $router->delete('delete/{id}/{ownerId}', 'ServicesController@delete');
+        $router->get('restore/{id}', 'ServicesController@restore');
     });
 
 

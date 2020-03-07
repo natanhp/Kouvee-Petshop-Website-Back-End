@@ -999,7 +999,7 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Customer id to delete",
+                        "description": "Service id to delete",
                         "required": true,
                         "schema": {
                             "type": "integer",
@@ -1009,7 +1009,7 @@
                     {
                         "name": "ownerId",
                         "in": "path",
-                        "description": "Owner who delted the customer",
+                        "description": "Owner who deletes the service",
                         "required": true,
                         "schema": {
                             "type": "integer",
@@ -1019,7 +1019,7 @@
                 ],
                 "responses": {
                     "400": {
-                        "description": "Customer not deleted it's because either the deletion failed or customer to be deleted not found"
+                        "description": "Service not deleted it's because either the deletion failed or service to be deleted not found"
                     }
                 },
                 "security": [
@@ -1034,13 +1034,13 @@
                 "tags": [
                     "services"
                 ],
-                "description": "Restore the delted service",
+                "description": "Restore the deleted service",
                 "operationId": "App\\Http\\Controllers\\ServicesController::restore",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Id of customer",
+                        "description": "Id of a service",
                         "required": true,
                         "schema": {
                             "type": "integer",
@@ -1050,7 +1050,7 @@
                 ],
                 "responses": {
                     "default": {
-                        "description": "Restore the deleted customer"
+                        "description": "Restore the deleted service"
                     }
                 },
                 "security": [
