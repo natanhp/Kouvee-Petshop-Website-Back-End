@@ -88,6 +88,10 @@ $app->routeMiddleware([
     'only.owner' => App\Http\Middleware\OnlyOwnerMiddleware::class,
 ]);
 
+$app->routeMiddleware([
+    'only.cs' => App\Http\Middleware\OnlyCSMiddleware::class,
+]);
+
 /*
 |--------------------------------------------------------------------------
 | Register Service Providers

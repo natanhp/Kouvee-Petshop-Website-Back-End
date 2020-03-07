@@ -71,5 +71,9 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         $router->get('getall', 'ServicesController@getAll');
     });
 
+    $router->group(['prefix' => 'pets', 'middleware' => ['jwt.auth', 'only.cs']], function () use ($router) {
+        $router->post('insert', 'PetsController@insert');
+    });
+
 
 });
