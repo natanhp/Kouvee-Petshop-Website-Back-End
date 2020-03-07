@@ -192,10 +192,10 @@ class PetsController extends Controller {
 	}
 	
 	 /**
-     * @OA\Post(
+     * @OA\Put(
      *     path="/api/v1/pets/update",
      *     tags={"pets"},
-     *     summary="Update a service",
+     *     summary="Update a pet",
      *     @OA\Response(
      *         response=400,
      *         description="Error"
@@ -209,20 +209,40 @@ class PetsController extends Controller {
      *             mediaType="application/x-www-form-urlencoded",
      *             @OA\Schema(
      *                 type="object",
-	 * 				   @OA\Property(
+     *                 @OA\Property(
      *                     property="id",
-     *                     description="The id of the service",
+     *                     description="The id of the pet",
      *                     type="integer",
      *                 ),
      *                 @OA\Property(
-     *                     property="serviceName",
-     *                     description="The name of the service",
+     *                     property="name",
+     *                     description="The name of the pet",
      *                     type="string",
      *                 ),
      *                 @OA\Property(
+     *                     property="dateBirth",
+     *                     description="The birth date of the pet",
+     *                     type="date",
+     *                 ),
+     *                 @OA\Property(
      *                     property="updatedBy",
-     *                     description="The foreign key of the owner who updates the service",
-     *                     type="integer"
+     *                     description="The id of the owner who creates the service",
+     *                     type="integer",
+     *                 ),
+     *                 @OA\Property(
+     *                     property="customers_id",
+     *                     description="The id of the pet owner",
+     *                     type="integer",
+     *                 ),
+     *                 @OA\Property(
+     *                     property="petsizes_id",
+     *                     description="The id of the pet size",
+     *                     type="integer",
+     *                 ),
+     *                 @OA\Property(
+     *                     property="pettypes_id",
+     *                     description="The id of the size of the pet",
+     *                     type="integer",
      *                 )
      *             )
      *         )
@@ -233,25 +253,33 @@ class PetsController extends Controller {
 
         $this->validate($request, [
             'id' => 'required|numeric',
-            'serviceName' => 'required',
-            'updatedBy' => 'required|numeric'
+            'name' => 'required',
+            'updatedBy' => 'required|numeric',
+            'dateBirth' => 'required|date',
+            'customers_id' => 'required|numeric',
+            'petsizes_id' => 'required|numeric',
+            'pettypes_id' => 'required|numeric',
         ]);
 
-		$service = Service::find($request->id);
-		if($service) {
-            $service->id = $request->id;
-			$service->serviceName = $request->serviceName;
-			$service->updatedBy = $request->updatedBy;
+		$pet = Pet::find($request->id);
+		if($pet) {
+            $pet->name = $request->name;
+            $pet->updatedBy = $request->updatedBy;
+            $pet->dateBirth = $request->dateBirth;
+            $pet->customers_id = $request->customers_id;
+            $pet->petsizes_id = $request->petsizes_id;
+            $pet->pettypes_id = $request->pettypes_id;
 
-			if($service->save()) {
+
+			if($pet->save()) {
 				return response()->json([
-					"message" => "Service updated",
-					"data" => $service
+					"message" => "Pet updated",
+					"data" => $pet
 				], 200);
 			}
 		}
         return response()->json([
-            "message" => "Service not updated",
+            "message" => "Pet not updated",
             "data" => []
         ], 400);
 	}

@@ -720,11 +720,11 @@
             }
         },
         "/api/v1/pets/update": {
-            "post": {
+            "put": {
                 "tags": [
                     "pets"
                 ],
-                "summary": "Update a service",
+                "summary": "Update a pet",
                 "operationId": "App\\Http\\Controllers\\PetsController::update",
                 "requestBody": {
                     "description": "Input data format",
@@ -733,15 +733,31 @@
                             "schema": {
                                 "properties": {
                                     "id": {
-                                        "description": "The id of the service",
+                                        "description": "The id of the pet",
                                         "type": "integer"
                                     },
-                                    "serviceName": {
-                                        "description": "The name of the service",
+                                    "name": {
+                                        "description": "The name of the pet",
                                         "type": "string"
                                     },
+                                    "dateBirth": {
+                                        "description": "The birth date of the pet",
+                                        "type": "date"
+                                    },
                                     "updatedBy": {
-                                        "description": "The foreign key of the owner who updates the service",
+                                        "description": "The id of the owner who creates the service",
+                                        "type": "integer"
+                                    },
+                                    "customers_id": {
+                                        "description": "The id of the pet owner",
+                                        "type": "integer"
+                                    },
+                                    "petsizes_id": {
+                                        "description": "The id of the pet size",
+                                        "type": "integer"
+                                    },
+                                    "pettypes_id": {
+                                        "description": "The id of the size of the pet",
                                         "type": "integer"
                                     }
                                 },
