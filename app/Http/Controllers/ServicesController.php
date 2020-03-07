@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Service;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
 class ServicesController extends Controller {
 
