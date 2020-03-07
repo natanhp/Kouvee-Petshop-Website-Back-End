@@ -17,7 +17,7 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         $router->get('getall', 'EmployeesController@getAll');
         $router->post('insert', 'EmployeesController@insert');
         $router->get('getbyid/{id}', 'EmployeesController@getEmployeeById');
-        $router->post('update', 'EmployeesController@update');
+        $router->put('update', 'EmployeesController@update');
         $router->delete('delete/{id}/{ownerId}', 'EmployeesController@delete');
         $router->get('restore/{id}', 'EmployeesController@restore');
         $router->get('getbyname/{name}', 'EmployeesController@getEmployeeByName');
@@ -29,7 +29,7 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         $router->get('getall', 'SuppliersController@getAll');
         $router->post('insert', 'SuppliersController@insert');
         $router->get('getbyid/{id}', 'SuppliersController@getSupplierById');
-        $router->post('update', 'SuppliersController@update');
+        $router->put('update', 'SuppliersController@update');
         $router->delete('delete/{id}/{ownerId}', 'SuppliersController@delete');
         $router->get('restore/{id}', 'SuppliersController@restore');
 
@@ -39,7 +39,7 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         $router->get('getall', 'CustomersController@getAll');
         $router->post('insert', 'CustomersController@insert');
         $router->get('getbyid/{id}', 'CustomersController@getCustomerById');
-        $router->post('update', 'CustomersController@update');
+        $router->put('update', 'CustomersController@update');
         $router->delete('delete/{id}/{ownerId}', 'CustomersController@delete');
         $router->get('restore/{id}', 'CustomersController@restore');
         $router->get('getallpets/{id}', 'CustomersController@getAllCustomerPetsByCustomerId');
@@ -48,7 +48,7 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
 
     $router->group(['prefix' => 'products', 'middleware' => ['jwt.auth', 'only.owner']], function () use ($router) {
         $router->post('insert', 'ProductsController@insert');
-        $router->post('update', 'ProductsController@update');
+        $router->put('update', 'ProductsController@update');
         $router->delete('delete/{id}/{ownerId}', 'ProductsController@delete');
         $router->get('restore/{id}', 'ProductsController@restore');
 
@@ -65,7 +65,7 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         $router->post('insert', 'ServicesController@insert');
         $router->delete('delete/{id}/{ownerId}', 'ServicesController@delete');
         $router->get('restore/{id}', 'ServicesController@restore');
-        $router->post('update', 'ServicesController@update');
+        $router->put('update', 'ServicesController@update');
         $router->get('getbyid/{id}', 'ServicesController@getServiceById');
         $router->get('getbyname/{serviceName}', 'ServicesController@getServiceByName');
         $router->get('getall', 'ServicesController@getAll');

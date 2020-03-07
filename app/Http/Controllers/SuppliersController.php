@@ -142,7 +142,7 @@ class SuppliersController extends Controller {
 	}
 	
 	 /**
-     * @OA\Post(
+     * @OA\Put(
      *     path="/api/v1/suppliers/update",
      *     tags={"suppliers"},
      *     summary="Update a supplier",

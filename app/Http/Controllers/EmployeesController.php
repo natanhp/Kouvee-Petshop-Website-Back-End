@@ -205,7 +205,7 @@ class EmployeesController extends Controller {
 	}
 	
 	 /**
-     * @OA\Post(
+     * @OA\Put(
      *     path="/api/v1/employees/update",
      *     tags={"employees"},
      *     summary="Update an employee",

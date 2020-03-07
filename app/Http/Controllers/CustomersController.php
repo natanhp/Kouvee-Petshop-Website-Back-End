@@ -150,7 +150,7 @@ class CustomersController extends Controller {
 	}
 	
 	 /**
-     * @OA\Post(
+     * @OA\Put(
      *     path="/api/v1/customers/update",
      *     tags={"customers"},
      *     summary="Update a customer",

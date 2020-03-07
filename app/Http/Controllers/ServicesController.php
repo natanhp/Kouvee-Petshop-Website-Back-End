@@ -164,7 +164,7 @@ class ServicesController extends Controller {
 	}
 	
 	 /**
-     * @OA\Post(
+     * @OA\Put(
      *     path="/api/v1/services/update",
      *     tags={"services"},
      *     summary="Update a service",
