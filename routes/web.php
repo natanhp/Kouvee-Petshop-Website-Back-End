@@ -72,6 +72,7 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
     });
 
     $router->group(['prefix' => 'pets', 'middleware' => ['jwt.auth', 'only.cs']], function () use ($router) {
+        $router->get('getall', 'PetsController@getAll');
         $router->post('insert', 'PetsController@insert');
         $router->delete('delete/{id}/{csId}', 'PetsController@delete');
         $router->get('restore/{id}', 'PetsController@restore');

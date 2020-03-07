@@ -22,13 +22,13 @@ class PetsController extends Controller {
     *     security={
     *     {"bearerAuth": {}},
     *   },
-    *     @OA\Response(response="default", description="Get all the services")
+    *     @OA\Response(response="default", description="Get all the pets")
     * ),
     */
     public function getAll() {
         return response()->json([
             "message" => "success", 
-            "data" => Service::all()
+            "data" => Pet::all()
         ], 200);
 	}
 
