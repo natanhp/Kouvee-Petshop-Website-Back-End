@@ -68,6 +68,7 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         $router->post('update', 'ServicesController@update');
         $router->get('getbyid/{id}', 'ServicesController@getServiceById');
         $router->get('getbyname/{serviceName}', 'ServicesController@getServiceByName');
+        $router->get('getall', 'ServicesController@getAll');
     });
 
 

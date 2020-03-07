@@ -19,11 +19,11 @@ class ServicesController extends Controller {
     * @OA\Get(
 	*     path="/api/v1/services/getall",
 	*	  tags={"services"},
-    *     description="Get all services",
+    *     description="Get all the services",
     *     security={
     *     {"bearerAuth": {}},
     *   },
-    *     @OA\Response(response="default", description="Get all services")
+    *     @OA\Response(response="default", description="Get all the services")
     * ),
     */
     public function getAll() {

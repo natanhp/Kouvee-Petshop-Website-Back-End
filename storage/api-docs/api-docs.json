@@ -1,7 +1,7 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "Kouvee Petshop Documentation",
+        "title": "Kouvee Petshop API Documentation",
         "contact": {
             "name": "Natan Hari P.",
             "email": "natanhp@protonmail.com"
@@ -849,11 +849,11 @@
                 "tags": [
                     "services"
                 ],
-                "description": "Get all services",
+                "description": "Get all the services",
                 "operationId": "App\\Http\\Controllers\\ServicesController::getAll",
                 "responses": {
                     "default": {
-                        "description": "Get all services"
+                        "description": "Get all the services"
                     }
                 },
                 "security": [
