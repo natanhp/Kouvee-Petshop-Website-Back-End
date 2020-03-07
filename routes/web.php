@@ -62,7 +62,7 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         $router->get('getall', 'ProductsController@getAll');
         $router->get('getbyid/{id}', 'ProductsController@getProductById');
         $router->get('getbyname/{name}', 'ProductsController@getProductByName');
-        $router->get('getimagebyid/{id}', 'ProductsController@getProductImageById');
+        $router->get('getimagebyid/{id}', ['as' => 'image_uri', 'uses' => 'ProductsController@getProductImageById']);
     });
 
 

@@ -25,9 +25,20 @@ class ProductsController extends Controller {
     * ),
     */
     public function getAll() {
+        $products = Product::all();
+
+        $product_complete = [];
+
+        foreach($products as $product) {
+           $product_complete = [
+                "product" => $product->makeHidden(['image']),
+                "image_url" => route('image_uri', ['id' => $product->id])
+           ];
+        }
+
         return response()->json([
             "message" => "success", 
-            "data" => Product::all()->makeHidden(['image'])
+            "data" => $product_complete
         ], 200);
 	}
 
@@ -410,12 +421,21 @@ class ProductsController extends Controller {
     * ),
     */
     public function getProductByName($name) {
-        $product = Product::where('productName', 'LIKE', "%$name%")->get();
+        $products = Product::where('productName', 'LIKE', "%$name%")->get();
+        
+        $product_complete = [];
 
-        if($product) {
+        foreach($products as $product) {
+           $product_complete = [
+                "product" => $product->makeHidden(['image']),
+                "image_url" => route('image_uri', ['id' => $product->id])
+           ];
+        }
+
+        if($products) {
             return response()->json([
-                "message" => "Success",
-                "data" => $product->makeHidden(['image'])
+                "message" => "success", 
+                "data" => $product_complete
             ], 200);
         } else {
             return response()->json([
