@@ -762,18 +762,18 @@
                 ]
             }
         },
-        "/api/v1/pets/delete/{id}/{ownerId}": {
+        "/api/v1/pets/delete/{id}/{csId}": {
             "delete": {
                 "tags": [
                     "pets"
                 ],
-                "summary": "Deletes a service",
+                "summary": "Deletes a pet",
                 "operationId": "App\\Http\\Controllers\\PetsController::delete",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Service id to delete",
+                        "description": "Pet id to delete",
                         "required": true,
                         "schema": {
                             "type": "integer",
@@ -781,9 +781,9 @@
                         }
                     },
                     {
-                        "name": "ownerId",
+                        "name": "csId",
                         "in": "path",
-                        "description": "Owner who deletes the service",
+                        "description": "CS who deletes the pet",
                         "required": true,
                         "schema": {
                             "type": "integer",
@@ -808,13 +808,13 @@
                 "tags": [
                     "pets"
                 ],
-                "description": "Restore the deleted service",
+                "description": "Restore the deleted pet",
                 "operationId": "App\\Http\\Controllers\\PetsController::restore",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Id of a service",
+                        "description": "Id of a pet",
                         "required": true,
                         "schema": {
                             "type": "integer",
@@ -824,7 +824,7 @@
                 ],
                 "responses": {
                     "default": {
-                        "description": "Restore the deleted service"
+                        "description": "Restore the deleted pet"
                     }
                 },
                 "security": [

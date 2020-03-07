@@ -258,13 +258,13 @@ class PetsController extends Controller {
 	
 	/**
      * @OA\Delete(
-     *     path="/api/v1/pets/delete/{id}/{ownerId}",
+     *     path="/api/v1/pets/delete/{id}/{csId}",
      *     tags={"pets"},
-     *     summary="Deletes a service",
+     *     summary="Deletes a pet",
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
-     *         description="Service id to delete",
+     *         description="Pet id to delete",
      *         required=true,
      *         @OA\Schema(
      *             type="integer",
@@ -272,9 +272,9 @@ class PetsController extends Controller {
      *         ),
      *     ),
 	 * 	   @OA\Parameter(
-     *         name="ownerId",
+     *         name="csId",
      *         in="path",
-     *         description="Owner who deletes the service",
+     *         description="CS who deletes the pet",
      *         required=true,
      *         @OA\Schema(
      *             type="integer",
@@ -290,19 +290,19 @@ class PetsController extends Controller {
      *     },
      * )
      */
-	public function delete($id, $ownerId) {
-		$service = Service::find($id);
+	public function delete($id, $csId) {
+		$pet = Pet::find($id);
 		
-		if($service->delete()) {
-			$service->deletedBy = $ownerId;
-			$service->save();
+		if($pet->delete()) {
+			$pet->deletedBy = $csId;
+			$pet->save();
 			return response()->json([
-				"message" => "Service deleted",
+				"message" => "Pet deleted",
 				"data" => []
 			], 200);
 		} else {
 			return response()->json([
-				"message" => "Service not deleted",
+				"message" => "Pet not deleted",
 				"data" => []
 			], 400);
 		}
@@ -313,39 +313,39 @@ class PetsController extends Controller {
     * @OA\Get(
 	*     path="/api/v1/pets/restore/{id}",
 	*	  tags={"pets"},
-	*     description="Restore the deleted service",
+	*     description="Restore the deleted pet",
 	*	  security={
     *     	{"bearerAuth": {}},
 	*     },
 	*	@OA\Parameter(
     *         name="id",
     *         in="path",
-    *         description="Id of a service",
+    *         description="Id of a pet",
     *         required=true,
     *         @OA\Schema(
     *             type="integer",
     *             format="int64"
     *         )
     *     ),
-    *     @OA\Response(response="default", description="Restore the deleted service")
+    *     @OA\Response(response="default", description="Restore the deleted pet")
     * ),
     */
 	public function restore($id) {
-		$service = Service::onlyTrashed()->where('id', $id);
+		$pet = Pet::onlyTrashed()->where('id', $id);
 		
-		if($service) {
-			$service->restore();
-			$service = Service::find($id);
-			$service->deletedBy = NULL;
-			$service->save();
+		if($pet) {
+			$pet->restore();
+			$pet = Pet::find($id);
+			$pet->deletedBy = NULL;
+			$pet->save();
 
 			return response()->json([
-				"message" => "Service restored",
-				"data" => $service
+				"message" => "Pet restored",
+				"data" => $pet
 			], 200);
 		} else {
 			return response()->json([
-				"message" => "Service not restored",
+				"message" => "Pet not restored",
 				"data" => []
 			], 400);
 		}
