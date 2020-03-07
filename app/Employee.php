@@ -60,7 +60,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Supplier[] $suppliers
  * @property Supplier[] $suppliers
  */
-class Employees extends Model
+class Employee extends Model
 {
     use SoftDeletes;
 
