@@ -8,7 +8,7 @@ class Controller extends BaseController
 {
     /**
      * @OA\Info(
-     *   title="Kouvee Petshop Documentation",
+     *   title="Kouvee Petshop API Documentation",
      *  version="1.0.0",
      *  @OA\Contact(
      *    email="natanhp@protonmail.com",
