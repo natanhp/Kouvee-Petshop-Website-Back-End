@@ -126,7 +126,10 @@ class ProductsController extends Controller {
         if($product->save()) {
             return response()->json([
                 "message" => "Product created",
-                "data" => $product->makeHidden(['image'])
+                "data" => [
+                    "product" => $product->makeHidden(['image']),
+                    "image_url" => route('image_uri', ['id' => $product->id])
+               ]
             ], 200);
         } else {
             return response()->json([
@@ -161,7 +164,10 @@ class ProductsController extends Controller {
         if($product) {
             return response()->json([
                 "message" => "Success",
-                "data" => $product->makeHidden(['image'])
+                "data" => [
+                    "product" => $product->makeHidden(['image']),
+                    "image_url" => route('image_uri', ['id' => $product->id])
+               ]
             ], 200);
         } else {
             return response()->json([
@@ -298,7 +304,10 @@ class ProductsController extends Controller {
 			if($product->save()) {
 				return response()->json([
 					"message" => "Product updated",
-					"data" => $product->makeHidden(['image'])
+					"data" => [
+                        "product" => $product->makeHidden(['image']),
+                        "image_url" => route('image_uri', ['id' => $product->id])
+                   ]
 				], 200);
 			}
 		}
@@ -393,7 +402,10 @@ class ProductsController extends Controller {
 
 			return response()->json([
 				"message" => "Product restored",
-				"data" => $product->makeHidden(['image'])
+				"data" => [
+                    "product" => $product->makeHidden(['image']),
+                    "image_url" => route('image_uri', ['id' => $product->id])
+               ]
 			], 200);
 		} else {
 			return response()->json([
