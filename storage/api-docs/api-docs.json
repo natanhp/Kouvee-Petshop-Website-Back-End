@@ -876,24 +876,12 @@
                         "application/x-www-form-urlencoded": {
                             "schema": {
                                 "properties": {
-                                    "name": {
-                                        "description": "The name of the customer",
-                                        "type": "string"
-                                    },
-                                    "address": {
-                                        "description": "The address of the customer",
-                                        "type": "string"
-                                    },
-                                    "dateBirth": {
-                                        "description": "The birth date of the customer",
-                                        "type": "string"
-                                    },
-                                    "phoneNumber": {
-                                        "description": "The phone number of the customer",
+                                    "serviceName": {
+                                        "description": "The name of the service",
                                         "type": "string"
                                     },
                                     "createdBy": {
-                                        "description": "The foreign key of the owner who creates the customer",
+                                        "description": "The id of the owner who creates the service",
                                         "type": "integer"
                                     }
                                 },

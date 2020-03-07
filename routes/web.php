@@ -65,5 +65,9 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         $router->get('getimagebyid/{id}', ['as' => 'image_uri', 'uses' => 'ProductsController@getProductImageById']);
     });
 
+    $router->group(['prefix' => 'services', 'middleware' => ['jwt.auth', 'only.owner']], function () use ($router) {
+        $router->post('insert', 'ServicesController@insert');
+    });
+
 
 });
