@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Response;
 use Exception;
 use \Firebase\JWT\JWT;
-use App\Employees;
+use App\Employee;
 
 class JwtMiddleware {
     public function handle($request, Closure $next, $guard =null) {
@@ -30,7 +30,7 @@ class JwtMiddleware {
             ]);
         }
 
-        $employee = Employees::find($credentials->sub);
+        $employee = Employee::find($credentials->sub);
 
         $request->auth = $employee;
 

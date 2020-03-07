@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Suppliers;
+use App\Supplier;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 
@@ -28,7 +28,7 @@ class SuppliersController extends Controller {
     public function getAll() {
         return response()->json([
             "message" => "success", 
-            "data" => Suppliers::all()
+            "data" => Supplier::all()
         ], 200);
 	}
 
@@ -84,7 +84,7 @@ class SuppliersController extends Controller {
             'createdBy' => 'required',
         ]);
 
-        $supplier = new Suppliers;
+        $supplier = new Supplier;
         $supplier->name = $request->name;
         $supplier->address = $request->address;
         $supplier->phoneNumber = $request->phoneNumber;
@@ -126,7 +126,7 @@ class SuppliersController extends Controller {
     * ),
     */
     public function getSupplierById($id) {
-        $supplier = Suppliers::find($id);
+        $supplier = Supplier::find($id);
 
         if($supplier) {
             return response()->json([
@@ -195,7 +195,7 @@ class SuppliersController extends Controller {
             'phoneNumber' => 'numeric',
         ]);
 
-		$supplier = Suppliers::find($request->id);
+		$supplier = Supplier::find($request->id);
 		if($supplier) {
 			$supplier->name = $request->name;
 			$supplier->address = $request->address;
@@ -250,7 +250,7 @@ class SuppliersController extends Controller {
      * )
      */
 	public function delete($id, $ownerId) {
-		$supplier = Suppliers::find($id);
+		$supplier = Supplier::find($id);
 		
 		if($supplier->delete()) {
 			$supplier->deletedBy = $ownerId;
@@ -290,11 +290,11 @@ class SuppliersController extends Controller {
     * ),
     */
 	public function restore($id) {
-		$supplier = Suppliers::onlyTrashed()->where('idSupplier', $id);
+		$supplier = Supplier::onlyTrashed()->where('idSupplier', $id);
 		
 		if($supplier) {
 			$supplier->restore();
-			$supplier = Suppliers::find($id);
+			$supplier = Supplier::find($id);
 			$supplier->deletedBy = NULL;
 			$supplier->save();
 

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Customers;
+use App\Customer;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -29,7 +29,7 @@ class CustomersController extends Controller {
     public function getAll() {
         return response()->json([
             "message" => "success", 
-            "data" => Customers::all()
+            "data" => Customer::all()
         ], 200);
 	}
 
@@ -91,7 +91,7 @@ class CustomersController extends Controller {
             'createdBy' => 'required',
         ]);
 
-        $customer = new Customers;
+        $customer = new Customer;
         $customer->name = $request->name;
         $customer->address = $request->address;
         $customer->dateBirth = $request->dateBirth;
@@ -116,7 +116,7 @@ class CustomersController extends Controller {
     * @OA\Get(
 	*     path="/api/v1/customers/getbyid/{id}",
 	*	  tags={"customers"},
-    *     description="Get an customer by id",
+    *     description="Get a customer by id",
     *     security={
     *     	{"bearerAuth": {}},
 	*     },
@@ -130,11 +130,11 @@ class CustomersController extends Controller {
     *             format="int64"
     *         )
     *     ),
-    *     @OA\Response(response="default", description="Get an customer by id")
+    *     @OA\Response(response="default", description="Get a customer by id")
     * ),
     */
     public function getCustomerById($id) {
-        $customer = Customers::find($id);
+        $customer = Customer::find($id);
 
         if($customer) {
             return response()->json([
@@ -153,7 +153,7 @@ class CustomersController extends Controller {
      * @OA\Post(
      *     path="/api/v1/customers/update",
      *     tags={"customers"},
-     *     summary="Update an customer",
+     *     summary="Update a customer",
      *     @OA\Response(
      *         response=400,
      *         description="Error"
@@ -209,7 +209,7 @@ class CustomersController extends Controller {
             'phoneNumber' => 'numeric',
         ]);
 
-		$customer = Customers::find($request->id);
+		$customer = Customer::find($request->id);
 		if($customer) {
 			$customer->name = $request->name;
 			$customer->address = $request->address;
@@ -234,7 +234,7 @@ class CustomersController extends Controller {
      * @OA\Delete(
      *     path="/api/v1/customers/delete/{id}/{ownerId}",
      *     tags={"customers"},
-     *     summary="Deletes an customer",
+     *     summary="Deletes a customer",
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -265,7 +265,7 @@ class CustomersController extends Controller {
      * )
      */
 	public function delete($id, $ownerId) {
-		$customer = Customers::find($id);
+		$customer = Customer::find($id);
 		
 		if($customer->delete()) {
 			$customer->deletedBy = $ownerId;
@@ -305,11 +305,11 @@ class CustomersController extends Controller {
     * ),
     */
 	public function restore($id) {
-		$customer = Customers::onlyTrashed()->where('id', $id);
+		$customer = Customer::onlyTrashed()->where('id', $id);
 		
 		if($customer) {
 			$customer->restore();
-			$customer = Customers::find($id);
+			$customer = Customer::find($id);
 			$customer->deletedBy = NULL;
 			$customer->save();
 
@@ -347,12 +347,12 @@ class CustomersController extends Controller {
         * ),
         */
         public function getAllCustomerPetsByCustomerId($id) {
-            $customer = Customers::find($id);
+            $customer = Customer::find($id);
 
             if($customer) {
                 return response()->json([
                     "message" => "Success",
-                    "data" => $customer->pets()
+                    "data" => $customer->pets()->get()
                 ], 200);
             } else {
                 return response()->json([

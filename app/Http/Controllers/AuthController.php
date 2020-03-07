@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Employees;
+use App\Employee;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use \Firebase\JWT\JWT;
@@ -15,7 +15,7 @@ class AuthController extends Controller {
         $this->request = $request;
     }
 
-    protected function generateToken(Employees $employee) {
+    protected function generateToken(Employee $employee) {
         $payload = [
             'iss' => "Kouvee Petshop",
             'sub' => $employee->id,
@@ -56,7 +56,7 @@ class AuthController extends Controller {
      * )
      */
     public function authenticate() {
-        $employee = Employees::where('username', $this->request->username)->first();
+        $employee = Employee::where('username', $this->request->username)->first();
 
         if(!$employee) {
             return response()->json(['message' => "Username or password is wrong", "data" => []], 400);

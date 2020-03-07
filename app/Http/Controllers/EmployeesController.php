@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Employees;
+use App\Employee;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -28,7 +28,7 @@ class EmployeesController extends Controller {
     public function getAll() {
         return response()->json([
             "message" => "success", 
-            "data" => Employees::all()
+            "data" => Employee::all()
         ], 200);
 	}
 
@@ -108,7 +108,7 @@ class EmployeesController extends Controller {
             'createdBy' => 'required',
         ]);
 
-        $employee = new Employees;
+        $employee = new Employee;
         $employee->name = $request->name;
         $employee->address = $request->address;
         $employee->dateBirth = $request->dateBirth;
@@ -153,7 +153,7 @@ class EmployeesController extends Controller {
     * ),
     */
     public function getEmployeeById($id) {
-        $employee = Employees::find($id);
+        $employee = Employee::find($id);
 
         if($employee) {
             return response()->json([
@@ -243,7 +243,7 @@ class EmployeesController extends Controller {
             'phoneNumber' => 'numeric',
         ]);
 
-		$employee = Employees::find($request->id);
+		$employee = Employee::find($request->id);
 		if($employee) {
 			$employee->name = $request->name;
 			$employee->address = $request->address;
@@ -304,7 +304,7 @@ class EmployeesController extends Controller {
      * )
      */
 	public function delete($id, $ownerId) {
-		$employee = Employees::find($id);
+		$employee = Employee::find($id);
 		
 		if($employee->delete()) {
 			$employee->deletedBy = $ownerId;
@@ -344,11 +344,11 @@ class EmployeesController extends Controller {
     * ),
     */
 	public function restore($id) {
-		$employee = Employees::onlyTrashed()->where('id', $id);
+		$employee = Employee::onlyTrashed()->where('id', $id);
 		
 		if($employee) {
 			$employee->restore();
-			$employee = Employees::find($id);
+			$employee = Employee::find($id);
 			$employee->deletedBy = NULL;
 			$employee->save();
 
