@@ -26,7 +26,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Employee $employee
  * @property ServiceTransaction[] $serviceTransactions
  */
-class Pets extends Model
+class Pet extends Model
 {
     /**
      * The table associated with the model.

@@ -21,7 +21,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Employee $employee
  * @property ProductRestock[] $productRestocks
  */
-class Suppliers extends Model
+class Supplier extends Model
 {
 
     use SoftDeletes;
