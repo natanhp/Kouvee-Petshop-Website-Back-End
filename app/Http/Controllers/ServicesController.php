@@ -102,7 +102,7 @@ class ServicesController extends Controller {
 	*	@OA\Parameter(
     *         name="id",
     *         in="path",
-    *         description="Id of customer",
+    *         description="Id of the service",
     *         required=true,
     *         @OA\Schema(
     *             type="integer",
@@ -114,6 +114,42 @@ class ServicesController extends Controller {
     */
     public function getServiceById($id) {
         $service = Service::find($id);
+
+        if($service) {
+            return response()->json([
+                "message" => "Success",
+                "data" => $service
+            ], 200);
+        } else {
+            return response()->json([
+                "message" => "Service not found",
+                "data" => []
+            ], 400);
+        }
+    }
+    
+    /**
+    * @OA\Get(
+	*     path="/api/v1/services/getbyname/{serviceName}",
+	*	  tags={"services"},
+    *     description="Get an service by service name",
+    *     security={
+    *     	{"bearerAuth": {}},
+	*     },
+	*	@OA\Parameter(
+    *         name="serviceName",
+    *         in="path",
+    *         description="Name of the service",
+    *         required=true,
+    *         @OA\Schema(
+    *             type="string"
+    *         )
+    *     ),
+    *     @OA\Response(response="default", description="Get a service by service name")
+    * ),
+    */
+    public function getServiceByName($serviceName) {
+        $service = Service::where('serviceName', 'LIKE', "%$serviceName%")->get();
 
         if($service) {
             return response()->json([

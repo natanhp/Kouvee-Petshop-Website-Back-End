@@ -66,6 +66,8 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         $router->delete('delete/{id}/{ownerId}', 'ServicesController@delete');
         $router->get('restore/{id}', 'ServicesController@restore');
         $router->post('update', 'ServicesController@update');
+        $router->get('getbyid/{id}', 'ServicesController@getServiceById');
+        $router->get('getbyname/{serviceName}', 'ServicesController@getServiceByName');
     });
 
 
