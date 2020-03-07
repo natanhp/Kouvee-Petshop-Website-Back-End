@@ -166,6 +166,42 @@ class EmployeesController extends Controller {
                 "data" => []
             ], 400);
         }
+    }
+    
+    /**
+    * @OA\Get(
+	*     path="/api/v1/employees/getbyname/{name}",
+	*	  tags={"employees"},
+    *     description="Get an employee by name",
+    *     security={
+    *     	{"bearerAuth": {}},
+	*     },
+	*	@OA\Parameter(
+    *         name="name",
+    *         in="path",
+    *         description="The name of the employee",
+    *         required=true,
+    *         @OA\Schema(
+    *             type="string"
+    *         )
+    *     ),
+    *     @OA\Response(response="default", description="Get an employee by name")
+    * ),
+    */
+    public function getEmployeeByName($name) {
+        $employee = Employee::where('name', 'LIKE', "%$name%")->get();
+
+        if($employee) {
+            return response()->json([
+                "message" => "Success",
+                "data" => $employee
+            ], 200);
+        } else {
+            return response()->json([
+                "message" => "Employee not found",
+                "data" => []
+            ], 400);
+        }
 	}
 	
 	 /**

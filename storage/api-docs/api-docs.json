@@ -415,6 +415,36 @@
                 ]
             }
         },
+        "/api/v1/employees/getbyname/{name}": {
+            "get": {
+                "tags": [
+                    "employees"
+                ],
+                "description": "Get an employee by name",
+                "operationId": "App\\Http\\Controllers\\EmployeesController::getEmployeeByName",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "description": "The name of the employee",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Get an employee by name"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/employees/update": {
             "post": {
                 "tags": [
