@@ -23,7 +23,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Pet[] $pets
  * @property ProductTransaction[] $productTransactions
  */
-class Customers extends Model
+class Customer extends Model
 {
 
     use SoftDeletes;
