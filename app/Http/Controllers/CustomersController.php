@@ -73,7 +73,7 @@ class CustomersController extends Controller {
      *                 ),
      *                 @OA\Property(
      *                     property="createdBy",
-     *                     description="The foreign key of the owner who creates the customer",
+     *                     description="The foreign key of the cs who creates the customer",
      *                     type="integer"
      *                 )
      *             )
@@ -147,6 +147,42 @@ class CustomersController extends Controller {
                 "data" => []
             ], 400);
         }
+    }
+    
+    /**
+    * @OA\Get(
+	*     path="/api/v1/customers/getbyname/{name}",
+	*	  tags={"customers"},
+    *     description="Get a customer by name",
+    *     security={
+    *     	{"bearerAuth": {}},
+	*     },
+	*	@OA\Parameter(
+    *         name="name",
+    *         in="path",
+    *         description="Name of customer",
+    *         required=true,
+    *         @OA\Schema(
+    *             type="string"
+    *         )
+    *     ),
+    *     @OA\Response(response="default", description="Get a customer by name")
+    * ),
+    */
+    public function getCustomerByName($name) {
+        $customer = Customer::where('name', 'LIKE', "%$name%")->get();
+
+        if($customer) {
+            return response()->json([
+                "message" => "Success",
+                "data" => $customer
+            ], 200);
+        } else {
+            return response()->json([
+                "message" => "Customer not found",
+                "data" => []
+            ], 400);
+        }
 	}
 	
 	 /**
@@ -194,7 +230,7 @@ class CustomersController extends Controller {
      *                 ),
      *                 @OA\Property(
      *                     property="updatedBy",
-     *                     description="The foreign key of the owner who updates the customer",
+     *                     description="The foreign key of the cs who updates the customer",
      *                     type="integer"
      *                 )
      *             )
@@ -232,7 +268,7 @@ class CustomersController extends Controller {
 	
 	/**
      * @OA\Delete(
-     *     path="/api/v1/customers/delete/{id}/{ownerId}",
+     *     path="/api/v1/customers/delete/{id}/{csId}",
      *     tags={"customers"},
      *     summary="Deletes a customer",
      *     @OA\Parameter(
@@ -246,9 +282,9 @@ class CustomersController extends Controller {
      *         ),
      *     ),
 	 * 	   @OA\Parameter(
-     *         name="ownerId",
+     *         name="csId",
      *         in="path",
-     *         description="Owner who delted the customer",
+     *         description="CS who delted the customer",
      *         required=true,
      *         @OA\Schema(
      *             type="integer",
@@ -264,11 +300,11 @@ class CustomersController extends Controller {
      *     },
      * )
      */
-	public function delete($id, $ownerId) {
+	public function delete($id, $csId) {
 		$customer = Customer::find($id);
 		
 		if($customer->delete()) {
-			$customer->deletedBy = $ownerId;
+			$customer->deletedBy = $csId;
 			$customer->save();
 			return response()->json([
 				"message" => "Customer deleted",

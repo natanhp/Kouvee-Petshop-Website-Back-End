@@ -36,15 +36,15 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
 
     });
 
-    $router->group(['prefix' => 'customers', 'middleware' => 'jwt.auth'], function () use ($router) {
+    $router->group(['prefix' => 'customers', 'middleware' => ['jwt.auth', 'only.cs']], function () use ($router) {
         $router->get('getall', 'CustomersController@getAll');
         $router->post('insert', 'CustomersController@insert');
         $router->get('getbyid/{id}', 'CustomersController@getCustomerById');
         $router->put('update', 'CustomersController@update');
-        $router->delete('delete/{id}/{ownerId}', 'CustomersController@delete');
+        $router->delete('delete/{id}/{csId}', 'CustomersController@delete');
         $router->get('restore/{id}', 'CustomersController@restore');
         $router->get('getallpets/{id}', 'CustomersController@getAllCustomerPetsByCustomerId');
-
+        $router->get('getbyname/{name}', 'CustomersController@getCustomerByName');
     });
 
     $router->group(['prefix' => 'products', 'middleware' => ['jwt.auth', 'only.owner']], function () use ($router) {

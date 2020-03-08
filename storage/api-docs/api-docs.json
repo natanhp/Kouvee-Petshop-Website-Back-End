@@ -92,7 +92,7 @@
                                         "type": "string"
                                     },
                                     "createdBy": {
-                                        "description": "The foreign key of the owner who creates the customer",
+                                        "description": "The foreign key of the cs who creates the customer",
                                         "type": "integer"
                                     }
                                 },
@@ -144,6 +144,36 @@
                 ]
             }
         },
+        "/api/v1/customers/getbyname/{name}": {
+            "get": {
+                "tags": [
+                    "customers"
+                ],
+                "description": "Get a customer by name",
+                "operationId": "App\\Http\\Controllers\\CustomersController::getCustomerByName",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "description": "Name of customer",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Get a customer by name"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/customers/update": {
             "put": {
                 "tags": [
@@ -178,7 +208,7 @@
                                         "type": "string"
                                     },
                                     "updatedBy": {
-                                        "description": "The foreign key of the owner who updates the customer",
+                                        "description": "The foreign key of the cs who updates the customer",
                                         "type": "integer"
                                     }
                                 },
@@ -199,7 +229,7 @@
                 ]
             }
         },
-        "/api/v1/customers/delete/{id}/{ownerId}": {
+        "/api/v1/customers/delete/{id}/{csId}": {
             "delete": {
                 "tags": [
                     "customers"
@@ -218,9 +248,9 @@
                         }
                     },
                     {
-                        "name": "ownerId",
+                        "name": "csId",
                         "in": "path",
-                        "description": "Owner who delted the customer",
+                        "description": "CS who delted the customer",
                         "required": true,
                         "schema": {
                             "type": "integer",
