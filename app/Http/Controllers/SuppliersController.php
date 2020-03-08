@@ -139,6 +139,42 @@ class SuppliersController extends Controller {
                 "data" => []
             ], 400);
         }
+    }
+    
+    /**
+    * @OA\Get(
+	*     path="/api/v1/suppliers/getbyname/{name}",
+	*	  tags={"suppliers"},
+    *     description="Get an supplier by name",
+    *     security={
+    *     	{"bearerAuth": {}},
+	*     },
+	*	@OA\Parameter(
+    *         name="name",
+    *         in="path",
+    *         description="The name of the supplier",
+    *         required=true,
+    *         @OA\Schema(
+    *             type="string"
+    *         )
+    *     ),
+    *     @OA\Response(response="default", description="Get a supplier by name")
+    * ),
+    */
+    public function getSupplierByName($name) {
+        $supplier = Supplier::where('name', 'LIKE', "%$name%")->get();
+
+        if($supplier) {
+            return response()->json([
+                "message" => "Success",
+                "data" => $supplier
+            ], 200);
+        } else {
+            return response()->json([
+                "message" => "Supplier not found",
+                "data" => []
+            ], 400);
+        }
 	}
 	
 	 /**

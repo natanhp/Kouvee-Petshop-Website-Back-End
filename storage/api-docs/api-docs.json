@@ -1939,6 +1939,36 @@
                 ]
             }
         },
+        "/api/v1/suppliers/getbyname/{name}": {
+            "get": {
+                "tags": [
+                    "suppliers"
+                ],
+                "description": "Get an supplier by name",
+                "operationId": "App\\Http\\Controllers\\SuppliersController::getSupplierByName",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "description": "The name of the supplier",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Get a supplier by name"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/suppliers/update": {
             "put": {
                 "tags": [
