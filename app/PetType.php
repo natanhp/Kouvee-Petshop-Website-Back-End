@@ -3,11 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property int $id
  * @property string $type
- * @property string $isDeleted
  * @property string $createdAt
  * @property string $updatedAt
  * @property string $deletedAt
@@ -20,8 +20,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property Pet[] $pets
  * @property ServiceDetail[] $serviceDetails
  */
-class PetTypes extends Model
+class PetType extends Model
 {
+    use SoftDeletes;
+    
     /**
      * The table associated with the model.
      * 
@@ -29,10 +31,14 @@ class PetTypes extends Model
      */
     protected $table = 'PetTypes';
 
+    const CREATED_AT = 'createdAt';
+    const UPDATED_AT = 'updatedAt';
+    const DELETED_AT = 'deletedAt';
+
     /**
      * @var array
      */
-    protected $fillable = ['type', 'isDeleted', 'createdAt', 'updatedAt', 'deletedAt', 'createdBy', 'updatedBy', 'deletedBy'];
+    protected $fillable = ['type', 'createdAt', 'updatedAt', 'deletedAt', 'createdBy', 'updatedBy', 'deletedBy'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
