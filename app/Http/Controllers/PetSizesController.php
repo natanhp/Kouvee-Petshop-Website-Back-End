@@ -28,7 +28,7 @@ class PetSizesController extends Controller {
     public function getAll() {
         return response()->json([
             "message" => "success", 
-            "data" => PetType::all()
+            "data" => PetSize::all()
         ], 200);
 	}
 
