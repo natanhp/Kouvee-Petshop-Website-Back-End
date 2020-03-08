@@ -242,11 +242,11 @@ class PetSizesController extends Controller {
      * @OA\Delete(
      *     path="/api/v1/petsizes/delete/{id}/{ownerId}",
      *     tags={"pet sizes"},
-     *     summary="Deletes a pet type",
+     *     summary="Deletes a pet size",
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
-     *         description="Pet type id to delete",
+     *         description="Pet size id to delete",
      *         required=true,
      *         @OA\Schema(
      *             type="integer",
@@ -256,7 +256,7 @@ class PetSizesController extends Controller {
 	 * 	   @OA\Parameter(
      *         name="ownerId",
      *         in="path",
-     *         description="Owner who deletes the pet type",
+     *         description="Owner who deletes the pet size",
      *         required=true,
      *         @OA\Schema(
      *             type="integer",
@@ -265,7 +265,7 @@ class PetSizesController extends Controller {
 	 * 	   ),
      *     @OA\Response(
      *         response=400,
-     *         description="Pet type not deleted it's because either the deletion failed or Pet type to be deleted not found",
+     *         description="Pet size not deleted it's because either the deletion failed or Pet size to be deleted not found",
      *     ),
      *     security={
      *         {"bearerAuth": {}}
@@ -273,18 +273,18 @@ class PetSizesController extends Controller {
      * )
      */
 	public function delete($id, $ownerId) {
-		$pet_type = PetType::find($id);
+		$pet_size = PetSize::find($id);
 		
-		if($pet_type->delete()) {
-			$pet_type->deletedBy = $ownerId;
-			$pet_type->save();
+		if($pet_size->delete()) {
+			$pet_size->deletedBy = $ownerId;
+			$pet_size->save();
 			return response()->json([
-				"message" => "Pet type deleted",
+				"message" => "Pet size deleted",
 				"data" => []
 			], 200);
 		} else {
 			return response()->json([
-				"message" => "Pet type not deleted",
+				"message" => "Pet size not deleted",
 				"data" => []
 			], 400);
 		}
@@ -295,39 +295,39 @@ class PetSizesController extends Controller {
     * @OA\Get(
 	*     path="/api/v1/petsizes/restore/{id}",
 	*	  tags={"pet sizes"},
-	*     description="Restore the deleted pet type",
+	*     description="Restore the deleted pet size",
 	*	  security={
     *     	{"bearerAuth": {}},
 	*     },
 	*	@OA\Parameter(
     *         name="id",
     *         in="path",
-    *         description="Id of a pet type",
+    *         description="Id of a pet size",
     *         required=true,
     *         @OA\Schema(
     *             type="integer",
     *             format="int64"
     *         )
     *     ),
-    *     @OA\Response(response="default", description="Restore the deleted pet type")
+    *     @OA\Response(response="default", description="Restore the deleted pet size")
     * ),
     */
 	public function restore($id) {
-		$pet_type = PetType::onlyTrashed()->where('id', $id);
+		$pet_size = PetSize::onlyTrashed()->where('id', $id);
 		
-		if($pet_type) {
-			$pet_type->restore();
-			$pet_type = PetType::find($id);
-			$pet_type->deletedBy = NULL;
-			$pet_type->save();
+		if($pet_size) {
+			$pet_size->restore();
+			$pet_size = PetSize::find($id);
+			$pet_size->deletedBy = NULL;
+			$pet_size->save();
 
 			return response()->json([
-				"message" => "Pet type restored",
-				"data" => $pet_type
+				"message" => "Pet size restored",
+				"data" => $pet_size
 			], 200);
 		} else {
 			return response()->json([
-				"message" => "Pet type not restored",
+				"message" => "Pet size not restored",
 				"data" => []
 			], 400);
 		}

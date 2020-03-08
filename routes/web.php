@@ -93,5 +93,7 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
 
     $router->group(['prefix' => 'petsizes', 'middleware' => ['jwt.auth', 'only.owner']], function () use ($router) {
         $router->post('insert', 'PetSizesController@insert');
+        $router->delete('delete/{id}/{ownerId}', 'PetSizesController@delete');
+        $router->get('restore/{id}', 'PetSizesController@restore');
     });
 });
