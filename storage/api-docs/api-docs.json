@@ -751,13 +751,13 @@
                 "tags": [
                     "pet types"
                 ],
-                "summary": "Deletes a service",
+                "summary": "Deletes a pet type",
                 "operationId": "App\\Http\\Controllers\\PetTypesController::delete",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Service id to delete",
+                        "description": "Pet type id to delete",
                         "required": true,
                         "schema": {
                             "type": "integer",
@@ -767,7 +767,7 @@
                     {
                         "name": "ownerId",
                         "in": "path",
-                        "description": "Owner who deletes the service",
+                        "description": "Owner who deletes the pet type",
                         "required": true,
                         "schema": {
                             "type": "integer",
@@ -777,7 +777,7 @@
                 ],
                 "responses": {
                     "400": {
-                        "description": "Service not deleted it's because either the deletion failed or service to be deleted not found"
+                        "description": "Pet type not deleted it's because either the deletion failed or Pet type to be deleted not found"
                     }
                 },
                 "security": [
@@ -792,13 +792,13 @@
                 "tags": [
                     "pet types"
                 ],
-                "description": "Restore the deleted service",
+                "description": "Restore the deleted pet type",
                 "operationId": "App\\Http\\Controllers\\PetTypesController::restore",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Id of a service",
+                        "description": "Id of a pet type",
                         "required": true,
                         "schema": {
                             "type": "integer",
@@ -808,7 +808,7 @@
                 ],
                 "responses": {
                     "default": {
-                        "description": "Restore the deleted service"
+                        "description": "Restore the deleted pet type"
                     }
                 },
                 "security": [

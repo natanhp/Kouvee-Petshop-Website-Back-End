@@ -72,14 +72,14 @@ class PetTypesController extends Controller {
             'createdBy' => 'required|numeric'
         ]);
 
-        $pettype = new PetType;
-        $pettype->type = $request->type;
-        $pettype->createdBy = $request->createdBy;
+        $pet_type = new PetType;
+        $pet_type->type = $request->type;
+        $pet_type->createdBy = $request->createdBy;
 
-        if($pettype->save()) {
+        if($pet_type->save()) {
             return response()->json([
                 "message" => "Pet Type created",
-                "data" => $pettype
+                "data" => $pet_type
             ], 200);
         } else {
             return response()->json([
@@ -232,11 +232,11 @@ class PetTypesController extends Controller {
      * @OA\Delete(
      *     path="/api/v1/pettypes/delete/{id}/{ownerId}",
      *     tags={"pet types"},
-     *     summary="Deletes a service",
+     *     summary="Deletes a pet type",
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
-     *         description="Service id to delete",
+     *         description="Pet type id to delete",
      *         required=true,
      *         @OA\Schema(
      *             type="integer",
@@ -246,7 +246,7 @@ class PetTypesController extends Controller {
 	 * 	   @OA\Parameter(
      *         name="ownerId",
      *         in="path",
-     *         description="Owner who deletes the service",
+     *         description="Owner who deletes the pet type",
      *         required=true,
      *         @OA\Schema(
      *             type="integer",
@@ -255,7 +255,7 @@ class PetTypesController extends Controller {
 	 * 	   ),
      *     @OA\Response(
      *         response=400,
-     *         description="Service not deleted it's because either the deletion failed or service to be deleted not found",
+     *         description="Pet type not deleted it's because either the deletion failed or Pet type to be deleted not found",
      *     ),
      *     security={
      *         {"bearerAuth": {}}
@@ -263,18 +263,18 @@ class PetTypesController extends Controller {
      * )
      */
 	public function delete($id, $ownerId) {
-		$service = Service::find($id);
+		$pet_type = PetType::find($id);
 		
-		if($service->delete()) {
-			$service->deletedBy = $ownerId;
-			$service->save();
+		if($pet_type->delete()) {
+			$pet_type->deletedBy = $ownerId;
+			$pet_type->save();
 			return response()->json([
-				"message" => "Service deleted",
+				"message" => "Pet type deleted",
 				"data" => []
 			], 200);
 		} else {
 			return response()->json([
-				"message" => "Service not deleted",
+				"message" => "Pet type not deleted",
 				"data" => []
 			], 400);
 		}
@@ -285,39 +285,39 @@ class PetTypesController extends Controller {
     * @OA\Get(
 	*     path="/api/v1/pettypes/restore/{id}",
 	*	  tags={"pet types"},
-	*     description="Restore the deleted service",
+	*     description="Restore the deleted pet type",
 	*	  security={
     *     	{"bearerAuth": {}},
 	*     },
 	*	@OA\Parameter(
     *         name="id",
     *         in="path",
-    *         description="Id of a service",
+    *         description="Id of a pet type",
     *         required=true,
     *         @OA\Schema(
     *             type="integer",
     *             format="int64"
     *         )
     *     ),
-    *     @OA\Response(response="default", description="Restore the deleted service")
+    *     @OA\Response(response="default", description="Restore the deleted pet type")
     * ),
     */
 	public function restore($id) {
-		$service = Service::onlyTrashed()->where('id', $id);
+		$pet_type = PetType::onlyTrashed()->where('id', $id);
 		
-		if($service) {
-			$service->restore();
-			$service = Service::find($id);
-			$service->deletedBy = NULL;
-			$service->save();
+		if($pet_type) {
+			$pet_type->restore();
+			$pet_type = PetType::find($id);
+			$pet_type->deletedBy = NULL;
+			$pet_type->save();
 
 			return response()->json([
-				"message" => "Service restored",
-				"data" => $service
+				"message" => "Pet type restored",
+				"data" => $pet_type
 			], 200);
 		} else {
 			return response()->json([
-				"message" => "Service not restored",
+				"message" => "Pet type not restored",
 				"data" => []
 			], 400);
 		}
