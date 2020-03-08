@@ -77,8 +77,8 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         $router->delete('delete/{id}/{csId}', 'PetsController@delete');
         $router->get('restore/{id}', 'PetsController@restore');
         $router->put('update', 'PetsController@update');
-        $router->get('getbyid/{id}', 'PetsController@getServiceById');
-        $router->get('getbyname/{name}', 'PetsController@getServiceByName');
+        $router->get('getbyid/{id}', 'PetsController@getPetById');
+        $router->get('getbyname/{name}', 'PetsController@getPetByName');
     });
 
     $router->group(['prefix' => 'pettypes', 'middleware' => ['jwt.auth', 'only.owner']], function () use ($router) {
@@ -86,5 +86,7 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         $router->delete('delete/{id}/{ownerId}', 'PetTypesController@delete');
         $router->get('restore/{id}', 'PetTypesController@restore');
         $router->put('update', 'PetTypesController@update');
+        $router->get('getbytype/{type}', 'PetTypesController@getPetTypeByType');
+        $router->get('getbyid/{id}', 'PetTypesController@getPetTypeById');
     });
 });

@@ -647,13 +647,13 @@
                 "tags": [
                     "pet types"
                 ],
-                "description": "Get an service by id",
+                "description": "Get a pet type by id",
                 "operationId": "App\\Http\\Controllers\\PetTypesController::getServiceById",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Id of the service",
+                        "description": "Id of the pet type",
                         "required": true,
                         "schema": {
                             "type": "integer",
@@ -663,7 +663,7 @@
                 ],
                 "responses": {
                     "default": {
-                        "description": "Get a service by id"
+                        "description": "Get a pet type by id"
                     }
                 },
                 "security": [
@@ -673,18 +673,18 @@
                 ]
             }
         },
-        "/api/v1/pettypes/getbyname/{serviceName}": {
+        "/api/v1/pettypes/getbytype/{type}": {
             "get": {
                 "tags": [
                     "pet types"
                 ],
-                "description": "Get an service by service name",
-                "operationId": "App\\Http\\Controllers\\PetTypesController::getServiceByName",
+                "description": "Get a pet type by type",
+                "operationId": "App\\Http\\Controllers\\PetTypesController::getPetTypeByType",
                 "parameters": [
                     {
-                        "name": "serviceName",
+                        "name": "type",
                         "in": "path",
-                        "description": "Name of the service",
+                        "description": "Type of the pet",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -693,7 +693,7 @@
                 ],
                 "responses": {
                     "default": {
-                        "description": "Get a service by service name"
+                        "description": "Get a pet type by type"
                     }
                 },
                 "security": [
@@ -898,7 +898,7 @@
                     "pets"
                 ],
                 "description": "Get a pet by id",
-                "operationId": "App\\Http\\Controllers\\PetsController::getServiceById",
+                "operationId": "App\\Http\\Controllers\\PetsController::getPetById",
                 "parameters": [
                     {
                         "name": "id",
@@ -929,7 +929,7 @@
                     "pets"
                 ],
                 "description": "Get a pet by pet name",
-                "operationId": "App\\Http\\Controllers\\PetsController::getServiceByName",
+                "operationId": "App\\Http\\Controllers\\PetsController::getPetByName",
                 "parameters": [
                     {
                         "name": "name",

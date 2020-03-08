@@ -94,34 +94,34 @@ class PetTypesController extends Controller {
     * @OA\Get(
 	*     path="/api/v1/pettypes/getbyid/{id}",
 	*	  tags={"pet types"},
-    *     description="Get an service by id",
+    *     description="Get a pet type by id",
     *     security={
     *     	{"bearerAuth": {}},
 	*     },
 	*	@OA\Parameter(
     *         name="id",
     *         in="path",
-    *         description="Id of the service",
+    *         description="Id of the pet type",
     *         required=true,
     *         @OA\Schema(
     *             type="integer",
     *             format="int64"
     *         )
     *     ),
-    *     @OA\Response(response="default", description="Get a service by id")
+    *     @OA\Response(response="default", description="Get a pet type by id")
     * ),
     */
-    public function getServiceById($id) {
-        $service = Service::find($id);
+    public function getPetTypeById($id) {
+        $pet_type = PetType::find($id);
 
-        if($service) {
+        if($pet_type) {
             return response()->json([
                 "message" => "Success",
-                "data" => $service
+                "data" => $pet_type
             ], 200);
         } else {
             return response()->json([
-                "message" => "Service not found",
+                "message" => "Pet type not found",
                 "data" => []
             ], 400);
         }
@@ -129,35 +129,35 @@ class PetTypesController extends Controller {
     
     /**
     * @OA\Get(
-	*     path="/api/v1/pettypes/getbyname/{serviceName}",
+	*     path="/api/v1/pettypes/getbytype/{type}",
 	*	  tags={"pet types"},
-    *     description="Get an service by service name",
+    *     description="Get a pet type by type",
     *     security={
     *     	{"bearerAuth": {}},
 	*     },
 	*	@OA\Parameter(
-    *         name="serviceName",
+    *         name="type",
     *         in="path",
-    *         description="Name of the service",
+    *         description="Type of the pet",
     *         required=true,
     *         @OA\Schema(
     *             type="string"
     *         )
     *     ),
-    *     @OA\Response(response="default", description="Get a service by service name")
+    *     @OA\Response(response="default", description="Get a pet type by type")
     * ),
     */
-    public function getServiceByName($serviceName) {
-        $service = Service::where('serviceName', 'LIKE', "%$serviceName%")->get();
+    public function getPetTypeByType($type) {
+        $pet_type = PetType::where('type', 'LIKE', "%$type%")->get();
 
-        if($service) {
+        if($pet_type) {
             return response()->json([
                 "message" => "Success",
-                "data" => $service
+                "data" => $pet_type
             ], 200);
         } else {
             return response()->json([
-                "message" => "Service not found",
+                "message" => "Pet type not found",
                 "data" => []
             ], 400);
         }
