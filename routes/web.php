@@ -88,5 +88,6 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         $router->put('update', 'PetTypesController@update');
         $router->get('getbytype/{type}', 'PetTypesController@getPetTypeByType');
         $router->get('getbyid/{id}', 'PetTypesController@getPetTypeById');
+        $router->get('getall', 'PetTypesController@getAll');
     });
 });

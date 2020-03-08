@@ -589,11 +589,11 @@
                 "tags": [
                     "pet types"
                 ],
-                "description": "Get all the pettypes",
+                "description": "Get all the pet types",
                 "operationId": "App\\Http\\Controllers\\PetTypesController::getAll",
                 "responses": {
                     "default": {
-                        "description": "Get all the services"
+                        "description": "Get all the pet types"
                     }
                 },
                 "security": [
@@ -648,7 +648,7 @@
                     "pet types"
                 ],
                 "description": "Get a pet type by id",
-                "operationId": "App\\Http\\Controllers\\PetTypesController::getServiceById",
+                "operationId": "App\\Http\\Controllers\\PetTypesController::getPetTypeById",
                 "parameters": [
                     {
                         "name": "id",

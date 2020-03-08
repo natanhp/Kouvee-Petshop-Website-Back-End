@@ -18,17 +18,17 @@ class PetTypesController extends Controller {
     * @OA\Get(
 	*     path="/api/v1/pettypes/getall",
 	*	  tags={"pet types"},
-    *     description="Get all the pettypes",
+    *     description="Get all the pet types",
     *     security={
     *     {"bearerAuth": {}},
     *   },
-    *     @OA\Response(response="default", description="Get all the services")
+    *     @OA\Response(response="default", description="Get all the pet types")
     * ),
     */
     public function getAll() {
         return response()->json([
             "message" => "success", 
-            "data" => Service::all()
+            "data" => PetType::all()
         ], 200);
 	}
 
