@@ -647,13 +647,13 @@
                 "tags": [
                     "pet sizes"
                 ],
-                "description": "Get a pet type by id",
-                "operationId": "App\\Http\\Controllers\\PetSizesController::getPetTypeById",
+                "description": "Get a pet size by id",
+                "operationId": "App\\Http\\Controllers\\PetSizesController::getPetSizeById",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Id of the pet type",
+                        "description": "Id of the pet size",
                         "required": true,
                         "schema": {
                             "type": "integer",
@@ -663,7 +663,7 @@
                 ],
                 "responses": {
                     "default": {
-                        "description": "Get a pet type by id"
+                        "description": "Get a pet size by id"
                     }
                 },
                 "security": [
@@ -673,18 +673,18 @@
                 ]
             }
         },
-        "/api/v1/petsizes/getbytype/{type}": {
+        "/api/v1/petsizes/getbysize/{size}": {
             "get": {
                 "tags": [
                     "pet sizes"
                 ],
-                "description": "Get a pet type by type",
-                "operationId": "App\\Http\\Controllers\\PetSizesController::getPetTypeByType",
+                "description": "Get a pet size by size",
+                "operationId": "App\\Http\\Controllers\\PetSizesController::getPetSizeBySize",
                 "parameters": [
                     {
-                        "name": "type",
+                        "name": "size",
                         "in": "path",
-                        "description": "Type of the pet",
+                        "description": "Size of the pet",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -693,7 +693,7 @@
                 ],
                 "responses": {
                     "default": {
-                        "description": "Get a pet type by type"
+                        "description": "Get a pet size by size"
                     }
                 },
                 "security": [

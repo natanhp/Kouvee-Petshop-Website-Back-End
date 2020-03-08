@@ -96,5 +96,7 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         $router->delete('delete/{id}/{ownerId}', 'PetSizesController@delete');
         $router->get('restore/{id}', 'PetSizesController@restore');
         $router->put('update', 'PetSizesController@update');
+        $router->get('getbysize/{size}', 'PetSizesController@getPetSizeBySize');
+        $router->get('getbyid/{id}', 'PetSizesController@getPetSizeById');
     });
 });

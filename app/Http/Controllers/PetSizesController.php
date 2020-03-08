@@ -104,34 +104,34 @@ class PetSizesController extends Controller {
     * @OA\Get(
 	*     path="/api/v1/petsizes/getbyid/{id}",
 	*	  tags={"pet sizes"},
-    *     description="Get a pet type by id",
+    *     description="Get a pet size by id",
     *     security={
     *     	{"bearerAuth": {}},
 	*     },
 	*	@OA\Parameter(
     *         name="id",
     *         in="path",
-    *         description="Id of the pet type",
+    *         description="Id of the pet size",
     *         required=true,
     *         @OA\Schema(
     *             type="integer",
     *             format="int64"
     *         )
     *     ),
-    *     @OA\Response(response="default", description="Get a pet type by id")
+    *     @OA\Response(response="default", description="Get a pet size by id")
     * ),
     */
-    public function getPetTypeById($id) {
-        $pet_type = PetType::find($id);
+    public function getPetSizeById($id) {
+        $pet_size = PetSize::find($id);
 
-        if($pet_type) {
+        if($pet_size) {
             return response()->json([
                 "message" => "Success",
-                "data" => $pet_type
+                "data" => $pet_size
             ], 200);
         } else {
             return response()->json([
-                "message" => "Pet type not found",
+                "message" => "Pet size not found",
                 "data" => []
             ], 400);
         }
@@ -139,35 +139,35 @@ class PetSizesController extends Controller {
     
     /**
     * @OA\Get(
-	*     path="/api/v1/petsizes/getbytype/{type}",
+	*     path="/api/v1/petsizes/getbysize/{size}",
 	*	  tags={"pet sizes"},
-    *     description="Get a pet type by type",
+    *     description="Get a pet size by size",
     *     security={
     *     	{"bearerAuth": {}},
 	*     },
 	*	@OA\Parameter(
-    *         name="type",
+    *         name="size",
     *         in="path",
-    *         description="Type of the pet",
+    *         description="Size of the pet",
     *         required=true,
     *         @OA\Schema(
     *             type="string"
     *         )
     *     ),
-    *     @OA\Response(response="default", description="Get a pet type by type")
+    *     @OA\Response(response="default", description="Get a pet size by size")
     * ),
     */
-    public function getPetTypeByType($type) {
-        $pet_type = PetType::where('type', 'LIKE', "%$type%")->get();
+    public function getPetSizeBySize($size) {
+        $pet_size = PetSize::where('size', 'LIKE', "%$size%")->get();
 
-        if($pet_type) {
+        if($pet_size) {
             return response()->json([
                 "message" => "Success",
-                "data" => $pet_type
+                "data" => $pet_size
             ], 200);
         } else {
             return response()->json([
-                "message" => "Pet type not found",
+                "message" => "Pet size not found",
                 "data" => []
             ], 400);
         }
