@@ -708,7 +708,7 @@
                 "tags": [
                     "pet sizes"
                 ],
-                "summary": "Update a pet type",
+                "summary": "Update a pet size",
                 "operationId": "App\\Http\\Controllers\\PetSizesController::update",
                 "requestBody": {
                     "description": "Input data format",
@@ -717,15 +717,15 @@
                             "schema": {
                                 "properties": {
                                     "id": {
-                                        "description": "The id of the pet type",
+                                        "description": "The id of the pet size",
                                         "type": "integer"
                                     },
-                                    "type": {
-                                        "description": "The type of the pet",
+                                    "size": {
+                                        "description": "The size of the pet",
                                         "type": "string"
                                     },
                                     "updatedBy": {
-                                        "description": "The foreign key of the owner who updates the pet type",
+                                        "description": "The foreign key of the owner who updates the pet size",
                                         "type": "integer"
                                     }
                                 },
@@ -751,13 +751,13 @@
                 "tags": [
                     "pet sizes"
                 ],
-                "summary": "Deletes a pet type",
+                "summary": "Deletes a pet size",
                 "operationId": "App\\Http\\Controllers\\PetSizesController::delete",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Pet type id to delete",
+                        "description": "Pet size id to delete",
                         "required": true,
                         "schema": {
                             "type": "integer",
@@ -767,7 +767,7 @@
                     {
                         "name": "ownerId",
                         "in": "path",
-                        "description": "Owner who deletes the pet type",
+                        "description": "Owner who deletes the pet size",
                         "required": true,
                         "schema": {
                             "type": "integer",
@@ -777,7 +777,7 @@
                 ],
                 "responses": {
                     "400": {
-                        "description": "Pet type not deleted it's because either the deletion failed or Pet type to be deleted not found"
+                        "description": "Pet size not deleted it's because either the deletion failed or Pet size to be deleted not found"
                     }
                 },
                 "security": [
@@ -792,13 +792,13 @@
                 "tags": [
                     "pet sizes"
                 ],
-                "description": "Restore the deleted pet type",
+                "description": "Restore the deleted pet size",
                 "operationId": "App\\Http\\Controllers\\PetSizesController::restore",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Id of a pet type",
+                        "description": "Id of a pet size",
                         "required": true,
                         "schema": {
                             "type": "integer",
@@ -808,7 +808,7 @@
                 ],
                 "responses": {
                     "default": {
-                        "description": "Restore the deleted pet type"
+                        "description": "Restore the deleted pet size"
                     }
                 },
                 "security": [

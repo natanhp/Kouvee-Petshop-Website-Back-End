@@ -83,7 +83,7 @@ class PetSizesController extends Controller {
             }
 
         $pet_size = new PetSize;
-        $pet_size->size = $request->size;
+        $pet_size->size = $size;
         $pet_size->createdBy = $request->createdBy;
 
         if($pet_size->save()) {
@@ -177,7 +177,7 @@ class PetSizesController extends Controller {
      * @OA\Put(
      *     path="/api/v1/petsizes/update",
      *     tags={"pet sizes"},
-     *     summary="Update a pet type",
+     *     summary="Update a pet size",
      *     @OA\Response(
      *         response=400,
      *         description="Error"
@@ -193,17 +193,17 @@ class PetSizesController extends Controller {
      *                 type="object",
 	 * 				   @OA\Property(
      *                     property="id",
-     *                     description="The id of the pet type",
+     *                     description="The id of the pet size",
      *                     type="integer",
      *                 ),
      *                 @OA\Property(
-     *                     property="type",
-     *                     description="The type of the pet",
+     *                     property="size",
+     *                     description="The size of the pet",
      *                     type="string",
      *                 ),
      *                 @OA\Property(
      *                     property="updatedBy",
-     *                     description="The foreign key of the owner who updates the pet type",
+     *                     description="The foreign key of the owner who updates the pet size",
      *                     type="integer"
      *                 )
      *             )
@@ -215,25 +215,35 @@ class PetSizesController extends Controller {
 
         $this->validate($request, [
             'id' => 'required|numeric',
-            'type' => 'required',
+            'size' => 'required',
             'updatedBy' => 'required|numeric'
         ]);
 
-		$pet_type = PetType::find($request->id);
-		if($pet_type) {
-            $pet_type->id = $request->id;
-			$pet_type->type = $request->type;
-			$pet_type->updatedBy = $request->updatedBy;
+        $size = $request->size;
 
-			if($pet_type->save()) {
+        if(strcasecmp($size, "small") !== 0 && strcasecmp($size, "medium") !== 0 && 
+            strcasecmp($size, "large") !== 0 && strcasecmp($size, "extra large") !== 0) {
+                return response()->json([
+                    "message" => "Size should be small, medium, large, or extra large",
+                    "data" => []
+                ], 400);
+            }
+
+		$pet_size = PetSize::find($request->id);
+		if($pet_size) {
+            $pet_size->id = $request->id;
+			$pet_size->size = $size;;
+			$pet_size->updatedBy = $request->updatedBy;
+
+			if($pet_size->save()) {
 				return response()->json([
-					"message" => "Pet type updated",
-					"data" => $pet_type
+					"message" => "Pet size updated",
+					"data" => $pet_size
 				], 200);
 			}
 		}
         return response()->json([
-            "message" => "Pet type not updated",
+            "message" => "Pet size not updated",
             "data" => []
         ], 400);
 	}
