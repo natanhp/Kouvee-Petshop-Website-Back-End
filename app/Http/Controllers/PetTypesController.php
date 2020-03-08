@@ -167,7 +167,7 @@ class PetTypesController extends Controller {
      * @OA\Put(
      *     path="/api/v1/pettypes/update",
      *     tags={"pet types"},
-     *     summary="Update a service",
+     *     summary="Update a pet type",
      *     @OA\Response(
      *         response=400,
      *         description="Error"
@@ -183,17 +183,17 @@ class PetTypesController extends Controller {
      *                 type="object",
 	 * 				   @OA\Property(
      *                     property="id",
-     *                     description="The id of the service",
+     *                     description="The id of the pet type",
      *                     type="integer",
      *                 ),
      *                 @OA\Property(
-     *                     property="serviceName",
-     *                     description="The name of the service",
+     *                     property="type",
+     *                     description="The type of the pet",
      *                     type="string",
      *                 ),
      *                 @OA\Property(
      *                     property="updatedBy",
-     *                     description="The foreign key of the owner who updates the service",
+     *                     description="The foreign key of the owner who updates the pet type",
      *                     type="integer"
      *                 )
      *             )
@@ -205,25 +205,25 @@ class PetTypesController extends Controller {
 
         $this->validate($request, [
             'id' => 'required|numeric',
-            'serviceName' => 'required',
+            'type' => 'required',
             'updatedBy' => 'required|numeric'
         ]);
 
-		$service = Service::find($request->id);
-		if($service) {
-            $service->id = $request->id;
-			$service->serviceName = $request->serviceName;
-			$service->updatedBy = $request->updatedBy;
+		$pet_type = PetType::find($request->id);
+		if($pet_type) {
+            $pet_type->id = $request->id;
+			$pet_type->type = $request->type;
+			$pet_type->updatedBy = $request->updatedBy;
 
-			if($service->save()) {
+			if($pet_type->save()) {
 				return response()->json([
-					"message" => "Service updated",
-					"data" => $service
+					"message" => "Pet type updated",
+					"data" => $pet_type
 				], 200);
 			}
 		}
         return response()->json([
-            "message" => "Service not updated",
+            "message" => "Pet type not updated",
             "data" => []
         ], 400);
 	}

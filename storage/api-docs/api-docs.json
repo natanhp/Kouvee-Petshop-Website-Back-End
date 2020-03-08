@@ -708,7 +708,7 @@
                 "tags": [
                     "pet types"
                 ],
-                "summary": "Update a service",
+                "summary": "Update a pet type",
                 "operationId": "App\\Http\\Controllers\\PetTypesController::update",
                 "requestBody": {
                     "description": "Input data format",
@@ -717,15 +717,15 @@
                             "schema": {
                                 "properties": {
                                     "id": {
-                                        "description": "The id of the service",
+                                        "description": "The id of the pet type",
                                         "type": "integer"
                                     },
-                                    "serviceName": {
-                                        "description": "The name of the service",
+                                    "type": {
+                                        "description": "The type of the pet",
                                         "type": "string"
                                     },
                                     "updatedBy": {
-                                        "description": "The foreign key of the owner who updates the service",
+                                        "description": "The foreign key of the owner who updates the pet type",
                                         "type": "integer"
                                     }
                                 },
