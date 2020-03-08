@@ -139,7 +139,7 @@ class PetsController extends Controller {
     *     @OA\Response(response="default", description="Get a pet by id")
     * ),
     */
-    public function getServiceById($id) {
+    public function getPetById($id) {
         $pet = Pet::find($id);
 
         if($pet) {
@@ -175,7 +175,7 @@ class PetsController extends Controller {
     *     @OA\Response(response="default", description="Get a service by pet name")
     * ),
     */
-    public function getServiceByName($name) {
+    public function getPetByName($name) {
         $pet = Pet::where('name', 'LIKE', "%$name%")->get();
 
         if($pet) {
