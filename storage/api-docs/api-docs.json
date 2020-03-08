@@ -584,6 +584,240 @@
                 ]
             }
         },
+        "/api/v1/pettypes/getall": {
+            "get": {
+                "tags": [
+                    "pet types"
+                ],
+                "description": "Get all the pettypes",
+                "operationId": "App\\Http\\Controllers\\PetTypesController::getAll",
+                "responses": {
+                    "default": {
+                        "description": "Get all the services"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/pettypes/insert": {
+            "post": {
+                "tags": [
+                    "pet types"
+                ],
+                "summary": "Insert a new service",
+                "operationId": "App\\Http\\Controllers\\PetTypesController::insert",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "type": {
+                                        "description": "The type of the pet",
+                                        "type": "string"
+                                    },
+                                    "createdBy": {
+                                        "description": "The id of the owner who creates the pet type",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/pettypes/getbyid/{id}": {
+            "get": {
+                "tags": [
+                    "pet types"
+                ],
+                "description": "Get an service by id",
+                "operationId": "App\\Http\\Controllers\\PetTypesController::getServiceById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of the service",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Get a service by id"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/pettypes/getbyname/{serviceName}": {
+            "get": {
+                "tags": [
+                    "pet types"
+                ],
+                "description": "Get an service by service name",
+                "operationId": "App\\Http\\Controllers\\PetTypesController::getServiceByName",
+                "parameters": [
+                    {
+                        "name": "serviceName",
+                        "in": "path",
+                        "description": "Name of the service",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Get a service by service name"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/pettypes/update": {
+            "put": {
+                "tags": [
+                    "pet types"
+                ],
+                "summary": "Update a service",
+                "operationId": "App\\Http\\Controllers\\PetTypesController::update",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "description": "The id of the service",
+                                        "type": "integer"
+                                    },
+                                    "serviceName": {
+                                        "description": "The name of the service",
+                                        "type": "string"
+                                    },
+                                    "updatedBy": {
+                                        "description": "The foreign key of the owner who updates the service",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/pettypes/delete/{id}/{ownerId}": {
+            "delete": {
+                "tags": [
+                    "pet types"
+                ],
+                "summary": "Deletes a service",
+                "operationId": "App\\Http\\Controllers\\PetTypesController::delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Service id to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "ownerId",
+                        "in": "path",
+                        "description": "Owner who deletes the service",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Service not deleted it's because either the deletion failed or service to be deleted not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/pettypes/restore/{id}": {
+            "get": {
+                "tags": [
+                    "pet types"
+                ],
+                "description": "Restore the deleted service",
+                "operationId": "App\\Http\\Controllers\\PetTypesController::restore",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of a service",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Restore the deleted service"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/pets/getall": {
             "get": {
                 "tags": [
@@ -593,7 +827,7 @@
                 "operationId": "App\\Http\\Controllers\\PetsController::getAll",
                 "responses": {
                     "default": {
-                        "description": "Get all the services"
+                        "description": "Get all the pets"
                     }
                 },
                 "security": [
@@ -663,13 +897,13 @@
                 "tags": [
                     "pets"
                 ],
-                "description": "Get an service by id",
+                "description": "Get a pet by id",
                 "operationId": "App\\Http\\Controllers\\PetsController::getServiceById",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Id of the service",
+                        "description": "Id of the pet",
                         "required": true,
                         "schema": {
                             "type": "integer",
@@ -679,7 +913,7 @@
                 ],
                 "responses": {
                     "default": {
-                        "description": "Get a service by id"
+                        "description": "Get a pet by id"
                     }
                 },
                 "security": [
@@ -689,18 +923,18 @@
                 ]
             }
         },
-        "/api/v1/pets/getbyname/{serviceName}": {
+        "/api/v1/pets/getbyname/{name}": {
             "get": {
                 "tags": [
                     "pets"
                 ],
-                "description": "Get an service by service name",
+                "description": "Get a pet by pet name",
                 "operationId": "App\\Http\\Controllers\\PetsController::getServiceByName",
                 "parameters": [
                     {
-                        "name": "serviceName",
+                        "name": "name",
                         "in": "path",
-                        "description": "Name of the service",
+                        "description": "Name of the pet",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -709,7 +943,7 @@
                 ],
                 "responses": {
                     "default": {
-                        "description": "Get a service by service name"
+                        "description": "Get a service by pet name"
                     }
                 },
                 "security": [
@@ -1203,13 +1437,13 @@
                 "tags": [
                     "services"
                 ],
-                "description": "Get a pet by id",
+                "description": "Get an service by id",
                 "operationId": "App\\Http\\Controllers\\ServicesController::getServiceById",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Id of the pet",
+                        "description": "Id of the service",
                         "required": true,
                         "schema": {
                             "type": "integer",
@@ -1219,7 +1453,7 @@
                 ],
                 "responses": {
                     "default": {
-                        "description": "Get a pet by id"
+                        "description": "Get a service by id"
                     }
                 },
                 "security": [
@@ -1229,18 +1463,18 @@
                 ]
             }
         },
-        "/api/v1/services/getbyname/{name}": {
+        "/api/v1/services/getbyname/{serviceName}": {
             "get": {
                 "tags": [
                     "services"
                 ],
-                "description": "Get a pet by service name",
+                "description": "Get an service by service name",
                 "operationId": "App\\Http\\Controllers\\ServicesController::getServiceByName",
                 "parameters": [
                     {
-                        "name": "name",
+                        "name": "serviceName",
                         "in": "path",
-                        "description": "Name of the pet",
+                        "description": "Name of the service",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -1249,7 +1483,7 @@
                 ],
                 "responses": {
                     "default": {
-                        "description": "Get a pet by service name"
+                        "description": "Get a service by service name"
                     }
                 },
                 "security": [

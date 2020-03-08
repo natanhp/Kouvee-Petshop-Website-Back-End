@@ -81,5 +81,7 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         $router->get('getbyname/{name}', 'PetsController@getServiceByName');
     });
 
-
+    $router->group(['prefix' => 'pettypes', 'middleware' => ['jwt.auth', 'only.owner']], function () use ($router) {
+        $router->post('insert', 'PetTypesController@insert');
+    });
 });
