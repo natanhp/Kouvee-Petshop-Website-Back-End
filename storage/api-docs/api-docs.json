@@ -584,6 +584,240 @@
                 ]
             }
         },
+        "/api/v1/petsizes/getall": {
+            "get": {
+                "tags": [
+                    "pet sizes"
+                ],
+                "description": "Get all the pet sizes",
+                "operationId": "App\\Http\\Controllers\\PetSizesController::getAll",
+                "responses": {
+                    "default": {
+                        "description": "Get all the pet sizes"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/petsizes/insert": {
+            "post": {
+                "tags": [
+                    "pet sizes"
+                ],
+                "summary": "Insert a new pet size",
+                "operationId": "App\\Http\\Controllers\\PetSizesController::insert",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "size": {
+                                        "description": "The size of the pet",
+                                        "type": "string"
+                                    },
+                                    "createdBy": {
+                                        "description": "The id of the owner who creates the pet size",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/petsizes/getbyid/{id}": {
+            "get": {
+                "tags": [
+                    "pet sizes"
+                ],
+                "description": "Get a pet type by id",
+                "operationId": "App\\Http\\Controllers\\PetSizesController::getPetTypeById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of the pet type",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Get a pet type by id"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/petsizes/getbytype/{type}": {
+            "get": {
+                "tags": [
+                    "pet sizes"
+                ],
+                "description": "Get a pet type by type",
+                "operationId": "App\\Http\\Controllers\\PetSizesController::getPetTypeByType",
+                "parameters": [
+                    {
+                        "name": "type",
+                        "in": "path",
+                        "description": "Type of the pet",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Get a pet type by type"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/petsizes/update": {
+            "put": {
+                "tags": [
+                    "pet sizes"
+                ],
+                "summary": "Update a pet type",
+                "operationId": "App\\Http\\Controllers\\PetSizesController::update",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "description": "The id of the pet type",
+                                        "type": "integer"
+                                    },
+                                    "type": {
+                                        "description": "The type of the pet",
+                                        "type": "string"
+                                    },
+                                    "updatedBy": {
+                                        "description": "The foreign key of the owner who updates the pet type",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/petsizes/delete/{id}/{ownerId}": {
+            "delete": {
+                "tags": [
+                    "pet sizes"
+                ],
+                "summary": "Deletes a pet type",
+                "operationId": "App\\Http\\Controllers\\PetSizesController::delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Pet type id to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "ownerId",
+                        "in": "path",
+                        "description": "Owner who deletes the pet type",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Pet type not deleted it's because either the deletion failed or Pet type to be deleted not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/petsizes/restore/{id}": {
+            "get": {
+                "tags": [
+                    "pet sizes"
+                ],
+                "description": "Restore the deleted pet type",
+                "operationId": "App\\Http\\Controllers\\PetSizesController::restore",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of a pet type",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Restore the deleted pet type"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/pettypes/getall": {
             "get": {
                 "tags": [
