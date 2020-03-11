@@ -30,10 +30,10 @@ class ProductsController extends Controller {
         $product_complete = [];
 
         foreach($products as $product) {
-           $product_complete = [
+           array_push($product_complete, [
                 "product" => $product->makeHidden(['image']),
                 "image_url" => route('image_uri', ['id' => $product->id])
-           ];
+           ]);
         }
 
         return response()->json([
@@ -438,10 +438,10 @@ class ProductsController extends Controller {
         $product_complete = [];
 
         foreach($products as $product) {
-           $product_complete = [
+           array_push($product_complete,[
                 "product" => $product->makeHidden(['image']),
                 "image_url" => route('image_uri', ['id' => $product->id])
-           ];
+           ]);
         }
 
         if($products) {
