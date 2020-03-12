@@ -1478,7 +1478,7 @@
             }
         },
         "/api/v1/products/update": {
-            "put": {
+            "post": {
                 "tags": [
                     "products"
                 ],

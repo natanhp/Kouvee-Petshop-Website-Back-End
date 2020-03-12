@@ -211,7 +211,7 @@ class ProductsController extends Controller {
 	}
 	
 	 /**
-     * @OA\Put(
+     * @OA\Post(
      *     path="/api/v1/products/update",
      *     tags={"products"},
      *     summary="Update a product",
@@ -284,12 +284,11 @@ class ProductsController extends Controller {
             'meassurement' => 'required',
             'updatedBy' => 'required',
             'minimumQty' => 'required',
-            'image' => 'mimes:jpeg|size:65',
+            'image' => 'mimes:jpeg|max:65',
         ]);
 
 		$product = Product::find($request->id);
 		if($product) {
-            $product->id = $request->id;
 			$product->productName = $request->productName;
             $file = $request->file('image');
             if($file != null) {
@@ -299,7 +298,7 @@ class ProductsController extends Controller {
             $product->productQuantity = $request->productQuantity;
             $product->productPrice = $request->productPrice;
             $product->meassurement = $request->meassurement;
-            $product->updatedBy = $request->createdBy;
+            $product->updatedBy = $request->updatedBy;
 
 			if($product->save()) {
 				return response()->json([

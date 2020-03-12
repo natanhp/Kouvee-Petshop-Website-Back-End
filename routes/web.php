@@ -49,7 +49,7 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
 
     $router->group(['prefix' => 'products', 'middleware' => ['jwt.auth', 'only.owner']], function () use ($router) {
         $router->post('insert', 'ProductsController@insert');
-        $router->put('update', 'ProductsController@update');
+        $router->post('update', 'ProductsController@update');
         $router->delete('delete/{id}/{ownerId}', 'ProductsController@delete');
         $router->get('restore/{id}', 'ProductsController@restore');
 
