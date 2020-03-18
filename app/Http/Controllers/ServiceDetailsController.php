@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\ServiceDetail;
+use App\Service;
+use App\PetType;
+use App\PetSize;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 
@@ -23,9 +26,30 @@ class ServiceDetailsController extends Controller {
     * ),
     */
     public function getAll() {
+        $service_details = ServiceDetail::all();
+        $service_detail_complete = [];
+    
+        if(!$service_details) {
+            return response()->json([
+                "message" => "error",
+                "data" => []
+            ], 400);
+        }
+
+        foreach($service_details as $service_detail) {
+            $service_name = Service::find($service_detail->Services_id)->serviceName;
+            $pet_type = PetType::find($service_detail->PetTypes_id)->type;
+            $pet_size = PetSize::find($service_detail->PetSizes_id)->size;
+            
+            array_push($service_detail_complete, [
+                "service_detail" => $service_detail,
+                "complete_name" => "$service_name $pet_type $pet_size"
+            ]);
+        }
+
         return response()->json([
-            "message" => "success", 
-            "data" => ServiceDetail::all()
+            "message" => "success",
+            "data" => $service_detail_complete
         ], 200);
 	}
 
@@ -311,6 +335,6 @@ class ServiceDetailsController extends Controller {
 				"data" => []
 			], 400);
 		}
-	}
+    }
 }
 ?>
