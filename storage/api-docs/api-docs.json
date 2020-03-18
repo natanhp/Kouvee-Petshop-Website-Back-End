@@ -1638,6 +1638,219 @@
                 }
             }
         },
+        "/api/v1/noa/servicedetails/getall": {
+            "get": {
+                "tags": [
+                    "service details"
+                ],
+                "description": "Get all the service details",
+                "operationId": "App\\Http\\Controllers\\ServiceDetailsController::getAll",
+                "responses": {
+                    "default": {
+                        "description": "Get all the service details"
+                    }
+                }
+            }
+        },
+        "/api/v1/servicedetails/insert": {
+            "post": {
+                "tags": [
+                    "service details"
+                ],
+                "summary": "Insert a new service detail",
+                "operationId": "App\\Http\\Controllers\\ServiceDetailsController::insert",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "PetTypes_id": {
+                                        "description": "The id of the pet type",
+                                        "type": "int"
+                                    },
+                                    "PetSizes_id": {
+                                        "description": "The id of the pet size",
+                                        "type": "int"
+                                    },
+                                    "Services_id": {
+                                        "description": "The id of the service",
+                                        "type": "int"
+                                    },
+                                    "price": {
+                                        "description": "The price of the service",
+                                        "type": "int"
+                                    },
+                                    "createdBy": {
+                                        "description": "The id of the owner who creates the service",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/noa/servicedetails/getbyid/{id}": {
+            "get": {
+                "tags": [
+                    "service details"
+                ],
+                "description": "Get an service by id",
+                "operationId": "App\\Http\\Controllers\\ServiceDetailsController::getServiceDetailById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of the service detail",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Get a service detail by id"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/servicedetails/update": {
+            "put": {
+                "tags": [
+                    "service details"
+                ],
+                "summary": "Update a service detail",
+                "operationId": "App\\Http\\Controllers\\ServiceDetailsController::update",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "description": "The id of the service",
+                                        "type": "integer"
+                                    },
+                                    "PetTypes_id": {
+                                        "description": "The id of the pet type",
+                                        "type": "int"
+                                    },
+                                    "PetSizes_id": {
+                                        "description": "The id of the pet size",
+                                        "type": "int"
+                                    },
+                                    "Services_id": {
+                                        "description": "The id of the service",
+                                        "type": "int"
+                                    },
+                                    "price": {
+                                        "description": "The price of the service",
+                                        "type": "int"
+                                    },
+                                    "updatedBy": {
+                                        "description": "The foreign key of the owner who updates the service",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/servicedetails/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "service details"
+                ],
+                "summary": "Deletes a service detail",
+                "operationId": "App\\Http\\Controllers\\ServiceDetailsController::delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Service detail id to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Service detail not deleted it's because either the deletion failed or service detail to be deleted not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/servicedetails/restore/{id}": {
+            "get": {
+                "tags": [
+                    "service details"
+                ],
+                "description": "Restore the deleted service detail",
+                "operationId": "App\\Http\\Controllers\\ServiceDetailsController::restore",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of a service detail",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Restore the deleted service detail"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/services/getall": {
             "get": {
                 "tags": [

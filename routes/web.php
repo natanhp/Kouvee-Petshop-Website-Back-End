@@ -101,4 +101,16 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         $router->get('getbyid/{id}', 'PetSizesController@getPetSizeById');
         $router->get('getall', 'PetSizesController@getAll');
     });
+
+    $router->group(['prefix' => 'noa/servicedetails'], function () use ($router) {
+        $router->get('getall', 'ServiceDetailsController@getAll');
+        $router->get('getbyid/{id}', 'ServiceDetailsController@getServiceDetailById');
+    });
+
+    $router->group(['prefix' => 'servicedetails', 'middleware' => ['jwt.auth', 'only.owner']], function () use ($router) {
+        $router->post('insert', 'ServiceDetailsController@insert');
+        $router->delete('delete/{id}', 'ServiceDetailsController@delete');
+        $router->get('restore/{id}', 'ServiceDetailsController@restore');
+        $router->put('update', 'ServiceDetailsController@update');
+    });
 });
