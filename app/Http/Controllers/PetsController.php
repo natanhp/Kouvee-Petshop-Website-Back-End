@@ -117,8 +117,8 @@ class PetsController extends Controller {
             'name' => 'required',
             'createdBy' => 'required|numeric',
             'dateBirth' => 'required|date',
-            'customers_id' => 'required|numeric',
-            'petsizes_id' => 'required|numeric',
+            'Customers_id' => 'required|numeric',
+            'PetSizes_id' => 'required|numeric',
             'pettypes_id' => 'required|numeric',
         ]);
 
@@ -126,9 +126,9 @@ class PetsController extends Controller {
         $pet->name = $request->name;
         $pet->createdBy = $request->createdBy;
         $pet->dateBirth = $request->dateBirth;
-        $pet->customers_id = $request->customers_id;
-        $pet->petsizes_id = $request->petsizes_id;
-        $pet->pettypes_id = $request->pettypes_id;
+        $pet->Customers_id = $request->Customers_id;
+        $pet->PetSizes_id = $request->PetSizes_id;
+        $pet->PetTypes_id = $request->PetTypes_id;
 
         if($pet->save()) {
             return response()->json([
@@ -310,9 +310,9 @@ class PetsController extends Controller {
             'name' => 'required',
             'updatedBy' => 'required|numeric',
             'dateBirth' => 'required|date',
-            'customers_id' => 'required|numeric',
-            'petsizes_id' => 'required|numeric',
-            'pettypes_id' => 'required|numeric',
+            'Customers_id' => 'required|numeric',
+            'PetSizes_id' => 'required|numeric',
+            'PetTypes_id' => 'required|numeric',
         ]);
 
 		$pet = Pet::find($request->id);
@@ -320,9 +320,9 @@ class PetsController extends Controller {
             $pet->name = $request->name;
             $pet->updatedBy = $request->updatedBy;
             $pet->dateBirth = $request->dateBirth;
-            $pet->customers_id = $request->customers_id;
-            $pet->petsizes_id = $request->petsizes_id;
-            $pet->pettypes_id = $request->pettypes_id;
+            $pet->Customers_id = $request->Customers_id;
+            $pet->PetSizes_id = $request->PetSizes_id;
+            $pet->PetTypes_id = $request->PetTypes_id;
 
 
 			if($pet->save()) {
