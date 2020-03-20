@@ -32,7 +32,7 @@ class PetSize extends Model
      * @var string
      */
     protected $table = 'PetSizes';
-    protected $softCascade = ['serviceDetails'];
+    protected $softCascade = ['serviceDetails', 'pets'];
 
     const CREATED_AT = 'createdAt';
     const UPDATED_AT = 'updatedAt';

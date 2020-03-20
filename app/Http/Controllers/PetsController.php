@@ -359,7 +359,7 @@ class PetsController extends Controller {
     * ),
     */
 	public function restore($id) {
-		$pet = Pet::onlyTrashed()->where('id', $id);
+		$pet = Pet::onlyTrashed()->where('id', $id)->first();
 		
 		if($pet) {
 			$pet->restore();

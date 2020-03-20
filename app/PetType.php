@@ -31,7 +31,7 @@ class PetType extends Model
      * @var string
      */
     protected $table = 'PetTypes';
-    protected $softCascade = ['serviceDetails'];
+    protected $softCascade = ['serviceDetails', 'pets'];
 
     const CREATED_AT = 'createdAt';
     const UPDATED_AT = 'updatedAt';
