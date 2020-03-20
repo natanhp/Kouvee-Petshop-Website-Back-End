@@ -166,7 +166,7 @@ class PetsController extends Controller {
     * ),
     */
     public function getPetById($id) {
-        $pets = Pet::find($id);
+        $pets = Pet::find($id)->get();
         $pet_complete = [];
     
         if(!$pets) {
