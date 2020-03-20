@@ -1126,15 +1126,15 @@
                                         "description": "The id of the owner who creates the service",
                                         "type": "integer"
                                     },
-                                    "customers_id": {
+                                    "Customers_id": {
                                         "description": "The id of the pet owner",
                                         "type": "integer"
                                     },
-                                    "petsizes_id": {
+                                    "PetSizes_id": {
                                         "description": "The id of the pet size",
                                         "type": "integer"
                                     },
-                                    "pettypes_id": {
+                                    "PetTypes_id": {
                                         "description": "The id of the size of the pet",
                                         "type": "integer"
                                     }
@@ -1246,15 +1246,15 @@
                                         "description": "The id of the owner who creates the service",
                                         "type": "integer"
                                     },
-                                    "customers_id": {
+                                    "Customers_id": {
                                         "description": "The id of the pet owner",
                                         "type": "integer"
                                     },
-                                    "petsizes_id": {
+                                    "PetSizes_id": {
                                         "description": "The id of the pet size",
                                         "type": "integer"
                                     },
-                                    "pettypes_id": {
+                                    "PetTypes_id": {
                                         "description": "The id of the size of the pet",
                                         "type": "integer"
                                     }

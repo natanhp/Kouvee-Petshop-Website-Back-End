@@ -92,17 +92,17 @@ class PetsController extends Controller {
      *                     type="integer",
      *                 ),
      *                 @OA\Property(
-     *                     property="customers_id",
+     *                     property="Customers_id",
      *                     description="The id of the pet owner",
      *                     type="integer",
      *                 ),
      *                 @OA\Property(
-     *                     property="petsizes_id",
+     *                     property="PetSizes_id",
      *                     description="The id of the pet size",
      *                     type="integer",
      *                 ),
      *                 @OA\Property(
-     *                     property="pettypes_id",
+     *                     property="PetTypes_id",
      *                     description="The id of the size of the pet",
      *                     type="integer",
      *                 )
@@ -284,17 +284,17 @@ class PetsController extends Controller {
      *                     type="integer",
      *                 ),
      *                 @OA\Property(
-     *                     property="customers_id",
+     *                     property="Customers_id",
      *                     description="The id of the pet owner",
      *                     type="integer",
      *                 ),
      *                 @OA\Property(
-     *                     property="petsizes_id",
+     *                     property="PetSizes_id",
      *                     description="The id of the pet size",
      *                     type="integer",
      *                 ),
      *                 @OA\Property(
-     *                     property="pettypes_id",
+     *                     property="PetTypes_id",
      *                     description="The id of the size of the pet",
      *                     type="integer",
      *                 )
