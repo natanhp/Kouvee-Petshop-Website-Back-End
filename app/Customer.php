@@ -27,6 +27,7 @@ class Customer extends Model
 {
 
     use SoftDeletes;
+    use \Askedio\SoftCascade\Traits\SoftCascadeTrait;
 
     /**
      * The table associated with the model.
@@ -34,6 +35,7 @@ class Customer extends Model
      * @var string
      */
     protected $table = 'Customers';
+    protected $softCascade = ['pets'];
 
     const CREATED_AT = 'createdAt';
     const UPDATED_AT = 'updatedAt';

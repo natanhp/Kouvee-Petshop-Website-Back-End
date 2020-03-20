@@ -341,7 +341,7 @@ class CustomersController extends Controller {
     * ),
     */
 	public function restore($id) {
-		$customer = Customer::onlyTrashed()->where('id', $id);
+		$customer = Customer::onlyTrashed()->where('id', $id)->first();
 		
 		if($customer) {
 			$customer->restore();
