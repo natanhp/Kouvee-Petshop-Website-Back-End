@@ -614,7 +614,7 @@
                 ]
             }
         },
-        "/api/v1/petsizes/getall": {
+        "/api/v1/uni/petsizes/getall": {
             "get": {
                 "tags": [
                     "pet sizes"
@@ -672,7 +672,7 @@
                 ]
             }
         },
-        "/api/v1/petsizes/getbyid/{id}": {
+        "/api/v1/uni/petsizes/getbyid/{id}": {
             "get": {
                 "tags": [
                     "pet sizes"
@@ -703,7 +703,7 @@
                 ]
             }
         },
-        "/api/v1/petsizes/getbysize/{size}": {
+        "/api/v1/uni/petsizes/getbysize/{size}": {
             "get": {
                 "tags": [
                     "pet sizes"
@@ -848,7 +848,7 @@
                 ]
             }
         },
-        "/api/v1/pettypes/getall": {
+        "/api/v1/uni/pettypes/getall": {
             "get": {
                 "tags": [
                     "pet types"
@@ -906,7 +906,7 @@
                 ]
             }
         },
-        "/api/v1/pettypes/getbyid/{id}": {
+        "/api/v1/uni/pettypes/getbyid/{id}": {
             "get": {
                 "tags": [
                     "pet types"
@@ -937,7 +937,7 @@
                 ]
             }
         },
-        "/api/v1/pettypes/getbytype/{type}": {
+        "/api/v1/uni/pettypes/getbytype/{type}": {
             "get": {
                 "tags": [
                     "pet types"

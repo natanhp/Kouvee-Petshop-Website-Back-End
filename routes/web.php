@@ -87,9 +87,6 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         $router->delete('delete/{id}/{ownerId}', 'PetTypesController@delete');
         $router->get('restore/{id}', 'PetTypesController@restore');
         $router->put('update', 'PetTypesController@update');
-        $router->get('getbytype/{type}', 'PetTypesController@getPetTypeByType');
-        $router->get('getbyid/{id}', 'PetTypesController@getPetTypeById');
-        $router->get('getall', 'PetTypesController@getAll');
     });
 
     $router->group(['prefix' => 'petsizes', 'middleware' => ['jwt.auth', 'only.owner']], function () use ($router) {
@@ -97,9 +94,6 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         $router->delete('delete/{id}/{ownerId}', 'PetSizesController@delete');
         $router->get('restore/{id}', 'PetSizesController@restore');
         $router->put('update', 'PetSizesController@update');
-        $router->get('getbysize/{size}', 'PetSizesController@getPetSizeBySize');
-        $router->get('getbyid/{id}', 'PetSizesController@getPetSizeById');
-        $router->get('getall', 'PetSizesController@getAll');
     });
 
     $router->group(['prefix' => 'noa/servicedetails'], function () use ($router) {
@@ -112,5 +106,19 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         $router->delete('delete/{id}', 'ServiceDetailsController@delete');
         $router->get('restore/{id}', 'ServiceDetailsController@restore');
         $router->put('update', 'ServiceDetailsController@update');
+    });
+
+    $router->group(['prefix' => 'uni', 'middleware' => ['jwt.auth']], function () use ($router) {
+        $router->group(['prefix' => 'petsizes'], function () use ($router) {
+            $router->get('getbysize/{size}', 'PetSizesController@getPetSizeBySize');
+            $router->get('getbyid/{id}', 'PetSizesController@getPetSizeById');
+            $router->get('getall', 'PetSizesController@getAll');
+        });
+
+        $router->group(['prefix' => 'pettypes'], function () use ($router) {
+            $router->get('getbytype/{type}', 'PetTypesController@getPetTypeByType');
+            $router->get('getbyid/{id}', 'PetTypesController@getPetTypeById');
+            $router->get('getall', 'PetTypesController@getAll');
+        });
     });
 });

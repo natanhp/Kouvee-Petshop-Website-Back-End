@@ -16,7 +16,7 @@ class PetTypesController extends Controller {
 
     /**
     * @OA\Get(
-	*     path="/api/v1/pettypes/getall",
+	*     path="/api/v1/uni/pettypes/getall",
 	*	  tags={"pet types"},
     *     description="Get all the pet types",
     *     security={
@@ -92,7 +92,7 @@ class PetTypesController extends Controller {
 
     /**
     * @OA\Get(
-	*     path="/api/v1/pettypes/getbyid/{id}",
+	*     path="/api/v1/uni/pettypes/getbyid/{id}",
 	*	  tags={"pet types"},
     *     description="Get a pet type by id",
     *     security={
@@ -129,7 +129,7 @@ class PetTypesController extends Controller {
     
     /**
     * @OA\Get(
-	*     path="/api/v1/pettypes/getbytype/{type}",
+	*     path="/api/v1/uni/pettypes/getbytype/{type}",
 	*	  tags={"pet types"},
     *     description="Get a pet type by type",
     *     security={
