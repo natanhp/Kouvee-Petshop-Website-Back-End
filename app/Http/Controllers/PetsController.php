@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Pet;
+use App\PetType;
+use App\PetSize;
+use App\Customer;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 
@@ -26,9 +29,32 @@ class PetsController extends Controller {
     * ),
     */
     public function getAll() {
+        $pets = Pet::all();
+        $pet_complete = [];
+    
+        if(!$pets) {
+            return response()->json([
+                "message" => "error",
+                "data" => []
+            ], 400);
+        }
+
+        foreach($pets as $pet) {
+            $pet_type = PetType::find($pet->PetTypes_id)->type;
+            $pet_size = PetSize::find($pet->PetSizes_id)->size;
+            $customer = Customer::find($pet->Customers_id)->name;
+            
+            array_push($pet_complete, [
+                "pet" => $pet,
+                "type" => $pet_type,
+                "size" => $pet_size,
+                "customer" => $customer
+            ]);
+        }
+
         return response()->json([
-            "message" => "success", 
-            "data" => Pet::all()
+            "message" => "success",
+            "data" => $pet_complete
         ], 200);
 	}
 
@@ -140,19 +166,33 @@ class PetsController extends Controller {
     * ),
     */
     public function getPetById($id) {
-        $pet = Pet::find($id);
-
-        if($pet) {
+        $pets = Pet::find($id);
+        $pet_complete = [];
+    
+        if(!$pets) {
             return response()->json([
-                "message" => "Success",
-                "data" => $pet
-            ], 200);
-        } else {
-            return response()->json([
-                "message" => "Pet not found",
+                "message" => "error",
                 "data" => []
             ], 400);
         }
+
+        foreach($pets as $pet) {
+            $pet_type = PetType::find($pet->PetTypes_id)->type;
+            $pet_size = PetSize::find($pet->PetSizes_id)->size;
+            $customer = Customer::find($pet->Customers_id)->name;
+            
+            array_push($pet_complete, [
+                "pet" => $pet,
+                "type" => $pet_type,
+                "size" => $pet_size,
+                "customer" => $customer
+            ]);
+        }
+
+        return response()->json([
+            "message" => "success",
+            "data" => $pet_complete
+        ], 200);
     }
     
     /**
@@ -176,19 +216,33 @@ class PetsController extends Controller {
     * ),
     */
     public function getPetByName($name) {
-        $pet = Pet::where('name', 'LIKE', "%$name%")->get();
-
-        if($pet) {
+        $pets = Pet::where('name', 'LIKE', "%$name%")->get();
+        $pet_complete = [];
+    
+        if(!$pets) {
             return response()->json([
-                "message" => "Success",
-                "data" => $pet
-            ], 200);
-        } else {
-            return response()->json([
-                "message" => "Pet not found",
+                "message" => "error",
                 "data" => []
             ], 400);
         }
+
+        foreach($pets as $pet) {
+            $pet_type = PetType::find($pet->PetTypes_id)->type;
+            $pet_size = PetSize::find($pet->PetSizes_id)->size;
+            $customer = Customer::find($pet->Customers_id)->name;
+            
+            array_push($pet_complete, [
+                "pet" => $pet,
+                "type" => $pet_type,
+                "size" => $pet_size,
+                "customer" => $customer
+            ]);
+        }
+
+        return response()->json([
+            "message" => "success",
+            "data" => $pet_complete
+        ], 200);
 	}
 	
 	 /**
