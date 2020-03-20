@@ -303,7 +303,7 @@ class ServicesController extends Controller {
     * ),
     */
 	public function restore($id) {
-		$service = Service::onlyTrashed()->where('id', $id);
+		$service = Service::onlyTrashed()->where('id', $id)->first();
 		
 		if($service) {
 			$service->restore();

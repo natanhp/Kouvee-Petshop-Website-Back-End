@@ -303,7 +303,7 @@ class PetTypesController extends Controller {
     * ),
     */
 	public function restore($id) {
-		$pet_type = PetType::onlyTrashed()->where('id', $id);
+		$pet_type = PetType::onlyTrashed()->where('id', $id)->first();
 		
 		if($pet_type) {
 			$pet_type->restore();

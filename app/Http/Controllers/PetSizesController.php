@@ -323,7 +323,7 @@ class PetSizesController extends Controller {
     * ),
     */
 	public function restore($id) {
-		$pet_size = PetSize::onlyTrashed()->where('id', $id);
+		$pet_size = PetSize::onlyTrashed()->where('id', $id)->first();
 		
 		if($pet_size) {
 			$pet_size->restore();
