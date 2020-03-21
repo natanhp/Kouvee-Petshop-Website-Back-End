@@ -231,7 +231,7 @@ class SuppliersController extends Controller {
             'phoneNumber' => 'numeric',
         ]);
 
-		$supplier = Supplier::find($request->id);
+		$supplier = Supplier::find($request->idSupplier);
 		if($supplier) {
 			$supplier->name = $request->name;
 			$supplier->address = $request->address;
