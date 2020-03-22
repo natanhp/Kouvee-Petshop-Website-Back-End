@@ -60,6 +60,7 @@ $app->singleton(
 */
 
 $app->configure('app');
+$app->configure('cors');
 
 /*
 |--------------------------------------------------------------------------
@@ -82,14 +83,12 @@ $app->configure('app');
 
 $app->routeMiddleware([
     'jwt.auth' => App\Http\Middleware\JwtMiddleware::class,
-]);
-
-$app->routeMiddleware([
+    'only.cs' => App\Http\Middleware\OnlyCSMiddleware::class,
     'only.owner' => App\Http\Middleware\OnlyOwnerMiddleware::class,
 ]);
 
-$app->routeMiddleware([
-    'only.cs' => App\Http\Middleware\OnlyCSMiddleware::class,
+$app->middleware([
+    Fruitcake\Cors\HandleCors::class,
 ]);
 
 /*
@@ -109,6 +108,7 @@ $app->routeMiddleware([
 $app->register(\Krlove\EloquentModelGenerator\Provider\GeneratorServiceProvider::class);
 $app->register(\SwaggerLume\ServiceProvider::class);
 $app->register(\Askedio\SoftCascade\Providers\LumenServiceProvider::class);
+$app->register(Fruitcake\Cors\CorsServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
