@@ -119,7 +119,7 @@ class PetsController extends Controller {
             'dateBirth' => 'required|date',
             'Customers_id' => 'required|numeric',
             'PetSizes_id' => 'required|numeric',
-            'pettypes_id' => 'required|numeric',
+            'PetTypes_id' => 'required|numeric',
         ]);
 
         $pet = new Pet;
