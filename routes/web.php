@@ -121,4 +121,14 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
             $router->get('getall', 'PetTypesController@getAll');
         });
     });
+
+    $router->group(['prefix' => 'productrestock', 'middleware' => ['jwt.auth', 'only.owner']], function () use ($router) {
+        $router->get('getall', 'ProductRestockController@getAll');
+        // $router->post('insert', 'SuppliersController@insert');
+        // $router->get('getbyid/{id}', 'SuppliersController@getSupplierById');
+        // $router->get('getbyname/{name}', 'SuppliersController@getSupplierByName');
+        // $router->put('update', 'SuppliersController@update');
+        // $router->delete('delete/{id}/{ownerId}', 'SuppliersController@delete');
+        // $router->get('restore/{id}', 'SuppliersController@restore');
+    });
 });
