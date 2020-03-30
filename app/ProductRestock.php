@@ -3,11 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property string $id
- * @property string $date
- * @property string $isDeleted
+ * @property string $isArrived
  * @property string $createdAt
  * @property string $updatedAt
  * @property int $Suppliers_id
@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $createdBy
  * @property int $updatedBy
  * @property int $itemQty
+ * @property string $deletedAt
  * @property Employee $employee
  * @property Product $product
  * @property Supplier $supplier
@@ -24,6 +25,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ProductRestock extends Model
 {
+
+    use SoftDeletes;
+
     /**
      * The table associated with the model.
      * 
@@ -31,10 +35,14 @@ class ProductRestock extends Model
      */
     protected $table = 'ProductRestock';
 
+    const CREATED_AT = 'createdAt';
+    const UPDATED_AT = 'updatedAt';
+    const DELETED_AT = 'deletedAt';
+
     /**
      * @var array
      */
-    protected $fillable = ['date', 'isDeleted', 'createdAt', 'updatedAt', 'createdBy', 'updatedBy', 'itemQty'];
+    protected $fillable = ['isArrived', 'createdAt', 'updatedAt', 'createdBy', 'updatedBy', 'itemQty', 'deletedAt'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
