@@ -1348,6 +1348,224 @@
                 ]
             }
         },
+        "/api/v1/productrestock/getall": {
+            "get": {
+                "tags": [
+                    "product restock"
+                ],
+                "description": "Get all the product restock",
+                "operationId": "App\\Http\\Controllers\\ProductRestockController::getAll",
+                "responses": {
+                    "default": {
+                        "description": "Get all the product restock"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/productrestock/insert": {
+            "post": {
+                "tags": [
+                    "product restock"
+                ],
+                "summary": "Insert a new service detail",
+                "operationId": "App\\Http\\Controllers\\ProductRestockController::insert",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "PetTypes_id": {
+                                        "description": "The id of the pet type",
+                                        "type": "int"
+                                    },
+                                    "PetSizes_id": {
+                                        "description": "The id of the pet size",
+                                        "type": "int"
+                                    },
+                                    "Services_id": {
+                                        "description": "The id of the service",
+                                        "type": "int"
+                                    },
+                                    "price": {
+                                        "description": "The price of the service",
+                                        "type": "int"
+                                    },
+                                    "createdBy": {
+                                        "description": "The id of the owner who creates the service",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/productrestock/getbyid/{id}": {
+            "get": {
+                "tags": [
+                    "product restock"
+                ],
+                "description": "Get an service by id",
+                "operationId": "App\\Http\\Controllers\\ProductRestockController::getServiceDetailById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of the service detail",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Get a service detail by id"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/productrestock/update": {
+            "put": {
+                "tags": [
+                    "product restock"
+                ],
+                "summary": "Update a service detail",
+                "operationId": "App\\Http\\Controllers\\ProductRestockController::update",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "description": "The id of the service",
+                                        "type": "integer"
+                                    },
+                                    "PetTypes_id": {
+                                        "description": "The id of the pet type",
+                                        "type": "int"
+                                    },
+                                    "PetSizes_id": {
+                                        "description": "The id of the pet size",
+                                        "type": "int"
+                                    },
+                                    "Services_id": {
+                                        "description": "The id of the service",
+                                        "type": "int"
+                                    },
+                                    "price": {
+                                        "description": "The price of the service",
+                                        "type": "int"
+                                    },
+                                    "updatedBy": {
+                                        "description": "The foreign key of the owner who updates the service",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/productrestock/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "product restock"
+                ],
+                "summary": "Deletes a service detail",
+                "operationId": "App\\Http\\Controllers\\ProductRestockController::delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Service detail id to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Service detail not deleted it's because either the deletion failed or service detail to be deleted not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/productrestock/restore/{id}": {
+            "get": {
+                "tags": [
+                    "product restock"
+                ],
+                "description": "Restore the deleted service detail",
+                "operationId": "App\\Http\\Controllers\\ProductRestockController::restore",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of a service detail",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Restore the deleted service detail"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/noa/products/getall": {
             "get": {
                 "tags": [
