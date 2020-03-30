@@ -3,13 +3,17 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 /**
- * @property int $idSupplier
- * @property string $name
- * @property string $address
- * @property string $phoneNumber
- * @property string $isDeleted
+ * @property int $id
+ * @property string $productName
+ * @property int $productQuantity
+ * @property int $productPrice
+ * @property string $meassurement
+ * @property string $image
+ * @property int $minimumQty
  * @property string $createdAt
  * @property string $updatedAt
  * @property string $deletedAt
@@ -20,27 +24,27 @@ use Illuminate\Database\Eloquent\Model;
  * @property Employee $employee
  * @property Employee $employee
  * @property ProductRestock[] $productRestocks
+ * @property ProductTransactionDetail[] $productTransactionDetails
  */
-class Suppliers extends Model
+class Product extends Model
 {
+    use SoftDeletes;
+
     /**
      * The table associated with the model.
      * 
      * @var string
      */
-    protected $table = 'Suppliers';
+    protected $table = 'Products';
 
-    /**
-     * The primary key for the model.
-     * 
-     * @var string
-     */
-    protected $primaryKey = 'idSupplier';
+    const CREATED_AT = 'createdAt';
+    const UPDATED_AT = 'updatedAt';
+    const DELETED_AT = 'deletedAt';
 
     /**
      * @var array
      */
-    protected $fillable = ['name', 'address', 'phoneNumber', 'isDeleted', 'createdAt', 'updatedAt', 'deletedAt', 'createdBy', 'updatedBy', 'deletedBy'];
+    protected $fillable = ['productName', 'productQuantity', 'productPrice', 'meassurement', 'image', 'minimumQty', 'createdAt', 'updatedAt', 'deletedAt', 'createdBy', 'updatedBy', 'deletedBy'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -71,6 +75,14 @@ class Suppliers extends Model
      */
     public function productRestocks()
     {
-        return $this->hasMany('App\ProductRestock', 'Suppliers_id', 'idSupplier');
+        return $this->hasMany('App\ProductRestock', 'Products_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function productTransactionDetails()
+    {
+        return $this->hasMany('App\ProductTransactionDetail', 'Products_id');
     }
 }

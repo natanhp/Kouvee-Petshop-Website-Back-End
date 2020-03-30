@@ -3,14 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property int $id
- * @property string $name
- * @property string $address
- * @property string $dateBirth
- * @property string $phoneNumber
- * @property string $isDeleted
+ * @property string $size
  * @property string $createdAt
  * @property string $updatedAt
  * @property string $deletedAt
@@ -21,21 +18,30 @@ use Illuminate\Database\Eloquent\Model;
  * @property Employee $employee
  * @property Employee $employee
  * @property Pet[] $pets
- * @property ProductTransaction[] $productTransactions
+ * @property ServiceDetail[] $serviceDetails
  */
-class Customers extends Model
+class PetSize extends Model
 {
+
+    use SoftDeletes;
+    use \Askedio\SoftCascade\Traits\SoftCascadeTrait;
+
     /**
      * The table associated with the model.
      * 
      * @var string
      */
-    protected $table = 'Customers';
+    protected $table = 'PetSizes';
+    protected $softCascade = ['serviceDetails', 'pets'];
+
+    const CREATED_AT = 'createdAt';
+    const UPDATED_AT = 'updatedAt';
+    const DELETED_AT = 'deletedAt';
 
     /**
      * @var array
      */
-    protected $fillable = ['name', 'address', 'dateBirth', 'phoneNumber', 'isDeleted', 'createdAt', 'updatedAt', 'deletedAt', 'createdBy', 'updatedBy', 'deletedBy'];
+    protected $fillable = ['size', 'createdAt', 'updatedAt', 'deletedAt', 'createdBy', 'updatedBy', 'deletedBy'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -66,14 +72,14 @@ class Customers extends Model
      */
     public function pets()
     {
-        return $this->hasMany('App\Pet', 'Customers_id');
+        return $this->hasMany('App\Pet', 'PetSizes_id');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function productTransactions()
+    public function serviceDetails()
     {
-        return $this->hasMany('App\ProductTransaction', 'Customers_id');
+        return $this->hasMany('App\ServiceDetail', 'PetSizes_id');
     }
 }

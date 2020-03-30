@@ -3,11 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property int $id
- * @property string $size
- * @property string $isDeleted
+ * @property string $type
  * @property string $createdAt
  * @property string $updatedAt
  * @property string $deletedAt
@@ -20,19 +20,27 @@ use Illuminate\Database\Eloquent\Model;
  * @property Pet[] $pets
  * @property ServiceDetail[] $serviceDetails
  */
-class PetSizes extends Model
+class PetType extends Model
 {
+    use SoftDeletes;
+    use \Askedio\SoftCascade\Traits\SoftCascadeTrait;
+    
     /**
      * The table associated with the model.
      * 
      * @var string
      */
-    protected $table = 'PetSizes';
+    protected $table = 'PetTypes';
+    protected $softCascade = ['serviceDetails', 'pets'];
+
+    const CREATED_AT = 'createdAt';
+    const UPDATED_AT = 'updatedAt';
+    const DELETED_AT = 'deletedAt';
 
     /**
      * @var array
      */
-    protected $fillable = ['size', 'isDeleted', 'createdAt', 'updatedAt', 'deletedAt', 'createdBy', 'updatedBy', 'deletedBy'];
+    protected $fillable = ['type', 'createdAt', 'updatedAt', 'deletedAt', 'createdBy', 'updatedBy', 'deletedBy'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -63,7 +71,7 @@ class PetSizes extends Model
      */
     public function pets()
     {
-        return $this->hasMany('App\Pet', 'PetSizes_id');
+        return $this->hasMany('App\Pet', 'PetTypes_id');
     }
 
     /**
@@ -71,6 +79,6 @@ class PetSizes extends Model
      */
     public function serviceDetails()
     {
-        return $this->hasMany('App\ServiceDetail', 'PetSizes_id');
+        return $this->hasMany('App\ServiceDetail', 'PetTypes_id');
     }
 }

@@ -3,11 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property int $id
  * @property string $serviceName
- * @property string $isDeleted
  * @property string $createdAt
  * @property string $updatedAt
  * @property string $deletedAt
@@ -19,19 +19,28 @@ use Illuminate\Database\Eloquent\Model;
  * @property Employee $employee
  * @property ServiceDetail[] $serviceDetails
  */
-class Services extends Model
+class Service extends Model
 {
+
+    use SoftDeletes;
+    use \Askedio\SoftCascade\Traits\SoftCascadeTrait;
+
     /**
      * The table associated with the model.
      * 
      * @var string
      */
     protected $table = 'Services';
+    protected $softCascade = ['serviceDetails'];
+
+    const CREATED_AT = 'createdAt';
+    const UPDATED_AT = 'updatedAt';
+    const DELETED_AT = 'deletedAt';
 
     /**
      * @var array
      */
-    protected $fillable = ['serviceName', 'isDeleted', 'createdAt', 'updatedAt', 'deletedAt', 'createdBy', 'updatedBy', 'deletedBy'];
+    protected $fillable = ['serviceName', 'createdAt', 'updatedAt', 'deletedAt', 'createdBy', 'updatedBy', 'deletedBy'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

@@ -3,38 +3,56 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property int $id
- * @property float $price
- * @property string $isDeleted
- * @property string $updatedAt
+ * @property string $name
+ * @property string $dateBirth
  * @property string $createdAt
- * @property int $PetTypes_id
+ * @property string $updatedAt
+ * @property string $deletedAt
+ * @property int $Customers_id
  * @property int $PetSizes_id
- * @property int $Services_id
+ * @property int $PetTypes_id
  * @property int $createdBy
  * @property int $updatedBy
+ * @property int $deletedBy
+ * @property Customer $customer
  * @property PetSize $petSize
  * @property PetType $petType
- * @property Service $service
  * @property Employee $employee
  * @property Employee $employee
- * @property ServiceTransactionDetail[] $serviceTransactionDetails
+ * @property Employee $employee
+ * @property ServiceTransaction[] $serviceTransactions
  */
-class ServiceDetails extends Model
+class Pet extends Model
 {
+    use SoftDeletes;
+
     /**
      * The table associated with the model.
      * 
      * @var string
      */
-    protected $table = 'ServiceDetails';
+    protected $table = 'Pets';
+
+    const CREATED_AT = 'createdAt';
+    const UPDATED_AT = 'updatedAt';
+    const DELETED_AT = 'deletedAt';
 
     /**
      * @var array
      */
-    protected $fillable = ['price', 'isDeleted', 'updatedAt', 'createdAt', 'createdBy', 'updatedBy'];
+    protected $fillable = ['name', 'dateBirth', 'createdAt', 'updatedAt', 'deletedAt', 'createdBy', 'updatedBy', 'deletedBy'];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function customer()
+    {
+        return $this->belongsTo('App\Customer', 'Customers_id');
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -55,17 +73,17 @@ class ServiceDetails extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function service()
+    public function employeeCreatedBy()
     {
-        return $this->belongsTo('App\Service', 'Services_id');
+        return $this->belongsTo('App\Employee', 'createdBy');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function employeeCreatedBy()
+    public function employeeDeletedBy()
     {
-        return $this->belongsTo('App\Employee', 'createdBy');
+        return $this->belongsTo('App\Employee', 'deletedBy');
     }
 
     /**
@@ -79,8 +97,8 @@ class ServiceDetails extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function serviceTransactionDetails()
+    public function serviceTransactions()
     {
-        return $this->hasMany('App\ServiceTransactionDetail', 'ServiceDetails_id');
+        return $this->hasMany('App\ServiceTransaction', 'Pets_id');
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Employees;
+use App\Employee;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use \Firebase\JWT\JWT;
@@ -15,7 +15,7 @@ class AuthController extends Controller {
         $this->request = $request;
     }
 
-    protected function generateToken(Employees $employee) {
+    protected function generateToken(Employee $employee) {
         $payload = [
             'iss' => "Kouvee Petshop",
             'sub' => $employee->id,
@@ -25,8 +25,38 @@ class AuthController extends Controller {
         return JWT::encode($payload, env('JWT_SECRET'));
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/v1/login",
+     *     tags={"employees"},
+     *     summary="Employee login",
+     *     @OA\Response(
+     *         response=400,
+     *         description="Error"
+     *     ),
+     *     @OA\RequestBody(
+     *         description="Input data format",
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(
+     *                 type="object",
+	 * 				   @OA\Property(
+     *                     property="username",
+     *                     description="The username of the employee",
+     *                     type="string",
+     *                 ),
+     *                 @OA\Property(
+     *                     property="password",
+     *                     description="The password of the employee",
+     *                     type="password",
+     *                 )
+     *             )
+     *         )
+     *     )
+     * )
+     */
     public function authenticate() {
-        $employee = Employees::where('username', $this->request->username)->first();
+        $employee = Employee::where('username', $this->request->username)->first();
 
         if(!$employee) {
             return response()->json(['message' => "Username or password is wrong", "data" => []], 400);

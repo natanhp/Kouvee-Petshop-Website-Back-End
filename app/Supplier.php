@@ -3,11 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * @property int $id
- * @property string $type
- * @property string $isDeleted
+ * @property int $idSupplier
+ * @property string $name
+ * @property string $address
+ * @property string $phoneNumber
  * @property string $createdAt
  * @property string $updatedAt
  * @property string $deletedAt
@@ -17,22 +19,35 @@ use Illuminate\Database\Eloquent\Model;
  * @property Employee $employee
  * @property Employee $employee
  * @property Employee $employee
- * @property Pet[] $pets
- * @property ServiceDetail[] $serviceDetails
+ * @property ProductRestock[] $productRestocks
  */
-class PetTypes extends Model
+class Supplier extends Model
 {
+
+    use SoftDeletes;
+    
     /**
      * The table associated with the model.
      * 
      * @var string
      */
-    protected $table = 'PetTypes';
+    protected $table = 'Suppliers';
+
+    const CREATED_AT = 'createdAt';
+    const UPDATED_AT = 'updatedAt';
+    const DELETED_AT = 'deletedAt';
+
+    /**
+     * The primary key for the model.
+     * 
+     * @var string
+     */
+    protected $primaryKey = 'idSupplier';
 
     /**
      * @var array
      */
-    protected $fillable = ['type', 'isDeleted', 'createdAt', 'updatedAt', 'deletedAt', 'createdBy', 'updatedBy', 'deletedBy'];
+    protected $fillable = ['name', 'address', 'phoneNumber', 'createdAt', 'updatedAt', 'deletedAt', 'createdBy', 'updatedBy', 'deletedBy'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -61,16 +76,8 @@ class PetTypes extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function pets()
+    public function productRestocks()
     {
-        return $this->hasMany('App\Pet', 'PetTypes_id');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function serviceDetails()
-    {
-        return $this->hasMany('App\ServiceDetail', 'PetTypes_id');
+        return $this->hasMany('App\ProductRestock', 'Suppliers_id', 'idSupplier');
     }
 }

@@ -1,7 +1,7 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "Kouvee Petshop Documentation",
+        "title": "Kouvee Petshop API Documentation",
         "contact": {
             "name": "Natan Hari P.",
             "email": "natanhp@protonmail.com"
@@ -9,6 +9,329 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/v1/login": {
+            "post": {
+                "tags": [
+                    "employees"
+                ],
+                "summary": "Employee login",
+                "operationId": "App\\Http\\Controllers\\AuthController::authenticate",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "username": {
+                                        "description": "The username of the employee",
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "description": "The password of the employee",
+                                        "type": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Error"
+                    }
+                }
+            }
+        },
+        "/api/v1/customers/getall": {
+            "get": {
+                "tags": [
+                    "customers"
+                ],
+                "description": "Get all customers",
+                "operationId": "App\\Http\\Controllers\\CustomersController::getAll",
+                "responses": {
+                    "default": {
+                        "description": "Get all customers"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/customers/insert": {
+            "post": {
+                "tags": [
+                    "customers"
+                ],
+                "summary": "Insert a new customer",
+                "operationId": "App\\Http\\Controllers\\CustomersController::insert",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "The name of the customer",
+                                        "type": "string"
+                                    },
+                                    "address": {
+                                        "description": "The address of the customer",
+                                        "type": "string"
+                                    },
+                                    "dateBirth": {
+                                        "description": "The birth date of the customer",
+                                        "type": "string"
+                                    },
+                                    "phoneNumber": {
+                                        "description": "The phone number of the customer",
+                                        "type": "string"
+                                    },
+                                    "createdBy": {
+                                        "description": "The foreign key of the cs who creates the customer",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/customers/getbyid/{id}": {
+            "get": {
+                "tags": [
+                    "customers"
+                ],
+                "description": "Get a customer by id",
+                "operationId": "App\\Http\\Controllers\\CustomersController::getCustomerById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of customer",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Get a customer by id"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/customers/getbyname/{name}": {
+            "get": {
+                "tags": [
+                    "customers"
+                ],
+                "description": "Get a customer by name",
+                "operationId": "App\\Http\\Controllers\\CustomersController::getCustomerByName",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "description": "Name of customer",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Get a customer by name"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/customers/update": {
+            "put": {
+                "tags": [
+                    "customers"
+                ],
+                "summary": "Update a customer",
+                "operationId": "App\\Http\\Controllers\\CustomersController::update",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "description": "The id of the customer",
+                                        "type": "integer"
+                                    },
+                                    "name": {
+                                        "description": "The name of the customer",
+                                        "type": "string"
+                                    },
+                                    "address": {
+                                        "description": "The address of the customer",
+                                        "type": "string"
+                                    },
+                                    "dateBirth": {
+                                        "description": "The birth date of the customer",
+                                        "type": "string"
+                                    },
+                                    "phoneNumber": {
+                                        "description": "The phone number of the customer",
+                                        "type": "string"
+                                    },
+                                    "updatedBy": {
+                                        "description": "The foreign key of the cs who updates the customer",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/customers/delete/{id}/{csId}": {
+            "delete": {
+                "tags": [
+                    "customers"
+                ],
+                "summary": "Deletes a customer",
+                "operationId": "App\\Http\\Controllers\\CustomersController::delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Customer id to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "csId",
+                        "in": "path",
+                        "description": "CS who delted the customer",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Customer not deleted it's because either the deletion failed or customer to be deleted not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/customers/restore/{id}": {
+            "get": {
+                "tags": [
+                    "customers"
+                ],
+                "description": "Restore the delted customer",
+                "operationId": "App\\Http\\Controllers\\CustomersController::restore",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of customer",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Restore the deleted customer"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/customers/getallpets/{id}": {
+            "get": {
+                "tags": [
+                    "customers"
+                ],
+                "description": "Get all of the customer's pets by customer id",
+                "operationId": "App\\Http\\Controllers\\CustomersController::getAllCustomerPetsByCustomerId",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of customer",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "All of customer's pets"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/employees/getall": {
             "get": {
                 "tags": [
@@ -122,8 +445,38 @@
                 ]
             }
         },
+        "/api/v1/employees/getbyname/{name}": {
+            "get": {
+                "tags": [
+                    "employees"
+                ],
+                "description": "Get an employee by name",
+                "operationId": "App\\Http\\Controllers\\EmployeesController::getEmployeeByName",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "description": "The name of the employee",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Get an employee by name"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/employees/update": {
-            "post": {
+            "put": {
                 "tags": [
                     "employees"
                 ],
@@ -189,7 +542,7 @@
                 ]
             }
         },
-        "/api/v1/employees/delete/{id}": {
+        "/api/v1/employees/delete/{id}/{ownerId}": {
             "delete": {
                 "tags": [
                     "employees"
@@ -206,11 +559,1773 @@
                             "type": "integer",
                             "format": "int64"
                         }
+                    },
+                    {
+                        "name": "ownerId",
+                        "in": "path",
+                        "description": "Owner who delted the employee",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
                     }
                 ],
                 "responses": {
                     "400": {
                         "description": "Employee not deleted it's because either the deletion failed or employee to be deleted not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/employees/restore/{id}": {
+            "get": {
+                "tags": [
+                    "employees"
+                ],
+                "description": "Restore the delted employee",
+                "operationId": "App\\Http\\Controllers\\EmployeesController::restore",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of employee",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Restore the deleted employee"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/uni/petsizes/getall": {
+            "get": {
+                "tags": [
+                    "pet sizes"
+                ],
+                "description": "Get all the pet sizes",
+                "operationId": "App\\Http\\Controllers\\PetSizesController::getAll",
+                "responses": {
+                    "default": {
+                        "description": "Get all the pet sizes"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/petsizes/insert": {
+            "post": {
+                "tags": [
+                    "pet sizes"
+                ],
+                "summary": "Insert a new pet size",
+                "operationId": "App\\Http\\Controllers\\PetSizesController::insert",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "size": {
+                                        "description": "The size of the pet",
+                                        "type": "string"
+                                    },
+                                    "createdBy": {
+                                        "description": "The id of the owner who creates the pet size",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/uni/petsizes/getbyid/{id}": {
+            "get": {
+                "tags": [
+                    "pet sizes"
+                ],
+                "description": "Get a pet size by id",
+                "operationId": "App\\Http\\Controllers\\PetSizesController::getPetSizeById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of the pet size",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Get a pet size by id"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/uni/petsizes/getbysize/{size}": {
+            "get": {
+                "tags": [
+                    "pet sizes"
+                ],
+                "description": "Get a pet size by size",
+                "operationId": "App\\Http\\Controllers\\PetSizesController::getPetSizeBySize",
+                "parameters": [
+                    {
+                        "name": "size",
+                        "in": "path",
+                        "description": "Size of the pet",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Get a pet size by size"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/petsizes/update": {
+            "put": {
+                "tags": [
+                    "pet sizes"
+                ],
+                "summary": "Update a pet size",
+                "operationId": "App\\Http\\Controllers\\PetSizesController::update",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "description": "The id of the pet size",
+                                        "type": "integer"
+                                    },
+                                    "size": {
+                                        "description": "The size of the pet",
+                                        "type": "string"
+                                    },
+                                    "updatedBy": {
+                                        "description": "The foreign key of the owner who updates the pet size",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/petsizes/delete/{id}/{ownerId}": {
+            "delete": {
+                "tags": [
+                    "pet sizes"
+                ],
+                "summary": "Deletes a pet size",
+                "operationId": "App\\Http\\Controllers\\PetSizesController::delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Pet size id to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "ownerId",
+                        "in": "path",
+                        "description": "Owner who deletes the pet size",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Pet size not deleted it's because either the deletion failed or Pet size to be deleted not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/petsizes/restore/{id}": {
+            "get": {
+                "tags": [
+                    "pet sizes"
+                ],
+                "description": "Restore the deleted pet size",
+                "operationId": "App\\Http\\Controllers\\PetSizesController::restore",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of a pet size",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Restore the deleted pet size"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/uni/pettypes/getall": {
+            "get": {
+                "tags": [
+                    "pet types"
+                ],
+                "description": "Get all the pet types",
+                "operationId": "App\\Http\\Controllers\\PetTypesController::getAll",
+                "responses": {
+                    "default": {
+                        "description": "Get all the pet types"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/pettypes/insert": {
+            "post": {
+                "tags": [
+                    "pet types"
+                ],
+                "summary": "Insert a new service",
+                "operationId": "App\\Http\\Controllers\\PetTypesController::insert",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "type": {
+                                        "description": "The type of the pet",
+                                        "type": "string"
+                                    },
+                                    "createdBy": {
+                                        "description": "The id of the owner who creates the pet type",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/uni/pettypes/getbyid/{id}": {
+            "get": {
+                "tags": [
+                    "pet types"
+                ],
+                "description": "Get a pet type by id",
+                "operationId": "App\\Http\\Controllers\\PetTypesController::getPetTypeById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of the pet type",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Get a pet type by id"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/uni/pettypes/getbytype/{type}": {
+            "get": {
+                "tags": [
+                    "pet types"
+                ],
+                "description": "Get a pet type by type",
+                "operationId": "App\\Http\\Controllers\\PetTypesController::getPetTypeByType",
+                "parameters": [
+                    {
+                        "name": "type",
+                        "in": "path",
+                        "description": "Type of the pet",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Get a pet type by type"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/pettypes/update": {
+            "put": {
+                "tags": [
+                    "pet types"
+                ],
+                "summary": "Update a pet type",
+                "operationId": "App\\Http\\Controllers\\PetTypesController::update",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "description": "The id of the pet type",
+                                        "type": "integer"
+                                    },
+                                    "type": {
+                                        "description": "The type of the pet",
+                                        "type": "string"
+                                    },
+                                    "updatedBy": {
+                                        "description": "The foreign key of the owner who updates the pet type",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/pettypes/delete/{id}/{ownerId}": {
+            "delete": {
+                "tags": [
+                    "pet types"
+                ],
+                "summary": "Deletes a pet type",
+                "operationId": "App\\Http\\Controllers\\PetTypesController::delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Pet type id to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "ownerId",
+                        "in": "path",
+                        "description": "Owner who deletes the pet type",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Pet type not deleted it's because either the deletion failed or Pet type to be deleted not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/pettypes/restore/{id}": {
+            "get": {
+                "tags": [
+                    "pet types"
+                ],
+                "description": "Restore the deleted pet type",
+                "operationId": "App\\Http\\Controllers\\PetTypesController::restore",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of a pet type",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Restore the deleted pet type"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/pets/getall": {
+            "get": {
+                "tags": [
+                    "pets"
+                ],
+                "description": "Get all the pets",
+                "operationId": "App\\Http\\Controllers\\PetsController::getAll",
+                "responses": {
+                    "default": {
+                        "description": "Get all the pets"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/pets/insert": {
+            "post": {
+                "tags": [
+                    "pets"
+                ],
+                "summary": "Insert a new pet",
+                "operationId": "App\\Http\\Controllers\\PetsController::insert",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "The name of the pet",
+                                        "type": "string"
+                                    },
+                                    "dateBirth": {
+                                        "description": "The birth date of the pet",
+                                        "type": "date"
+                                    },
+                                    "createdBy": {
+                                        "description": "The id of the owner who creates the service",
+                                        "type": "integer"
+                                    },
+                                    "Customers_id": {
+                                        "description": "The id of the pet owner",
+                                        "type": "integer"
+                                    },
+                                    "PetSizes_id": {
+                                        "description": "The id of the pet size",
+                                        "type": "integer"
+                                    },
+                                    "PetTypes_id": {
+                                        "description": "The id of the size of the pet",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/pets/getbyid/{id}": {
+            "get": {
+                "tags": [
+                    "pets"
+                ],
+                "description": "Get a pet by id",
+                "operationId": "App\\Http\\Controllers\\PetsController::getPetById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of the pet",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Get a pet by id"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/pets/getbyname/{name}": {
+            "get": {
+                "tags": [
+                    "pets"
+                ],
+                "description": "Get a pet by pet name",
+                "operationId": "App\\Http\\Controllers\\PetsController::getPetByName",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "description": "Name of the pet",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Get a service by pet name"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/pets/update": {
+            "put": {
+                "tags": [
+                    "pets"
+                ],
+                "summary": "Update a pet",
+                "operationId": "App\\Http\\Controllers\\PetsController::update",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "description": "The id of the pet",
+                                        "type": "integer"
+                                    },
+                                    "name": {
+                                        "description": "The name of the pet",
+                                        "type": "string"
+                                    },
+                                    "dateBirth": {
+                                        "description": "The birth date of the pet",
+                                        "type": "date"
+                                    },
+                                    "updatedBy": {
+                                        "description": "The id of the owner who creates the service",
+                                        "type": "integer"
+                                    },
+                                    "Customers_id": {
+                                        "description": "The id of the pet owner",
+                                        "type": "integer"
+                                    },
+                                    "PetSizes_id": {
+                                        "description": "The id of the pet size",
+                                        "type": "integer"
+                                    },
+                                    "PetTypes_id": {
+                                        "description": "The id of the size of the pet",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/pets/delete/{id}/{csId}": {
+            "delete": {
+                "tags": [
+                    "pets"
+                ],
+                "summary": "Deletes a pet",
+                "operationId": "App\\Http\\Controllers\\PetsController::delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Pet id to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "csId",
+                        "in": "path",
+                        "description": "CS who deletes the pet",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Service not deleted it's because either the deletion failed or service to be deleted not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/pets/restore/{id}": {
+            "get": {
+                "tags": [
+                    "pets"
+                ],
+                "description": "Restore the deleted pet",
+                "operationId": "App\\Http\\Controllers\\PetsController::restore",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of a pet",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Restore the deleted pet"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/noa/products/getall": {
+            "get": {
+                "tags": [
+                    "products"
+                ],
+                "description": "Get all products",
+                "operationId": "App\\Http\\Controllers\\ProductsController::getAll",
+                "responses": {
+                    "default": {
+                        "description": "Get all products"
+                    }
+                }
+            }
+        },
+        "/api/v1/products/insert": {
+            "post": {
+                "tags": [
+                    "products"
+                ],
+                "summary": "Insert a new product",
+                "operationId": "App\\Http\\Controllers\\ProductsController::insert",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "productName": {
+                                        "description": "The name of the product",
+                                        "type": "string"
+                                    },
+                                    "productQuantity": {
+                                        "description": "The quantity of the product",
+                                        "type": "integer"
+                                    },
+                                    "productPrice": {
+                                        "description": "The price of the product",
+                                        "type": "double"
+                                    },
+                                    "meassurement": {
+                                        "description": "The meassurement of the product e.g kg, pcs, liter",
+                                        "type": "string"
+                                    },
+                                    "createdBy": {
+                                        "description": "The foreign key of the owner who creates the product",
+                                        "type": "integer"
+                                    },
+                                    "image": {
+                                        "description": "The image of the product (65Kb)",
+                                        "type": "file",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        }
+                                    },
+                                    "minimumQty": {
+                                        "description": "The minimum quantity of the product",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/noa/products/getbyid/{id}": {
+            "get": {
+                "tags": [
+                    "products"
+                ],
+                "description": "Get a product by id",
+                "operationId": "App\\Http\\Controllers\\ProductsController::getProductById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of products",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Get a products by id"
+                    }
+                }
+            }
+        },
+        "/api/v1/noa/products/getimagebyid/{id}": {
+            "get": {
+                "tags": [
+                    "products"
+                ],
+                "description": "Get a product image by id",
+                "operationId": "App\\Http\\Controllers\\ProductsController::getProductImageById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of products",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Get a products by id"
+                    }
+                }
+            }
+        },
+        "/api/v1/products/update": {
+            "post": {
+                "tags": [
+                    "products"
+                ],
+                "summary": "Update a product",
+                "operationId": "App\\Http\\Controllers\\ProductsController::update",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "description": "The id of the product",
+                                        "type": "integer"
+                                    },
+                                    "productName": {
+                                        "description": "The name of the product",
+                                        "type": "string"
+                                    },
+                                    "productQuantity": {
+                                        "description": "The quantity of the product",
+                                        "type": "integer"
+                                    },
+                                    "productPrice": {
+                                        "description": "The price of the product",
+                                        "type": "double"
+                                    },
+                                    "meassurement": {
+                                        "description": "The meassurement of the product e.g kg, pcs, liter",
+                                        "type": "string"
+                                    },
+                                    "updatedBy": {
+                                        "description": "The foreign key of the owner who updates the product",
+                                        "type": "integer"
+                                    },
+                                    "image": {
+                                        "description": "The image of the product (65Kb)",
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "minimumQty": {
+                                        "description": "The minimum quantity of the product",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/products/delete/{id}/{ownerId}": {
+            "delete": {
+                "tags": [
+                    "products"
+                ],
+                "summary": "Deletes a product",
+                "operationId": "App\\Http\\Controllers\\ProductsController::delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Product id to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "ownerId",
+                        "in": "path",
+                        "description": "Owner who delted the product",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Product not deleted it's because either the deletion failed or product to be deleted not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/products/restore/{id}": {
+            "get": {
+                "tags": [
+                    "products"
+                ],
+                "description": "Restore the delted product",
+                "operationId": "App\\Http\\Controllers\\ProductsController::restore",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of product",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Restore the deleted product"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/noa/products/getbyname/{name}": {
+            "get": {
+                "tags": [
+                    "products"
+                ],
+                "description": "Get a product by name",
+                "operationId": "App\\Http\\Controllers\\ProductsController::getProductByName",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "description": "Name of the products",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Get products by name"
+                    }
+                }
+            }
+        },
+        "/api/v1/noa/servicedetails/getall": {
+            "get": {
+                "tags": [
+                    "service details"
+                ],
+                "description": "Get all the service details",
+                "operationId": "App\\Http\\Controllers\\ServiceDetailsController::getAll",
+                "responses": {
+                    "default": {
+                        "description": "Get all the service details"
+                    }
+                }
+            }
+        },
+        "/api/v1/servicedetails/insert": {
+            "post": {
+                "tags": [
+                    "service details"
+                ],
+                "summary": "Insert a new service detail",
+                "operationId": "App\\Http\\Controllers\\ServiceDetailsController::insert",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "PetTypes_id": {
+                                        "description": "The id of the pet type",
+                                        "type": "int"
+                                    },
+                                    "PetSizes_id": {
+                                        "description": "The id of the pet size",
+                                        "type": "int"
+                                    },
+                                    "Services_id": {
+                                        "description": "The id of the service",
+                                        "type": "int"
+                                    },
+                                    "price": {
+                                        "description": "The price of the service",
+                                        "type": "int"
+                                    },
+                                    "createdBy": {
+                                        "description": "The id of the owner who creates the service",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/noa/servicedetails/getbyid/{id}": {
+            "get": {
+                "tags": [
+                    "service details"
+                ],
+                "description": "Get an service by id",
+                "operationId": "App\\Http\\Controllers\\ServiceDetailsController::getServiceDetailById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of the service detail",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Get a service detail by id"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/servicedetails/update": {
+            "put": {
+                "tags": [
+                    "service details"
+                ],
+                "summary": "Update a service detail",
+                "operationId": "App\\Http\\Controllers\\ServiceDetailsController::update",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "description": "The id of the service",
+                                        "type": "integer"
+                                    },
+                                    "PetTypes_id": {
+                                        "description": "The id of the pet type",
+                                        "type": "int"
+                                    },
+                                    "PetSizes_id": {
+                                        "description": "The id of the pet size",
+                                        "type": "int"
+                                    },
+                                    "Services_id": {
+                                        "description": "The id of the service",
+                                        "type": "int"
+                                    },
+                                    "price": {
+                                        "description": "The price of the service",
+                                        "type": "int"
+                                    },
+                                    "updatedBy": {
+                                        "description": "The foreign key of the owner who updates the service",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/servicedetails/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "service details"
+                ],
+                "summary": "Deletes a service detail",
+                "operationId": "App\\Http\\Controllers\\ServiceDetailsController::delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Service detail id to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Service detail not deleted it's because either the deletion failed or service detail to be deleted not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/servicedetails/restore/{id}": {
+            "get": {
+                "tags": [
+                    "service details"
+                ],
+                "description": "Restore the deleted service detail",
+                "operationId": "App\\Http\\Controllers\\ServiceDetailsController::restore",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of a service detail",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Restore the deleted service detail"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/services/getall": {
+            "get": {
+                "tags": [
+                    "services"
+                ],
+                "description": "Get all the services",
+                "operationId": "App\\Http\\Controllers\\ServicesController::getAll",
+                "responses": {
+                    "default": {
+                        "description": "Get all the services"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/services/insert": {
+            "post": {
+                "tags": [
+                    "services"
+                ],
+                "summary": "Insert a new service",
+                "operationId": "App\\Http\\Controllers\\ServicesController::insert",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "serviceName": {
+                                        "description": "The name of the service",
+                                        "type": "string"
+                                    },
+                                    "createdBy": {
+                                        "description": "The id of the owner who creates the service",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/services/getbyid/{id}": {
+            "get": {
+                "tags": [
+                    "services"
+                ],
+                "description": "Get an service by id",
+                "operationId": "App\\Http\\Controllers\\ServicesController::getServiceById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of the service",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Get a service by id"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/services/getbyname/{serviceName}": {
+            "get": {
+                "tags": [
+                    "services"
+                ],
+                "description": "Get an service by service name",
+                "operationId": "App\\Http\\Controllers\\ServicesController::getServiceByName",
+                "parameters": [
+                    {
+                        "name": "serviceName",
+                        "in": "path",
+                        "description": "Name of the service",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Get a service by service name"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/services/update": {
+            "put": {
+                "tags": [
+                    "services"
+                ],
+                "summary": "Update a service",
+                "operationId": "App\\Http\\Controllers\\ServicesController::update",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "description": "The id of the service",
+                                        "type": "integer"
+                                    },
+                                    "serviceName": {
+                                        "description": "The name of the service",
+                                        "type": "string"
+                                    },
+                                    "updatedBy": {
+                                        "description": "The foreign key of the owner who updates the service",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/services/delete/{id}/{ownerId}": {
+            "delete": {
+                "tags": [
+                    "services"
+                ],
+                "summary": "Deletes a service",
+                "operationId": "App\\Http\\Controllers\\ServicesController::delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Service id to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "ownerId",
+                        "in": "path",
+                        "description": "Owner who deletes the service",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Service not deleted it's because either the deletion failed or service to be deleted not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/services/restore/{id}": {
+            "get": {
+                "tags": [
+                    "services"
+                ],
+                "description": "Restore the deleted service",
+                "operationId": "App\\Http\\Controllers\\ServicesController::restore",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of a service",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Restore the deleted service"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/suppliers/getall": {
+            "get": {
+                "tags": [
+                    "suppliers"
+                ],
+                "description": "Get all suppliers",
+                "operationId": "App\\Http\\Controllers\\SuppliersController::getAll",
+                "responses": {
+                    "default": {
+                        "description": "Get all suppliers"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/suppliers/insert": {
+            "post": {
+                "tags": [
+                    "suppliers"
+                ],
+                "summary": "Insert a new supplier",
+                "operationId": "App\\Http\\Controllers\\SuppliersController::insert",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "The name of the supplier",
+                                        "type": "string"
+                                    },
+                                    "address": {
+                                        "description": "The address of the supplier",
+                                        "type": "string"
+                                    },
+                                    "phoneNumber": {
+                                        "description": "The phone number of the supplier",
+                                        "type": "string"
+                                    },
+                                    "createdBy": {
+                                        "description": "The foreign key of the owner who creates the supplier",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/suppliers/getbyid/{id}": {
+            "get": {
+                "tags": [
+                    "suppliers"
+                ],
+                "description": "Get an supplier by id",
+                "operationId": "App\\Http\\Controllers\\SuppliersController::getSupplierById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of supplier",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Get a supplier by id"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/suppliers/getbyname/{name}": {
+            "get": {
+                "tags": [
+                    "suppliers"
+                ],
+                "description": "Get an supplier by name",
+                "operationId": "App\\Http\\Controllers\\SuppliersController::getSupplierByName",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "description": "The name of the supplier",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Get a supplier by name"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/suppliers/update": {
+            "put": {
+                "tags": [
+                    "suppliers"
+                ],
+                "summary": "Update a supplier",
+                "operationId": "App\\Http\\Controllers\\SuppliersController::update",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "description": "The id of the supplier",
+                                        "type": "integer"
+                                    },
+                                    "name": {
+                                        "description": "The name of the supplier",
+                                        "type": "string"
+                                    },
+                                    "address": {
+                                        "description": "The address of the supplier",
+                                        "type": "string"
+                                    },
+                                    "phoneNumber": {
+                                        "description": "The phone number of the supplier",
+                                        "type": "string"
+                                    },
+                                    "updatedBy": {
+                                        "description": "The foreign key of the owner who updates the supplier",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/suppliers/delete/{id}/{ownerId}": {
+            "delete": {
+                "tags": [
+                    "suppliers"
+                ],
+                "summary": "Deletes an supplier",
+                "operationId": "App\\Http\\Controllers\\SuppliersController::delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Supplier id to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "ownerId",
+                        "in": "path",
+                        "description": "Owner who delted the supplier",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Supplier not deleted it's because either the deletion failed or supplier to be deleted not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/suppliers/restore/{id}": {
+            "get": {
+                "tags": [
+                    "suppliers"
+                ],
+                "description": "Restore the delted supplier",
+                "operationId": "App\\Http\\Controllers\\SuppliersController::restore",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of supplier",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Restored the deleted supplier"
                     }
                 },
                 "security": [

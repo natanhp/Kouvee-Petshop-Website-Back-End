@@ -6,8 +6,11 @@
     "type": "project",
     "require": {
         "php": "^7.2",
+        "askedio/laravel-soft-cascade": "^6.0",
         "darkaonline/swagger-lume": "6.*",
+        "doctrine/dbal": "^2.10",
         "firebase/php-jwt": "^5.1",
+        "fruitcake/laravel-cors": "^1.0",
         "laravel/lumen-framework": "^6.0"
     },
     "require-dev": {

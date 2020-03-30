@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Employees;
+use App\Employee;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -28,7 +28,7 @@ class EmployeesController extends Controller {
     public function getAll() {
         return response()->json([
             "message" => "success", 
-            "data" => Employees::all()
+            "data" => Employee::all()
         ], 200);
 	}
 
@@ -108,7 +108,7 @@ class EmployeesController extends Controller {
             'createdBy' => 'required',
         ]);
 
-        $employee = new Employees;
+        $employee = new Employee;
         $employee->name = $request->name;
         $employee->address = $request->address;
         $employee->dateBirth = $request->dateBirth;
@@ -153,7 +153,43 @@ class EmployeesController extends Controller {
     * ),
     */
     public function getEmployeeById($id) {
-        $employee = Employees::find($id);
+        $employee = Employee::find($id);
+
+        if($employee) {
+            return response()->json([
+                "message" => "Success",
+                "data" => $employee
+            ], 200);
+        } else {
+            return response()->json([
+                "message" => "Employee not found",
+                "data" => []
+            ], 400);
+        }
+    }
+    
+    /**
+    * @OA\Get(
+	*     path="/api/v1/employees/getbyname/{name}",
+	*	  tags={"employees"},
+    *     description="Get an employee by name",
+    *     security={
+    *     	{"bearerAuth": {}},
+	*     },
+	*	@OA\Parameter(
+    *         name="name",
+    *         in="path",
+    *         description="The name of the employee",
+    *         required=true,
+    *         @OA\Schema(
+    *             type="string"
+    *         )
+    *     ),
+    *     @OA\Response(response="default", description="Get an employee by name")
+    * ),
+    */
+    public function getEmployeeByName($name) {
+        $employee = Employee::where('name', 'LIKE', "%$name%")->get();
 
         if($employee) {
             return response()->json([
@@ -169,7 +205,7 @@ class EmployeesController extends Controller {
 	}
 	
 	 /**
-     * @OA\Post(
+     * @OA\Put(
      *     path="/api/v1/employees/update",
      *     tags={"employees"},
      *     summary="Update an employee",
@@ -243,7 +279,7 @@ class EmployeesController extends Controller {
             'phoneNumber' => 'numeric',
         ]);
 
-		$employee = Employees::find($request->id);
+		$employee = Employee::find($request->id);
 		if($employee) {
 			$employee->name = $request->name;
 			$employee->address = $request->address;
@@ -271,7 +307,7 @@ class EmployeesController extends Controller {
 	
 	/**
      * @OA\Delete(
-     *     path="/api/v1/employees/delete/{id}",
+     *     path="/api/v1/employees/delete/{id}/{ownerId}",
      *     tags={"employees"},
      *     summary="Deletes an employee",
      *     @OA\Parameter(
@@ -284,6 +320,16 @@ class EmployeesController extends Controller {
      *             format="int64"
      *         ),
      *     ),
+	 * 	   @OA\Parameter(
+     *         name="ownerId",
+     *         in="path",
+     *         description="Owner who delted the employee",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int64"
+     *         ),
+	 * 	   ),
      *     @OA\Response(
      *         response=400,
      *         description="Employee not deleted it's because either the deletion failed or employee to be deleted not found",
@@ -293,10 +339,12 @@ class EmployeesController extends Controller {
      *     },
      * )
      */
-	public function delete($id) {
-		$employee = Employees::find($id);
+	public function delete($id, $ownerId) {
+		$employee = Employee::find($id);
 		
 		if($employee->delete()) {
+			$employee->deletedBy = $ownerId;
+			$employee->save();
 			return response()->json([
 				"message" => "Employee deleted",
 				"data" => []
@@ -305,7 +353,50 @@ class EmployeesController extends Controller {
 			return response()->json([
 				"message" => "Employee not deleted",
 				"data" => []
-			]);
+			], 400);
+		}
+	}
+
+
+	/**
+    * @OA\Get(
+	*     path="/api/v1/employees/restore/{id}",
+	*	  tags={"employees"},
+	*     description="Restore the delted employee",
+	*	  security={
+    *     	{"bearerAuth": {}},
+	*     },
+	*	@OA\Parameter(
+    *         name="id",
+    *         in="path",
+    *         description="Id of employee",
+    *         required=true,
+    *         @OA\Schema(
+    *             type="integer",
+    *             format="int64"
+    *         )
+    *     ),
+    *     @OA\Response(response="default", description="Restore the deleted employee")
+    * ),
+    */
+	public function restore($id) {
+		$employee = Employee::onlyTrashed()->where('id', $id);
+		
+		if($employee) {
+			$employee->restore();
+			$employee = Employee::find($id);
+			$employee->deletedBy = NULL;
+			$employee->save();
+
+			return response()->json([
+				"message" => "Employee restored",
+				"data" => $employee
+			], 200);
+		} else {
+			return response()->json([
+				"message" => "Employee not restored",
+				"data" => []
+			], 400);
 		}
 	}
 }
