@@ -25,6 +25,7 @@ class Supplier extends Model
 {
 
     use SoftDeletes;
+    use \Askedio\SoftCascade\Traits\SoftCascadeTrait;
     
     /**
      * The table associated with the model.
@@ -32,6 +33,7 @@ class Supplier extends Model
      * @var string
      */
     protected $table = 'Suppliers';
+    protected $softCascade = ['productRestocks'];
 
     const CREATED_AT = 'createdAt';
     const UPDATED_AT = 'updatedAt';

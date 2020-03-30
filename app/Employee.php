@@ -63,6 +63,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Employee extends Model
 {
     use SoftDeletes;
+    use \Askedio\SoftCascade\Traits\SoftCascadeTrait;
 
     /**
      * The table associated with the model.
@@ -70,6 +71,7 @@ class Employee extends Model
      * @var string
      */
     protected $table = 'Employees';
+    protected $softCascade = ['productRestocksEmployeesId'];
 
     const CREATED_AT = 'createdAt';
     const UPDATED_AT = 'updatedAt';

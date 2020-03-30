@@ -29,6 +29,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Product extends Model
 {
     use SoftDeletes;
+    use \Askedio\SoftCascade\Traits\SoftCascadeTrait;
 
     /**
      * The table associated with the model.
@@ -36,6 +37,7 @@ class Product extends Model
      * @var string
      */
     protected $table = 'Products';
+    protected $softCascade = ['productRestocks'];
 
     const CREATED_AT = 'createdAt';
     const UPDATED_AT = 'updatedAt';
