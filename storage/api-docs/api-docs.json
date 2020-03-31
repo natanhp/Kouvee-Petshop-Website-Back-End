@@ -1380,24 +1380,20 @@
                         "application/x-www-form-urlencoded": {
                             "schema": {
                                 "properties": {
-                                    "PetTypes_id": {
-                                        "description": "The id of the pet type",
+                                    "Suppliers_id": {
+                                        "description": "The id of the supplier",
                                         "type": "int"
                                     },
-                                    "PetSizes_id": {
-                                        "description": "The id of the pet size",
+                                    "Products_id": {
+                                        "description": "The id of the product",
                                         "type": "int"
                                     },
-                                    "Services_id": {
-                                        "description": "The id of the service",
-                                        "type": "int"
-                                    },
-                                    "price": {
-                                        "description": "The price of the service",
+                                    "itemQty": {
+                                        "description": "The queantity of the ordered item",
                                         "type": "int"
                                     },
                                     "createdBy": {
-                                        "description": "The id of the owner who creates the service",
+                                        "description": "The id of the owner",
                                         "type": "integer"
                                     }
                                 },
