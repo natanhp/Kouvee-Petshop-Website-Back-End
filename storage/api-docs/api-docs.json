@@ -1419,17 +1419,16 @@
                 "tags": [
                     "product restock"
                 ],
-                "description": "Get an service by id",
-                "operationId": "App\\Http\\Controllers\\ProductRestockController::getServiceDetailById",
+                "description": "Get an product restock by id",
+                "operationId": "App\\Http\\Controllers\\ProductRestockController::getProductRestockDetailById",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Id of the service detail",
+                        "description": "Id of the product restock",
                         "required": true,
                         "schema": {
-                            "type": "integer",
-                            "format": "int64"
+                            "type": "string"
                         }
                     }
                 ],
