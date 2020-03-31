@@ -8,6 +8,7 @@ use App\Employee;
 use App\Supplier;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class ProductRestockController extends Controller {
 
@@ -41,7 +42,7 @@ class ProductRestockController extends Controller {
         foreach($product_restocks as $product_restock) {
             $product_restock->supplier_name = Supplier::find($product_restock->Suppliers_id)->name;
             $product_restock->product_name = Product::find($product_restock->Products_id)->productName;
-            $product_restock->employee_name = Employee::find($product_restock->Employees_id)->name;
+            $product_restock->employee_name = Employee::find($product_restock->createdBy)->name;
         }
 
         return response()->json([
@@ -69,28 +70,23 @@ class ProductRestockController extends Controller {
      *             @OA\Schema(
      *                 type="object",
      *                 @OA\Property(
-     *                     property="PetTypes_id",
-     *                     description="The id of the pet type",
+     *                     property="Suppliers_id",
+     *                     description="The id of the supplier",
      *                     type="int",
      *                 ),
      *                 @OA\Property(
-     *                     property="PetSizes_id",
-     *                     description="The id of the pet size",
+     *                     property="Products_id",
+     *                     description="The id of the product",
      *                     type="int",
      *                 ),
      *                 @OA\Property(
-     *                     property="Services_id",
-     *                     description="The id of the service",
-     *                     type="int",
-     *                 ),
-     *                 @OA\Property(
-     *                     property="price",
-     *                     description="The price of the service",
+     *                     property="itemQty",
+     *                     description="The queantity of the ordered item",
      *                     type="int",
      *                 ),
      *                 @OA\Property(
      *                     property="createdBy",
-     *                     description="The id of the owner who creates the service",
+     *                     description="The id of the owner",
      *                     type="integer",
      *                 )
      *             )
@@ -101,31 +97,31 @@ class ProductRestockController extends Controller {
     public function insert(Request $request) {
 
         $this->validate($request, [
-            'price' => 'required|numeric',
-            'PetTypes_id' => 'required|numeric',
-            'PetSizes_id' => 'required|numeric',
-            'Services_id' => 'required|numeric',
+            'Suppliers_id' => 'required|numeric',
+            'Products_id' => 'required|numeric',
+            'itemQty' => 'required|numeric',
             'createdBy' => 'required|numeric',
         ]);
 
-        // $service_detail = new ServiceDetail;
-        // $service_detail->price = $request->price;
-        // $service_detail->PetTypes_id = $request->PetTypes_id;
-        // $service_detail->PetSizes_id = $request->PetSizes_id;
-        // $service_detail->Services_id = $request->Services_id;
-        // $service_detail->createdBy = $request->createdBy;
+        $latest_id = ProductRestock::latest()->withTrashed()->first()->id;
+        $product_restock = new ProductRestock;
+        $product_restock->id = 'PO-'.Carbon::now()->toDateString().'-'.sprintf("%02d", substr($latest_id, strrpos($latest_id, '-') + 1) + 1);
+        $product_restock->itemQty = $request->itemQty;
+        $product_restock->Suppliers_id = $request->Suppliers_id;
+        $product_restock->Products_id = $request->Products_id;
+        $product_restock->createdBy = $request->createdBy;
 
-        // if($service_detail->save()) {
-        //     return response()->json([
-        //         "message" => "Service detail created",
-        //         "data" => $service_detail
-        //     ], 200);
-        // } else {
-        //     return response()->json([
-        //         "message" => "Service detail not created",
-        //         "data" => []
-        //     ], 400);
-        // }
+        if($product_restock->save()) {
+            return response()->json([
+                "message" => "Product restock created",
+                "data" => $product_restock
+            ], 200);
+        } else {
+            return response()->json([
+                "message" => "Product restock not created",
+                "data" => []
+            ], 400);
+        }
     }
 
 
