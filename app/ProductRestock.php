@@ -34,6 +34,8 @@ class ProductRestock extends Model
      * @var string
      */
     protected $table = 'ProductRestock';
+    public $incrementing = false;
+    protected $keyType = 'string';
 
     const CREATED_AT = 'createdAt';
     const UPDATED_AT = 'updatedAt';
@@ -43,14 +45,6 @@ class ProductRestock extends Model
      * @var array
      */
     protected $fillable = ['isArrived', 'createdAt', 'updatedAt', 'createdBy', 'updatedBy', 'itemQty', 'deletedAt'];
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function employeeEmployeesId()
-    {
-        return $this->belongsTo('App\Employee', 'Employees_id');
-    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

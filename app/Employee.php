@@ -71,7 +71,7 @@ class Employee extends Model
      * @var string
      */
     protected $table = 'Employees';
-    protected $softCascade = ['productRestocksEmployeesId'];
+    // protected $softCascade = [''];
 
     const CREATED_AT = 'createdAt';
     const UPDATED_AT = 'updatedAt';
@@ -202,14 +202,6 @@ class Employee extends Model
     public function petsUpdatedBy()
     {
         return $this->hasMany('App\Pet', 'updatedBy');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function productRestocksEmployeesId()
-    {
-        return $this->hasMany('App\ProductRestock', 'Employees_id');
     }
 
     /**
