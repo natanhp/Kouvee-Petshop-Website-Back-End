@@ -129,37 +129,39 @@ class ProductRestockController extends Controller {
     * @OA\Get(
 	*     path="/api/v1/productrestock/getbyid/{id}",
 	*	  tags={"product restock"},
-    *     description="Get an service by id",
+    *     description="Get an product restock by id",
     *     security={
     *     	{"bearerAuth": {}},
 	*     },
 	*	@OA\Parameter(
     *         name="id",
     *         in="path",
-    *         description="Id of the service detail",
+    *         description="Id of the product restock",
     *         required=true,
     *         @OA\Schema(
-    *             type="integer",
-    *             format="int64"
+    *             type="string"
     *         )
     *     ),
     *     @OA\Response(response="default", description="Get a service detail by id")
     * ),
     */
-    public function getServiceDetailById($id) {
-        // $service_detail = ServiceDetail::find($id);
+    public function getProductRestockById($id) {
+        $product_restock = ProductRestock::find($id)->first();
+        $product_restock->supplier_name = Supplier::find($product_restock->Suppliers_id)->name;
+        $product_restock->product_name = Product::find($product_restock->Products_id)->productName;
+        $product_restock->employee_name = Employee::find($product_restock->createdBy)->name;
 
-        // if($service_detail) {
-        //     return response()->json([
-        //         "message" => "Success",
-        //         "data" => $service_detail
-        //     ], 200);
-        // } else {
-        //     return response()->json([
-        //         "message" => "Service detail not found",
-        //         "data" => []
-        //     ], 400);
-        // }
+        if($product_restock) {
+            return response()->json([
+                "message" => "Success",
+                "data" => $product_restock
+            ], 200);
+        } else {
+            return response()->json([
+                "message" => "Product restock not found",
+                "data" => []
+            ], 400);
+        }
     }
 	
 	 /**
