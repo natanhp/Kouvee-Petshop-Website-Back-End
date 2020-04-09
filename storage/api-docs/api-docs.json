@@ -1534,23 +1534,22 @@
                 "tags": [
                     "product restock"
                 ],
-                "description": "Restore the deleted service detail",
+                "description": "Restore the deleted product restock",
                 "operationId": "App\\Http\\Controllers\\ProductRestockController::restore",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Id of a service detail",
+                        "description": "Id of a product restock",
                         "required": true,
                         "schema": {
-                            "type": "integer",
-                            "format": "int64"
+                            "type": "string"
                         }
                     }
                 ],
                 "responses": {
                     "default": {
-                        "description": "Restore the deleted service detail"
+                        "description": "Restore the deleted product restock"
                     }
                 },
                 "security": [
