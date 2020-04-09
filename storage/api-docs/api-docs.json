@@ -1504,23 +1504,22 @@
                 "tags": [
                     "product restock"
                 ],
-                "summary": "Deletes a service detail",
+                "summary": "Deletes a product restock",
                 "operationId": "App\\Http\\Controllers\\ProductRestockController::delete",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Service detail id to delete",
+                        "description": "Product restock id to delete",
                         "required": true,
                         "schema": {
-                            "type": "integer",
-                            "format": "int64"
+                            "type": "string"
                         }
                     }
                 ],
                 "responses": {
                     "400": {
-                        "description": "Service detail not deleted it's because either the deletion failed or service detail to be deleted not found"
+                        "description": "Product restock not deleted it's because either the deletion failed or product restock to be deleted not found"
                     }
                 },
                 "security": [
