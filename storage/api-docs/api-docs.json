@@ -1420,7 +1420,7 @@
                     "product restock"
                 ],
                 "description": "Get an product restock by id",
-                "operationId": "App\\Http\\Controllers\\ProductRestockController::getProductRestockDetailById",
+                "operationId": "App\\Http\\Controllers\\ProductRestockController::getProductRestockById",
                 "parameters": [
                     {
                         "name": "id",
@@ -1458,27 +1458,27 @@
                             "schema": {
                                 "properties": {
                                     "id": {
-                                        "description": "The id of the service",
-                                        "type": "integer"
+                                        "description": "The id of the product restock",
+                                        "type": "string"
                                     },
-                                    "PetTypes_id": {
-                                        "description": "The id of the pet type",
+                                    "Suppliers_id": {
+                                        "description": "The id of the supplier",
                                         "type": "int"
                                     },
-                                    "PetSizes_id": {
-                                        "description": "The id of the pet size",
+                                    "Products_id": {
+                                        "description": "The id of the product",
                                         "type": "int"
                                     },
-                                    "Services_id": {
-                                        "description": "The id of the service",
+                                    "itemQty": {
+                                        "description": "Item quantity",
                                         "type": "int"
                                     },
-                                    "price": {
-                                        "description": "The price of the service",
+                                    "isArrived": {
+                                        "description": "Arrival status",
                                         "type": "int"
                                     },
                                     "updatedBy": {
-                                        "description": "The foreign key of the owner who updates the service",
+                                        "description": "The foreign key of the owner who updates the product restock",
                                         "type": "integer"
                                     }
                                 },
