@@ -296,41 +296,40 @@ class ProductRestockController extends Controller {
     * @OA\Get(
 	*     path="/api/v1/productrestock/restore/{id}",
 	*	  tags={"product restock"},
-	*     description="Restore the deleted service detail",
+	*     description="Restore the deleted product restock",
 	*	  security={
     *     	{"bearerAuth": {}},
 	*     },
 	*	@OA\Parameter(
     *         name="id",
     *         in="path",
-    *         description="Id of a service detail",
+    *         description="Id of a product restock",
     *         required=true,
     *         @OA\Schema(
-    *             type="integer",
-    *             format="int64"
+    *             type="string"
     *         )
     *     ),
-    *     @OA\Response(response="default", description="Restore the deleted service detail")
+    *     @OA\Response(response="default", description="Restore the deleted product restock")
     * ),
     */
 	public function restore($id) {
-	// 	$service_detail = ServiceDetail::onlyTrashed()->where('id', $id);
+		$product_restock = ProductRestock::onlyTrashed()->where('id', $id);
 		
-	// 	if($service_detail) {
-	// 		$service_detail->restore();
-	// 		$service_detail = ServiceDetail::find($id);
-	// 		$service_detail->save();
+		if($product_restock) {
+			$product_restock->restore();
+			$product_restock = ProductRestock::find($id);
+			$product_restock->save();
 
-	// 		return response()->json([
-	// 			"message" => "Service detail restored",
-	// 			"data" => $service_detail
-	// 		], 200);
-	// 	} else {
-	// 		return response()->json([
-	// 			"message" => "Service detail not restored",
-	// 			"data" => []
-	// 		], 400);
-	// 	}
+			return response()->json([
+				"message" => "Product restock restored",
+				"data" => $product_restock
+			], 200);
+		} else {
+			return response()->json([
+				"message" => "Product restock not restored",
+				"data" => []
+			], 400);
+		}
     }
 }
 ?>
