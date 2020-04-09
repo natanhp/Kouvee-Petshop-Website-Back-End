@@ -184,32 +184,32 @@ class ProductRestockController extends Controller {
      *                 type="object",
 	 * 				   @OA\Property(
      *                     property="id",
-     *                     description="The id of the service",
-     *                     type="integer",
+     *                     description="The id of the product restock",
+     *                     type="string",
      *                 ),
-     *                                  @OA\Property(
-     *                     property="PetTypes_id",
-     *                     description="The id of the pet type",
+     *                 @OA\Property(
+     *                     property="Suppliers_id",
+     *                     description="The id of the supplier",
      *                     type="int",
      *                 ),
      *                 @OA\Property(
-     *                     property="PetSizes_id",
-     *                     description="The id of the pet size",
+     *                     property="Products_id",
+     *                     description="The id of the product",
      *                     type="int",
      *                 ),
      *                 @OA\Property(
-     *                     property="Services_id",
-     *                     description="The id of the service",
+     *                     property="itemQty",
+     *                     description="Item quantity",
      *                     type="int",
      *                 ),
      *                 @OA\Property(
-     *                     property="price",
-     *                     description="The price of the service",
+     *                     property="isArrived",
+     *                     description="Arrival status",
      *                     type="int",
      *                 ),
      *                 @OA\Property(
      *                     property="updatedBy",
-     *                     description="The foreign key of the owner who updates the service",
+     *                     description="The foreign key of the owner who updates the product restock",
      *                     type="integer"
      *                 )
      *             )
@@ -220,33 +220,35 @@ class ProductRestockController extends Controller {
     public function update(Request $request) {
 
         $this->validate($request, [
-            'price' => 'required|numeric',
-            'PetTypes_id' => 'required|numeric',
-            'PetSizes_id' => 'required|numeric',
-            'Services_id' => 'required|numeric',
+            'Suppliers_id' => 'required|numeric',
+            'Products_id' => 'required|numeric',
+            'itemQty' => 'required|numeric',
             'updatedBy' => 'required|numeric',
-            'id' => 'required|numeric',
+            'isArrived' => 'required|numeric',
+            'id' => 'required',
         ]);
 
-		// $service_detail = ServiceDetail::find($request->id);
-		// if($service_detail) {
-        //     $service_detail->price = $request->price;
-        //     $service_detail->PetTypes_id = $request->PetTypes_id;
-        //     $service_detail->PetSizes_id = $request->PetSizes_id;
-        //     $service_detail->Services_id = $request->Services_id;
-        //     $service_detail->updatedBy = $request->updatedBy;
-
-		// 	if($service_detail->save()) {
-		// 		return response()->json([
-		// 			"message" => "Service detail updated",
-		// 			"data" => $service_detail
-		// 		], 200);
-		// 	}
-		// }
-        // return response()->json([
-        //     "message" => "Service detail not updated",
-        //     "data" => []
-        // ], 400);
+        $product_restock = ProductRestock::find($request->id)->first();
+        
+        if($product_restock) {
+            $product_restock->itemQty = $request->itemQty;
+            $product_restock->Suppliers_id = $request->Suppliers_id;
+            $product_restock->Products_id = $request->Products_id;
+            $product_restock->isArrived = $request->isArrived;
+            $product_restock->updatedBy = $request->updatedBy;
+            
+            if($product_restock->save()) {
+				return response()->json([
+					"message" => "Product restock updated",
+					"data" => $product_restock
+				], 200);
+			}
+        }
+        
+        return response()->json([
+            "message" => "Product restock not updated",
+            "data" => []
+        ], 400);
 	}
 	
 	/**
