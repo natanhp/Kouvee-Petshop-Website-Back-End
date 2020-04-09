@@ -128,6 +128,6 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         $router->get('getbyid/{id}', 'ProductRestockController@getProductRestockById');
         $router->put('update', 'ProductRestockController@update');
         $router->delete('delete/{id}', 'ProductRestockController@delete');
-        // $router->get('restore/{id}', 'SuppliersController@restore');
+        $router->get('restore/{id}', 'ProductRestockController@restore');
     });
 });
