@@ -255,20 +255,19 @@ class ProductRestockController extends Controller {
      * @OA\Delete(
      *     path="/api/v1/productrestock/delete/{id}",
      *     tags={"product restock"},
-     *     summary="Deletes a service detail",
+     *     summary="Deletes a product restock",
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
-     *         description="Service detail id to delete",
+     *         description="Product restock id to delete",
      *         required=true,
      *         @OA\Schema(
-     *             type="integer",
-     *             format="int64"
+     *             type="string"
      *         ),
      *     ),
      *     @OA\Response(
      *         response=400,
-     *         description="Service detail not deleted it's because either the deletion failed or service detail to be deleted not found",
+     *         description="Product restock not deleted it's because either the deletion failed or product restock to be deleted not found",
      *     ),
      *     security={
      *         {"bearerAuth": {}}
@@ -276,20 +275,20 @@ class ProductRestockController extends Controller {
      * )
      */
 	public function delete($id) {
-		// $service_detail = ServiceDetail::find($id);
+		$product_restock = ProductRestock::find($id);
 		
-		// if($service_detail->delete()) {
-		// 	$service_detail->save();
-		// 	return response()->json([
-		// 		"message" => "Service detail deleted",
-		// 		"data" => []
-		// 	], 200);
-		// } else {
-		// 	return response()->json([
-		// 		"message" => "Service detail not deleted",
-		// 		"data" => []
-		// 	], 400);
-		// }
+		if($product_restock->delete()) {
+			$product_restock->save();
+			return response()->json([
+				"message" => "Product restock deleted",
+				"data" => []
+			], 200);
+		} else {
+			return response()->json([
+				"message" => "Product restock not deleted",
+				"data" => []
+			], 400);
+		}
 	}
 
 
