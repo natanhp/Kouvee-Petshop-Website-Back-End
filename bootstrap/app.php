@@ -27,6 +27,8 @@ $app->withEloquent();
 
 $app->configure('swagger-lume');
 
+class_alias(\LaravelFCM\Facades\FCM::class, 'FCM');
+
 /*
 |--------------------------------------------------------------------------
 | Register Container Bindings
@@ -109,6 +111,7 @@ $app->register(\Krlove\EloquentModelGenerator\Provider\GeneratorServiceProvider:
 $app->register(\SwaggerLume\ServiceProvider::class);
 $app->register(\Askedio\SoftCascade\Providers\LumenServiceProvider::class);
 $app->register(Fruitcake\Cors\CorsServiceProvider::class);
+$app->register(LaravelFCM\FCMServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
