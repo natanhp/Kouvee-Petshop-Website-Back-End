@@ -59,6 +59,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Supplier[] $suppliers
  * @property Supplier[] $suppliers
  * @property Supplier[] $suppliers
+ * @property fcm[] $fcms
  */
 class Employee extends Model
 {
@@ -386,5 +387,13 @@ class Employee extends Model
     public function suppliersUpdatedBy()
     {
         return $this->hasMany('App\Supplier', 'updatedBy');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function fcmToken()
+    {
+        return $this->hasMany('App\FCM', 'employee_id');
     }
 }
