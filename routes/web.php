@@ -130,4 +130,10 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         $router->delete('delete/{id}', 'ProductRestockController@delete');
         $router->get('restore/{id}', 'ProductRestockController@restore');
     });
+
+    $router->group(['prefix' => 'fcm', 'middleware' => ['jwt.auth', 'only.owner']], function () use ($router) {
+        $router->get('getall', 'FCMController@getAll');
+        $router->post('insert', 'FCMController@insert');
+        $router->delete('delete/{id}', 'FCMController@delete');
+    });
 });
