@@ -614,6 +614,95 @@
                 ]
             }
         },
+        "/api/v1/fcm/getall": {
+            "get": {
+                "tags": [
+                    "fcm"
+                ],
+                "description": "Get all the fcm token",
+                "operationId": "App\\Http\\Controllers\\PetsController::getAll",
+                "responses": {
+                    "default": {
+                        "description": "Get all the fcm token"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/fcm/insert": {
+            "post": {
+                "tags": [
+                    "fcm"
+                ],
+                "summary": "Insert a new fcm token",
+                "operationId": "App\\Http\\Controllers\\PetsController::insert",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "fcm_token": {
+                                        "description": "The FCM token",
+                                        "type": "string"
+                                    },
+                                    "employee_id": {
+                                        "description": "The employee id",
+                                        "type": "int"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/fcm/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "fcm"
+                ],
+                "summary": "Delete a fcm token",
+                "operationId": "App\\Http\\Controllers\\PetsController::delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Fcm id to be deleted",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Fcm not deleted it's because either the deletion failed or fcm to be deleted not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/uni/petsizes/getall": {
             "get": {
                 "tags": [
