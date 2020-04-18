@@ -620,7 +620,7 @@
                     "fcm"
                 ],
                 "description": "Get all the fcm token",
-                "operationId": "App\\Http\\Controllers\\PetsController::getAll",
+                "operationId": "App\\Http\\Controllers\\FCMController::getAll",
                 "responses": {
                     "default": {
                         "description": "Get all the fcm token"
@@ -639,14 +639,14 @@
                     "fcm"
                 ],
                 "summary": "Insert a new fcm token",
-                "operationId": "App\\Http\\Controllers\\PetsController::insert",
+                "operationId": "App\\Http\\Controllers\\FCMController::insert",
                 "requestBody": {
                     "description": "Input data format",
                     "content": {
                         "application/x-www-form-urlencoded": {
                             "schema": {
                                 "properties": {
-                                    "fcm_token": {
+                                    "token": {
                                         "description": "The FCM token",
                                         "type": "string"
                                     },
@@ -678,7 +678,7 @@
                     "fcm"
                 ],
                 "summary": "Delete a fcm token",
-                "operationId": "App\\Http\\Controllers\\PetsController::delete",
+                "operationId": "App\\Http\\Controllers\\FCMController::delete",
                 "parameters": [
                     {
                         "name": "id",

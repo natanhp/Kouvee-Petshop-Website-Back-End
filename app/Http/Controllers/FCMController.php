@@ -60,7 +60,7 @@ class FCMController extends Controller {
      *             @OA\Schema(
      *                 type="object",
      *                 @OA\Property(
-     *                     property="fcm_token",
+     *                     property="token",
      *                     description="The FCM token",
      *                     type="string",
      *                 ),
@@ -82,7 +82,7 @@ class FCMController extends Controller {
         ]);
 
         $fcm = new FCM;
-        $fcm->token = $request->fcm_token;
+        $fcm->token = $request->token;
         $fcm->employee_id = $request->employee_id;
 
         if($fcm->save()) {
