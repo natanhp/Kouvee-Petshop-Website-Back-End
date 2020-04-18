@@ -112,6 +112,8 @@ $app->register(\SwaggerLume\ServiceProvider::class);
 $app->register(\Askedio\SoftCascade\Providers\LumenServiceProvider::class);
 $app->register(Fruitcake\Cors\CorsServiceProvider::class);
 $app->register(LaravelFCM\FCMServiceProvider::class);
+$app->register(Laravel\Tinker\TinkerServiceProvider::class);
+
 
 /*
 |--------------------------------------------------------------------------
