@@ -77,7 +77,7 @@ class FCMController extends Controller {
     public function insert(Request $request) {
 
         $this->validate($request, [
-            'fcm_token' => 'required',
+            'token' => 'required',
             'employee_id' => 'required|numeric',
         ]);
 
