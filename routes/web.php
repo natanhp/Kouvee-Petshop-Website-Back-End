@@ -134,6 +134,6 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
     $router->group(['prefix' => 'fcm', 'middleware' => ['jwt.auth', 'only.owner']], function () use ($router) {
         $router->get('getall', 'FCMController@getAll');
         $router->post('insert', 'FCMController@insert');
-        $router->delete('delete/{id}', 'FCMController@delete');
+        $router->delete('delete/{token}', 'FCMController@delete');
     });
 });

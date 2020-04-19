@@ -100,11 +100,11 @@ class FCMController extends Controller {
 	
 	/**
      * @OA\Delete(
-     *     path="/api/v1/fcm/delete/{id}",
+     *     path="/api/v1/fcm/delete/{token}",
      *     tags={"fcm"},
      *     summary="Delete a fcm token",
      *     @OA\Parameter(
-     *         name="id",
+     *         name="token",
      *         in="path",
      *         description="Fcm id to be deleted",
      *         required=true,
@@ -122,8 +122,9 @@ class FCMController extends Controller {
      *     },
      * )
      */
-	public function delete($id) {
-		if(FCM::destroy($id)) {
+	public function delete($token) {
+        $fcm = FCM::where("token", $token)->first();
+		if($fcm->delete()) {
 			return response()->json([
 				"message" => "FCM is deleted",
 				"data" => []
