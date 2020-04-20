@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $token
  * @property Employee $employee
  */
-class FCM extends Model
+class FCMModel extends Model
 {
     /**
      * The table associated with the model.

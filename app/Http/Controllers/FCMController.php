@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\FCM;
+use App\FCMModel;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 
@@ -26,7 +26,7 @@ class FCMController extends Controller {
     * ),
     */
     public function getAll() {
-        $fcms = FCM::all();
+        $fcms = FCMModel::all();
     
         if(!$fcms) {
             return response()->json([
@@ -81,7 +81,7 @@ class FCMController extends Controller {
             'employee_id' => 'required|numeric',
         ]);
 
-        $fcm = new FCM;
+        $fcm = new FCMModel;
         $fcm->token = $request->token;
         $fcm->employee_id = $request->employee_id;
 
@@ -123,7 +123,7 @@ class FCMController extends Controller {
      * )
      */
 	public function delete($token) {
-        $fcm = FCM::where("token", $token)->first();
+        $fcm = FCMModel::where("token", $token)->first();
 		if($fcm->delete()) {
 			return response()->json([
 				"message" => "FCM is deleted",

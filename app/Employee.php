@@ -59,7 +59,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Supplier[] $suppliers
  * @property Supplier[] $suppliers
  * @property Supplier[] $suppliers
- * @property fcm[] $fcms
+ * @property FCMModel[] $fcms
  */
 class Employee extends Model
 {
@@ -394,6 +394,6 @@ class Employee extends Model
      */
     public function fcmToken()
     {
-        return $this->hasMany('App\FCM', 'employee_id');
+        return $this->hasMany('App\FCMModel', 'employee_id');
     }
 }
