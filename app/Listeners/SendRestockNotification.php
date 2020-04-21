@@ -48,7 +48,8 @@ class SendRestockNotification implements ShouldQueue
 
         $notificationBuilder = new PayloadNotificationBuilder("$product_name Hampir Habis");
         $notificationBuilder->setBody("Stok produk sekarang $product_stock $product_metric")
-                            ->setSound('default');
+                            ->setSound('default')
+                            ->setChannelId('min_qty_warning');
 
         $option = $optionBuilder->build();
         $notification = $notificationBuilder->build();
@@ -57,21 +58,5 @@ class SendRestockNotification implements ShouldQueue
         $tokens = FCMModel::pluck('token')->toArray();
 
         $downstreamResponse = FCM::sendTo($tokens, $option, $notification);
-
-        $downstreamResponse->numberSuccess();
-        $downstreamResponse->numberFailure();
-        $downstreamResponse->numberModification();
-
-        // return Array - you must remove all this tokens in your database
-        $downstreamResponse->tokensToDelete();
-
-        // return Array (key : oldToken, value : new token - you must change the token in your database)
-        $downstreamResponse->tokensToModify();
-
-        // return Array - you should try to resend the message to the tokens in the array
-        $downstreamResponse->tokensToRetry();
-
-        // return Array (key:token, value:error) - in production you should remove from your database the tokens present in this array
-        $downstreamResponse->tokensWithError();
     }
 }
