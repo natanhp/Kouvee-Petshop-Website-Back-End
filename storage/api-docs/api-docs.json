@@ -672,7 +672,7 @@
                 ]
             }
         },
-        "/api/v1/fcm/delete/{id}": {
+        "/api/v1/fcm/delete/{token}": {
             "delete": {
                 "tags": [
                     "fcm"
@@ -681,7 +681,7 @@
                 "operationId": "App\\Http\\Controllers\\FCMController::delete",
                 "parameters": [
                     {
-                        "name": "id",
+                        "name": "token",
                         "in": "path",
                         "description": "Fcm id to be deleted",
                         "required": true,
@@ -1466,20 +1466,20 @@
                 "requestBody": {
                     "description": "Input data format",
                     "content": {
-                        "application/x-www-form-urlencoded": {
+                        "application/json": {
                             "schema": {
                                 "properties": {
                                     "Suppliers_id": {
                                         "description": "The id of the supplier",
-                                        "type": "int"
+                                        "type": "integer"
                                     },
-                                    "Products_id": {
-                                        "description": "The id of the product",
-                                        "type": "int"
+                                    "isArrived": {
+                                        "description": "The arrival status",
+                                        "type": "integer"
                                     },
-                                    "itemQty": {
-                                        "description": "The queantity of the ordered item",
-                                        "type": "int"
+                                    "productRestockDetails": {
+                                        "description": "Array of Product Restock Detail",
+                                        "type": "string"
                                     },
                                     "createdBy": {
                                         "description": "The id of the owner",
@@ -1524,61 +1524,6 @@
                 "responses": {
                     "default": {
                         "description": "Get a service detail by id"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        },
-        "/api/v1/productrestock/update": {
-            "put": {
-                "tags": [
-                    "product restock"
-                ],
-                "summary": "Update a service detail",
-                "operationId": "App\\Http\\Controllers\\ProductRestockController::update",
-                "requestBody": {
-                    "description": "Input data format",
-                    "content": {
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "properties": {
-                                    "id": {
-                                        "description": "The id of the product restock",
-                                        "type": "string"
-                                    },
-                                    "Suppliers_id": {
-                                        "description": "The id of the supplier",
-                                        "type": "int"
-                                    },
-                                    "Products_id": {
-                                        "description": "The id of the product",
-                                        "type": "int"
-                                    },
-                                    "itemQty": {
-                                        "description": "Item quantity",
-                                        "type": "int"
-                                    },
-                                    "isArrived": {
-                                        "description": "Arrival status",
-                                        "type": "int"
-                                    },
-                                    "updatedBy": {
-                                        "description": "The foreign key of the owner who updates the product restock",
-                                        "type": "integer"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "400": {
-                        "description": "Error"
                     }
                 },
                 "security": [
