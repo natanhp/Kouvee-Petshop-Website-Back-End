@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\ProductRestock;
+use App\ProductRestockDetail;
 use App\Product;
 use App\Employee;
 use App\Supplier;
@@ -41,8 +42,8 @@ class ProductRestockController extends Controller {
 
         foreach($product_restocks as $product_restock) {
             $product_restock->supplier_name = Supplier::find($product_restock->Suppliers_id)->name;
-            $product_restock->product_name = Product::find($product_restock->Products_id)->productName;
             $product_restock->employee_name = Employee::find($product_restock->createdBy)->name;
+            $product_restock->productRestockDetails;
         }
 
         return response()->json([
@@ -66,23 +67,23 @@ class ProductRestockController extends Controller {
      *     @OA\RequestBody(
      *         description="Input data format",
      *         @OA\MediaType(
-     *             mediaType="application/x-www-form-urlencoded",
+     *             mediaType="application/json",
      *             @OA\Schema(
      *                 type="object",
      *                 @OA\Property(
      *                     property="Suppliers_id",
      *                     description="The id of the supplier",
-     *                     type="int",
+     *                     type="integer",
      *                 ),
      *                 @OA\Property(
-     *                     property="Products_id",
-     *                     description="The id of the product",
-     *                     type="int",
+     *                     property="isArrived",
+     *                     description="The arrival status",
+     *                     type="integer",
      *                 ),
      *                 @OA\Property(
-     *                     property="itemQty",
-     *                     description="The queantity of the ordered item",
-     *                     type="int",
+     *                     property="productRestockDetails",
+     *                     description="Array of Product Restock Detail",
+     *                     type="string",
      *                 ),
      *                 @OA\Property(
      *                     property="createdBy",
@@ -98,30 +99,47 @@ class ProductRestockController extends Controller {
 
         $this->validate($request, [
             'Suppliers_id' => 'required|numeric',
-            'Products_id' => 'required|numeric',
-            'itemQty' => 'required|numeric',
             'createdBy' => 'required|numeric',
+            'isArrived' => 'required|numeric',
+            'productRestockDetails' => 'required',
         ]);
 
-        $latest_id = ProductRestock::latest()->withTrashed()->first()->id;
+        $latest_id = ProductRestock::latest()->withTrashed()->first();
+        $current_id;
+        if ($latest_id == null) {
+            $current_id = 'PO-'.Carbon::now()->toDateString().'-'.'00';    
+        } else {
+            $current_id = 'PO-'.Carbon::now()->toDateString().'-'.sprintf("%02d", substr($latest_id->id, strrpos($latest_id->id, '-') + 1) + 1);
+        }
+
         $product_restock = new ProductRestock;
-        $product_restock->id = 'PO-'.Carbon::now()->toDateString().'-'.sprintf("%02d", substr($latest_id, strrpos($latest_id, '-') + 1) + 1);
-        $product_restock->itemQty = $request->itemQty;
-        $product_restock->Suppliers_id = $request->Suppliers_id;
-        $product_restock->Products_id = $request->Products_id;
+        $product_restock->id = $current_id;
         $product_restock->createdBy = $request->createdBy;
+        $product_restock->isArrived = $request->isArrived;
+        $product_restock->Suppliers_id = $request->Suppliers_id;
 
         if($product_restock->save()) {
+            foreach($request->productRestockDetails as $item) {
+                $product_restock_detail = new ProductRestockDetail;
+                $product_restock_detail->itemQty = $item['itemQty'];
+                $product_restock_detail->Products_id = $item['Products_id'];
+                $product_restock_detail->createdBy = $item['createdBy'];
+                $product_restock_detail->product_restock_id = $current_id;
+                $created_by = $item['createdBy'];
+
+                $product_restock_detail->save();
+            }
+
+         
             return response()->json([
                 "message" => "Product restock created",
                 "data" => $product_restock
             ], 200);
-        } else {
-            return response()->json([
-                "message" => "Product restock not created",
-                "data" => []
-            ], 400);
         }
+        return response()->json([
+            "message" => "Product restock not created",
+            "data" => []
+        ], 400);
     }
 
 
@@ -163,93 +181,6 @@ class ProductRestockController extends Controller {
             ], 400);
         }
     }
-	
-	 /**
-     * @OA\Put(
-     *     path="/api/v1/productrestock/update",
-     *     tags={"product restock"},
-     *     summary="Update a service detail",
-     *     @OA\Response(
-     *         response=400,
-     *         description="Error"
-     *     ),
-     *     security={
-     *         {"bearerAuth": {}}
-     *     },
-     *     @OA\RequestBody(
-     *         description="Input data format",
-     *         @OA\MediaType(
-     *             mediaType="application/x-www-form-urlencoded",
-     *             @OA\Schema(
-     *                 type="object",
-	 * 				   @OA\Property(
-     *                     property="id",
-     *                     description="The id of the product restock",
-     *                     type="string",
-     *                 ),
-     *                 @OA\Property(
-     *                     property="Suppliers_id",
-     *                     description="The id of the supplier",
-     *                     type="int",
-     *                 ),
-     *                 @OA\Property(
-     *                     property="Products_id",
-     *                     description="The id of the product",
-     *                     type="int",
-     *                 ),
-     *                 @OA\Property(
-     *                     property="itemQty",
-     *                     description="Item quantity",
-     *                     type="int",
-     *                 ),
-     *                 @OA\Property(
-     *                     property="isArrived",
-     *                     description="Arrival status",
-     *                     type="int",
-     *                 ),
-     *                 @OA\Property(
-     *                     property="updatedBy",
-     *                     description="The foreign key of the owner who updates the product restock",
-     *                     type="integer"
-     *                 )
-     *             )
-     *         )
-     *     )
-     * )
-     */
-    public function update(Request $request) {
-
-        $this->validate($request, [
-            'Suppliers_id' => 'required|numeric',
-            'Products_id' => 'required|numeric',
-            'itemQty' => 'required|numeric',
-            'updatedBy' => 'required|numeric',
-            'isArrived' => 'required|numeric',
-            'id' => 'required',
-        ]);
-
-        $product_restock = ProductRestock::find($request->id)->first();
-        
-        if($product_restock) {
-            $product_restock->itemQty = $request->itemQty;
-            $product_restock->Suppliers_id = $request->Suppliers_id;
-            $product_restock->Products_id = $request->Products_id;
-            $product_restock->isArrived = $request->isArrived;
-            $product_restock->updatedBy = $request->updatedBy;
-            
-            if($product_restock->save()) {
-				return response()->json([
-					"message" => "Product restock updated",
-					"data" => $product_restock
-				], 200);
-			}
-        }
-        
-        return response()->json([
-            "message" => "Product restock not updated",
-            "data" => []
-        ], 400);
-	}
 	
 	/**
      * @OA\Delete(
