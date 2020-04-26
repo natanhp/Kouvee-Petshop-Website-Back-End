@@ -7,26 +7,21 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property string $id
- * @property string $isArrived
  * @property string $createdAt
  * @property string $updatedAt
- * @property int $Suppliers_id
- * @property int $Products_id
- * @property int $Employees_id
  * @property int $createdBy
  * @property int $updatedBy
- * @property int $itemQty
  * @property string $deletedAt
- * @property Employee $employee
- * @property Product $product
- * @property Supplier $supplier
+ * @property string $isArrived
  * @property Employee $employee
  * @property Employee $employee
+ * @property Supplier $Suppliers_id
+ * @property ProductRestockDetail[] $productRestockDetails
  */
 class ProductRestock extends Model
 {
-
     use SoftDeletes;
+    use \Askedio\SoftCascade\Traits\SoftCascadeTrait;
 
     /**
      * The table associated with the model.
@@ -34,33 +29,31 @@ class ProductRestock extends Model
      * @var string
      */
     protected $table = 'ProductRestock';
-    public $incrementing = false;
-    protected $keyType = 'string';
+
+    protected $softCascade = ['productRestockDetails'];
 
     const CREATED_AT = 'createdAt';
     const UPDATED_AT = 'updatedAt';
     const DELETED_AT = 'deletedAt';
 
     /**
+     * The "type" of the auto-incrementing ID.
+     * 
+     * @var string
+     */
+    protected $keyType = 'string';
+
+    /**
+     * Indicates if the IDs are auto-incrementing.
+     * 
+     * @var bool
+     */
+    public $incrementing = false;
+
+    /**
      * @var array
      */
-    protected $fillable = ['isArrived', 'createdAt', 'updatedAt', 'createdBy', 'updatedBy', 'itemQty', 'deletedAt'];
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function product()
-    {
-        return $this->belongsTo('App\Product', 'Products_id');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function supplier()
-    {
-        return $this->belongsTo('App\Supplier', 'Suppliers_id', 'idSupplier');
-    }
+    protected $fillable = ['createdAt', 'updatedAt', 'createdBy', 'updatedBy', 'deletedAt', 'isArrived', 'Suppliers_id'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -76,5 +69,21 @@ class ProductRestock extends Model
     public function employeeUpdatedBy()
     {
         return $this->belongsTo('App\Employee', 'updatedBy');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function supplier()
+    {
+        return $this->belongsTo('App\Supplier', 'Suppliers_id', 'idSupplier');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function productRestockDetails()
+    {
+        return $this->hasMany('App\ProductRestockDetail', 'product_restock_id');
     }
 }
