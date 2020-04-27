@@ -125,7 +125,7 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
     $router->group(['prefix' => 'productrestock', 'middleware' => ['jwt.auth', 'only.owner']], function () use ($router) {
         $router->get('getall', 'ProductRestockController@getAll');
         $router->post('insert', 'ProductRestockController@insert');
-        $router->get('getbyid/{id}', 'ProductRestockController@getProductRestockById');
+        $router->get('confirm/{id}/{ownerId}', 'ProductRestockController@confirm');
         $router->put('update', 'ProductRestockController@update');
         $router->delete('delete/{id}', 'ProductRestockController@delete');
         $router->get('restore/{id}', 'ProductRestockController@restore');
