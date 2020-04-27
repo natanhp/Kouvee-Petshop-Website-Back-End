@@ -150,9 +150,9 @@ class ProductRestockController extends Controller {
 
     /**
     * @OA\Get(
-	*     path="/api/v1/productrestock/getbyid/{id}",
+	*     path="/api/v1/productrestock/confirm/{id}/{ownerId}",
 	*	  tags={"product restock"},
-    *     description="Get an product restock by id",
+    *     description="Confirm restock",
     *     security={
     *     	{"bearerAuth": {}},
 	*     },
@@ -165,23 +165,39 @@ class ProductRestockController extends Controller {
     *             type="string"
     *         )
     *     ),
-    *     @OA\Response(response="default", description="Get a service detail by id")
+	*	@OA\Parameter(
+    *         name="ownerId",
+    *         in="path",
+    *         description="Id of the owner",
+    *         required=true,
+    *         @OA\Schema(
+    *             type="integer"
+    *         )
+    *     ),
+    *     @OA\Response(response="default", description="Product restock confirmed")
     * ),
     */
-    public function getProductRestockById($id) {
+    public function confirm($id, $ownerId) {
         $product_restock = ProductRestock::find($id)->first();
-        $product_restock->supplier_name = Supplier::find($product_restock->Suppliers_id)->name;
-        $product_restock->product_name = Product::find($product_restock->Products_id)->productName;
-        $product_restock->employee_name = Employee::find($product_restock->createdBy)->name;
+        $product_restock_details = ProductRestockDetail::where('product_restock_id', $product_restock->id)->get();
+        foreach($product_restock_details as $product_restock_detail) {
+            $id = $product_restock_detail->Products_id;
+            $itemQty = $product_restock_detail->itemQty;
+            $product = Product::find($id);
+            $product->productQuantity += $itemQty;
+            $product->updatedBy = $ownerId;
 
-        if($product_restock) {
+            $product->save();
+        }
+
+        if($product_restock->delete()) {
             return response()->json([
                 "message" => "Success",
-                "data" => $product_restock
+                "data" => "Stock updated"
             ], 200);
         } else {
             return response()->json([
-                "message" => "Product restock not found",
+                "message" => "Stock not updated",
                 "data" => []
             ], 400);
         }
@@ -249,7 +265,7 @@ class ProductRestockController extends Controller {
     * ),
     */
 	public function restore($id) {
-		$product_restock = ProductRestock::onlyTrashed()->where('id', $id);
+		$product_restock = ProductRestock::onlyTrashed()->where('id', $id)->first();
 		
 		if($product_restock) {
 			$product_restock->restore();
