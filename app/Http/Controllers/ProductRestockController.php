@@ -31,7 +31,7 @@ class ProductRestockController extends Controller {
     * ),
     */
     public function getAll() {
-        $product_restocks = ProductRestock::all();
+        $product_restocks = ProductRestock::where('isArrived', 1)->get();
     
         if(!$product_restocks) {
             return response()->json([
@@ -43,7 +43,12 @@ class ProductRestockController extends Controller {
         foreach($product_restocks as $product_restock) {
             $product_restock->supplier_name = Supplier::find($product_restock->Suppliers_id)->name;
             $product_restock->employee_name = Employee::find($product_restock->createdBy)->name;
-            $product_restock->productRestockDetails;
+            $product_restock_details = ProductRestockDetail::where('product_restock_id', $product_restock->id)->get();
+            foreach($product_restock_details as $product_restock_detail) {
+                $product_restock_detail->product_name = Product::find($product_restock_detail->Products_id)->productName;
+                $product_restock_detail->measurement = Product::find($product_restock_detail->Products_id)->meassurement;
+            }
+            $product_restock->productRestockDetails = $product_restock_details;
         }
 
         return response()->json([
@@ -115,7 +120,7 @@ class ProductRestockController extends Controller {
         $product_restock = new ProductRestock;
         $product_restock->id = $current_id;
         $product_restock->createdBy = $request->createdBy;
-        $product_restock->isArrived = $request->isArrived;
+        $product_restock->isArrived = 1;
         $product_restock->Suppliers_id = $request->Suppliers_id;
 
         if($product_restock->save()) {
