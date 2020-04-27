@@ -1503,13 +1503,13 @@
                 ]
             }
         },
-        "/api/v1/productrestock/getbyid/{id}": {
+        "/api/v1/productrestock/confirm/{id}/{ownerId}": {
             "get": {
                 "tags": [
                     "product restock"
                 ],
-                "description": "Get an product restock by id",
-                "operationId": "App\\Http\\Controllers\\ProductRestockController::getProductRestockById",
+                "description": "Confirm restock",
+                "operationId": "App\\Http\\Controllers\\ProductRestockController::confirm",
                 "parameters": [
                     {
                         "name": "id",
@@ -1519,11 +1519,20 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "name": "ownerId",
+                        "in": "path",
+                        "description": "Id of the owner",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
                     }
                 ],
                 "responses": {
                     "default": {
-                        "description": "Get a service detail by id"
+                        "description": "Product restock confirmed"
                     }
                 },
                 "security": [
