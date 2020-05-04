@@ -193,7 +193,7 @@ class ProductRestockController extends Controller {
         if($product_restock->delete()) {
             return response()->json([
                 "message" => "Success",
-                "data" => "Stock updated"
+                "data" => [$product_restock]
             ], 200);
         } else {
             return response()->json([
