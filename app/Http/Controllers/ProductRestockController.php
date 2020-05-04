@@ -138,7 +138,7 @@ class ProductRestockController extends Controller {
          
             return response()->json([
                 "message" => "Product restock created",
-                "data" => $product_restock
+                "data" => [$product_restock]
             ], 200);
         }
         return response()->json([
