@@ -6,6 +6,7 @@ use App\Product;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Events\ProductMinReached;
 use finfo;
 
 class ProductsController extends Controller {
@@ -301,6 +302,8 @@ class ProductsController extends Controller {
             $product->updatedBy = $request->updatedBy;
 
 			if($product->save()) {
+                event(new ProductMinReached($product));
+
 				return response()->json([
 					"message" => "Product updated",
 					"data" => [

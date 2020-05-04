@@ -59,10 +59,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Supplier[] $suppliers
  * @property Supplier[] $suppliers
  * @property Supplier[] $suppliers
+ * @property FCMModel[] $fcms
  */
 class Employee extends Model
 {
     use SoftDeletes;
+    use \Askedio\SoftCascade\Traits\SoftCascadeTrait;
 
     /**
      * The table associated with the model.
@@ -70,6 +72,7 @@ class Employee extends Model
      * @var string
      */
     protected $table = 'Employees';
+    // protected $softCascade = [''];
 
     const CREATED_AT = 'createdAt';
     const UPDATED_AT = 'updatedAt';
@@ -200,14 +203,6 @@ class Employee extends Model
     public function petsUpdatedBy()
     {
         return $this->hasMany('App\Pet', 'updatedBy');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function productRestocksEmployeesId()
-    {
-        return $this->hasMany('App\ProductRestock', 'Employees_id');
     }
 
     /**
@@ -392,5 +387,13 @@ class Employee extends Model
     public function suppliersUpdatedBy()
     {
         return $this->hasMany('App\Supplier', 'updatedBy');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function fcmToken()
+    {
+        return $this->hasMany('App\FCMModel', 'employee_id');
     }
 }

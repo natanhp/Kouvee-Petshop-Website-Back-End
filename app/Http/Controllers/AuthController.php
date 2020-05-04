@@ -63,7 +63,8 @@ class AuthController extends Controller {
         }
 
         if(Hash::check($this->request->password, $employee->password)) {
-            return response()->json(['message' => "Success", "data" => $employee, "token" => $this->generateToken($employee)], 200);
+            $employee->token = $this->generateToken($employee);
+            return response()->json(['message' => "Success", "data" => [$employee]], 200);
         } else {
             return response()->json(['message' => "Username or password is wrong", "data" => []], 400);
         }

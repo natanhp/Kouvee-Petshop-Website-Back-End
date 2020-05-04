@@ -25,7 +25,7 @@ $app->withFacades();
 
 $app->withEloquent();
 
-$app->configure('swagger-lume');
+class_alias(\LaravelFCM\Facades\FCM::class, 'FCM');
 
 /*
 |--------------------------------------------------------------------------
@@ -61,6 +61,7 @@ $app->singleton(
 
 $app->configure('app');
 $app->configure('cors');
+$app->configure('swagger-lume');
 
 /*
 |--------------------------------------------------------------------------
@@ -104,11 +105,14 @@ $app->middleware([
 
 // $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
-// $app->register(App\Providers\EventServiceProvider::class);
+$app->register(App\Providers\EventServiceProvider::class);
 $app->register(\Krlove\EloquentModelGenerator\Provider\GeneratorServiceProvider::class);
 $app->register(\SwaggerLume\ServiceProvider::class);
 $app->register(\Askedio\SoftCascade\Providers\LumenServiceProvider::class);
 $app->register(Fruitcake\Cors\CorsServiceProvider::class);
+$app->register(LaravelFCM\FCMServiceProvider::class);
+$app->register(Laravel\Tinker\TinkerServiceProvider::class);
+
 
 /*
 |--------------------------------------------------------------------------

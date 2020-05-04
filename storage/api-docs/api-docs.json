@@ -614,6 +614,95 @@
                 ]
             }
         },
+        "/api/v1/fcm/getall": {
+            "get": {
+                "tags": [
+                    "fcm"
+                ],
+                "description": "Get all the fcm token",
+                "operationId": "App\\Http\\Controllers\\FCMController::getAll",
+                "responses": {
+                    "default": {
+                        "description": "Get all the fcm token"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/fcm/insert": {
+            "post": {
+                "tags": [
+                    "fcm"
+                ],
+                "summary": "Insert a new fcm token",
+                "operationId": "App\\Http\\Controllers\\FCMController::insert",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "token": {
+                                        "description": "The FCM token",
+                                        "type": "string"
+                                    },
+                                    "employee_id": {
+                                        "description": "The employee id",
+                                        "type": "int"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/fcm/delete/{token}": {
+            "delete": {
+                "tags": [
+                    "fcm"
+                ],
+                "summary": "Delete a fcm token",
+                "operationId": "App\\Http\\Controllers\\FCMController::delete",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "path",
+                        "description": "Fcm id to be deleted",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Fcm not deleted it's because either the deletion failed or fcm to be deleted not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/uni/petsizes/getall": {
             "get": {
                 "tags": [
@@ -1339,6 +1428,171 @@
                 "responses": {
                     "default": {
                         "description": "Restore the deleted pet"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/productrestock/getall": {
+            "get": {
+                "tags": [
+                    "product restock"
+                ],
+                "description": "Get all the product restock",
+                "operationId": "App\\Http\\Controllers\\ProductRestockController::getAll",
+                "responses": {
+                    "default": {
+                        "description": "Get all the product restock"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/productrestock/insert": {
+            "post": {
+                "tags": [
+                    "product restock"
+                ],
+                "summary": "Insert a new service detail",
+                "operationId": "App\\Http\\Controllers\\ProductRestockController::insert",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "Suppliers_id": {
+                                        "description": "The id of the supplier",
+                                        "type": "integer"
+                                    },
+                                    "isArrived": {
+                                        "description": "The arrival status",
+                                        "type": "integer"
+                                    },
+                                    "productRestockDetails": {
+                                        "description": "Array of Product Restock Detail",
+                                        "type": "string"
+                                    },
+                                    "createdBy": {
+                                        "description": "The id of the owner",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/productrestock/confirm/{id}/{ownerId}": {
+            "get": {
+                "tags": [
+                    "product restock"
+                ],
+                "description": "Confirm restock",
+                "operationId": "App\\Http\\Controllers\\ProductRestockController::confirm",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of the product restock",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "ownerId",
+                        "in": "path",
+                        "description": "Id of the owner",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Product restock confirmed"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/productrestock/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "product restock"
+                ],
+                "summary": "Deletes a product restock",
+                "operationId": "App\\Http\\Controllers\\ProductRestockController::delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Product restock id to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Product restock not deleted it's because either the deletion failed or product restock to be deleted not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/productrestock/restore/{id}": {
+            "get": {
+                "tags": [
+                    "product restock"
+                ],
+                "description": "Restore the deleted product restock",
+                "operationId": "App\\Http\\Controllers\\ProductRestockController::restore",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of a product restock",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Restore the deleted product restock"
                     }
                 },
                 "security": [
