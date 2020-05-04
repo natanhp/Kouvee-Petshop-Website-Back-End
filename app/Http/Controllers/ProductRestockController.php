@@ -178,7 +178,7 @@ class ProductRestockController extends Controller {
     * ),
     */
     public function confirm($id, $ownerId) {
-        $product_restock = ProductRestock::find($id)->first();
+        $product_restock = ProductRestock::find($id);
         $product_restock_details = ProductRestockDetail::where('product_restock_id', $product_restock->id)->get();
         foreach($product_restock_details as $product_restock_detail) {
             $id = $product_restock_detail->Products_id;
