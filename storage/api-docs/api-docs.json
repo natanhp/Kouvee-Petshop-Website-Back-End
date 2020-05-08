@@ -1602,6 +1602,25 @@
                 ]
             }
         },
+        "/api/v1/producttransaction/getall": {
+            "get": {
+                "tags": [
+                    "product transaction"
+                ],
+                "description": "Get all the product transaction",
+                "operationId": "App\\Http\\Controllers\\ProductTransactionController::getAll",
+                "responses": {
+                    "default": {
+                        "description": "Product transaction and its detail"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/noa/products/getall": {
             "get": {
                 "tags": [
