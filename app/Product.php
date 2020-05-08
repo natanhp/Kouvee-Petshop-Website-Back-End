@@ -37,7 +37,7 @@ class Product extends Model
      * @var string
      */
     protected $table = 'Products';
-    protected $softCascade = ['productRestocks'];
+    protected $softCascade = ['productRestockDetails', 'productTransactionDetails'];
 
     const CREATED_AT = 'createdAt';
     const UPDATED_AT = 'updatedAt';
@@ -75,9 +75,9 @@ class Product extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function productRestocks()
+    public function productRestockDetails()
     {
-        return $this->hasMany('App\ProductRestock', 'Products_id');
+        return $this->hasMany('App\ProductRestockDetail', 'Products_id');
     }
 
     /**
