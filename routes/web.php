@@ -137,7 +137,13 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         $router->delete('delete/{token}', 'FCMController@delete');
     });
 
-    $router->group(['prefix' => 'producttransaction', 'middleware' => ['jwt.auth', 'only.kasir']], function () use ($router) {
-        $router->get('getall', 'ProductTransactionController@getAll');
+    $router->group(['prefix' => 'producttransaction', 'middleware' => ['jwt.auth']], function () use ($router) {
+        $router->group(['prefix' => 'kasir', 'middleware' => ['only.kasir']], function () use ($router) {
+            $router->get('getall', 'ProductTransactionController@getAll');
+        });
+
+        $router->group(['prefix' => 'cs', 'middleware' => ['only.cs']], function () use ($router) {
+            $router->post('insert', 'ProductTransactionController@insert');
+        });
     });
 });
