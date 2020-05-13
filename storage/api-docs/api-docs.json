@@ -1461,7 +1461,7 @@
                 "tags": [
                     "product restock"
                 ],
-                "summary": "Insert a new service detail",
+                "summary": "Insert a new product restock",
                 "operationId": "App\\Http\\Controllers\\ProductRestockController::insert",
                 "requestBody": {
                     "description": "Input data format",
@@ -1602,7 +1602,7 @@
                 ]
             }
         },
-        "/api/v1/producttransaction/getall": {
+        "/api/v1/producttransaction/kasir/getall": {
             "get": {
                 "tags": [
                     "product transaction"
@@ -1612,6 +1612,49 @@
                 "responses": {
                     "default": {
                         "description": "Product transaction and its detail"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/producttransaction/cs/insert": {
+            "post": {
+                "tags": [
+                    "product transaction"
+                ],
+                "summary": "Insert a new product transaction",
+                "operationId": "App\\Http\\Controllers\\ProductTransactionController::insert",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "productTransactionDetails": {
+                                        "description": "Array of Product Restock Detail",
+                                        "type": "string"
+                                    },
+                                    "createdBy": {
+                                        "description": "The id of the owner",
+                                        "type": "integer"
+                                    },
+                                    "total": {
+                                        "description": "The total price",
+                                        "type": "double"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Error"
                     }
                 },
                 "security": [
