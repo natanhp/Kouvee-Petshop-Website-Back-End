@@ -61,7 +61,7 @@ class ProductRestockController extends Controller {
      * @OA\Post(
      *     path="/api/v1/productrestock/insert",
      *     tags={"product restock"},
-     *     summary="Insert a new service detail",
+     *     summary="Insert a new product restock",
      *     @OA\Response(
      *         response=400,
      *         description="Error"
@@ -130,7 +130,6 @@ class ProductRestockController extends Controller {
                 $product_restock_detail->Products_id = $item['Products_id'];
                 $product_restock_detail->createdBy = $item['createdBy'];
                 $product_restock_detail->product_restock_id = $current_id;
-                $created_by = $item['createdBy'];
 
                 $product_restock_detail->save();
             }
