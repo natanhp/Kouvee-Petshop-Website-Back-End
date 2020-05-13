@@ -43,6 +43,20 @@ class ProductTransaction extends Model
     const DELETED_AT = 'deletedAt';
 
     /**
+     * The "type" of the auto-incrementing ID.
+     * 
+     * @var string
+     */
+    protected $keyType = 'string';
+
+    /**
+     * Indicates if the IDs are auto-incrementing.
+     * 
+     * @var bool
+     */
+    public $incrementing = false;
+
+    /**
      * @var array
      */
     protected $fillable = ['total', 'createdAt', 'updatedAt', 'createdBy', 'updatedBy', 'isPaid', 'itemQty', 'deletedAt'];
