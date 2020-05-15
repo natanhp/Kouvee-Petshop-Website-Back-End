@@ -1664,6 +1664,53 @@
                 ]
             }
         },
+        "/api/v1/producttransaction/kasir/updatedetailbyid": {
+            "put": {
+                "tags": [
+                    "product transaction"
+                ],
+                "summary": "Update a detail in product transaction",
+                "operationId": "App\\Http\\Controllers\\ProductTransactionController::updateDetailById",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "description": "The id of the product transaction detail",
+                                        "type": "integer"
+                                    },
+                                    "Products_id": {
+                                        "description": "The id of the product",
+                                        "type": "integer"
+                                    },
+                                    "itemQty": {
+                                        "description": "The new quantity of the detail",
+                                        "type": "integer"
+                                    },
+                                    "updatedBy": {
+                                        "description": "The foreign key of the owner who updates the product transaction detail",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Product is null or fails to save or product transaction detail fails to save"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/noa/products/getall": {
             "get": {
                 "tags": [
