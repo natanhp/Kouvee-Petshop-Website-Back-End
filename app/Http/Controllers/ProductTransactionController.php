@@ -6,6 +6,7 @@ use App\ProductTransaction;
 use App\ProductTransactionDetail;
 use App\Product;
 use App\Employee;
+use App\Customer;
 use App\Events\ProductMinReached;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
@@ -31,29 +32,35 @@ class ProductTransactionController extends Controller {
     * ),
     */
     public function getAll() {
-        $product_transactions = ProductTransaction::where('updatedBy', NULL)->get();
+        $product_transactions = ProductTransaction::where('isPaid', 0)->get();
     
         if(!$product_transactions) {
             return response()->json([
-                "message" => "error",
+                "message" => "Get data error",
                 "data" => []
             ], 400);
         }
 
         foreach($product_transactions as $product_transaction) {
-            $product_transaction->employee_name = Employee::find($product_transaction->createdBy)->name;
+            $product_transaction->cs_name = Employee::find($product_transaction->createdBy)->name;
+            $customer = Customer::find($product_transaction->Customers_id);
+            
+            if($customer == null) {
+                $product_transaction->customer_name = '-';
+            } else {
+                $product_transaction->customer_name = $customer->name;
+            }
+
             $product_transaction_details = ProductTransactionDetail::where('ProductTransaction_id', $product_transaction->id)->get();
             foreach($product_transaction_details as $product_transaction_detail) {
-                $product_transaction_detail->product_name = Product::find($product_transaction_detail->Products_id)->productName;
-                $product_transaction_detail->measurement = Product::find($product_transaction_detail->Products_id)->meassurement;
-                $product_transaction_detail->productPrice = Product::find($product_transaction_detail->Products_id)->productQuantity;
-                $product_transaction_detail->productQuantity = Product::find($product_transaction_detail->Products_id)->productQuantity;
+                $product = Product::find($product_transaction_detail->Products_id, ['id', 'productName', 'productPrice', 'meassurement']);
+                $product_transaction_detail->product = $product;
             }
             $product_transaction->productTransactionkDetails = $product_transaction_details;
         }
 
         return response()->json([
-            "message" => "success",
+            "message" => "Get data success",
             "data" => $product_transactions
         ], 200);
     }
@@ -161,6 +168,111 @@ class ProductTransactionController extends Controller {
         return response()->json([
             "message" => "Product transaction not created",
             "data" => []
+        ], 400);
+    }
+
+    /**
+     * @OA\Put(
+     *     path="/api/v1/producttransaction/kasir/updatedetailbyid",
+     *     tags={"product transaction"},
+     *     summary="Update a detail in product transaction",
+     *     @OA\Response(
+     *         response=400,
+     *         description="Product is null or fails to save or product transaction detail fails to save"
+     *     ),
+     *     security={
+     *         {"bearerAuth": {}}
+     *     },
+     *     @OA\RequestBody(
+     *         description="Input data format",
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(
+     *                 type="object",
+	 * 				   @OA\Property(
+     *                     property="id",
+     *                     description="The id of the product transaction detail",
+     *                     type="integer",
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Products_id",
+     *                     description="The id of the product",
+     *                     type="integer",
+     *                 ),
+     *                 @OA\Property(
+     *                     property="itemQty",
+     *                     description="The new quantity of the detail",
+     *                     type="integer",
+     *                 ),
+     *                 @OA\Property(
+     *                     property="updatedBy",
+     *                     description="The foreign key of the owner who updates the product transaction detail",
+     *                     type="integer"
+     *                 )
+     *             )
+     *         )
+     *     )
+     * )
+     */
+    public function updateDetailById(Request $request) {
+
+        $this->validate($request, [
+            'id' => 'required|numeric',
+            'updatedBy' => 'required|numeric',
+            'Products_id' => 'required | numeric',
+            'itemQty' => 'required|numeric'
+        ]);
+
+        $transaction_detail = ProductTransactionDetail::find($request->id);
+
+        if($transaction_detail != null) {
+            $oldQty = $transaction_detail->itemQty;
+            $newQty = $request->itemQty;
+            $diffQty = abs($oldQty - $newQty);
+            
+            $product = Product::find($transaction_detail->Products_id);
+            
+            if($product != null) {
+                if($oldQty >= $newQty) {
+                    $product->productQuantity += $diffQty;
+                } else if($oldQty < $newQty) {
+                    $productQty = $product->productQuantity;
+                    
+                    if($productQty - $diffQty < 0) {
+                        return response()->json([
+                            "message" => "Update gagal",
+                            "data" =>[]
+                        ], 400);
+                    }
+                     
+                    $product->productQuantity-= $diffQty;
+                    $product->updatedBy = $request->updatedBy;
+                }
+
+                if(!$product->save()) {
+                    return response()->json([
+                        "message" => "Update gagal",
+                        "data" =>[]
+                    ], 400);
+                }
+
+                event(new ProductMinReached($product));
+                
+                $transaction_detail->itemQty = $newQty;
+                $transaction_detail->updatedBy = $request->updatedBy;
+
+                if($transaction_detail->save()) {
+                    return response()->json([
+                        "message" => "Update berhasil",
+                        "data" =>[$transaction_detail]
+                    ], 200);
+                }
+            }
+        }
+
+        return response()->json([
+            "message" => "Update gagal",
+            "data" =>[]
         ], 400);
     }
 }
