@@ -98,6 +98,6 @@ class ProductTransaction extends Model
      */
     public function productTransactionDetails()
     {
-        return $this->hasMany('App\ProductTransactionDetail');
+        return $this->hasMany('App\ProductTransactionDetail', 'ProductTransaction_id');
     }
 }

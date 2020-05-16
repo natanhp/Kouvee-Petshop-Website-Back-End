@@ -46,7 +46,7 @@ class ProductTransactionDetail extends Model
      */
     public function productTransaction()
     {
-        return $this->belongsTo('App\ProductTransaction');
+        return $this->belongsTo('App\ProductTransaction', 'ProductTransaction_id');
     }
 
     /**
