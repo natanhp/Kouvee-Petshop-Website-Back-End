@@ -1711,7 +1711,7 @@
                 ]
             }
         },
-        "/api/v1/producttransaction/kasir/updatedetailbyid/{id}/{cashierId}": {
+        "/api/v1/producttransaction/kasir/deletedetailbyid/{id}/{cashierId}": {
             "delete": {
                 "tags": [
                     "products"
@@ -1743,6 +1743,46 @@
                 "responses": {
                     "400": {
                         "description": "Product transaction detail not deleted it's because either the deletion failed or not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/producttransaction/kasir/deletetransactionbyid/{id}/{cashierId}": {
+            "delete": {
+                "tags": [
+                    "products"
+                ],
+                "summary": "Deletes a product",
+                "operationId": "App\\Http\\Controllers\\ProductTransactionController::deleteTransactionById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Product transaction id to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "cashierId",
+                        "in": "path",
+                        "description": "Cashier who deleted the product",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Product transaction not deleted it's because either the deletion failed or not found"
                     }
                 },
                 "security": [
