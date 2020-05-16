@@ -293,7 +293,7 @@ class ProductTransactionController extends Controller {
     
     /**
      * @OA\Delete(
-     *     path="/api/v1/producttransaction/kasir/updatedetailbyid/{id}/{cashierId}",
+     *     path="/api/v1/producttransaction/kasir/deletedetailbyid/{id}/{cashierId}",
      *     tags={"products"},
      *     summary="Deletes a product",
      *     @OA\Parameter(
@@ -363,6 +363,80 @@ class ProductTransactionController extends Controller {
                         "data" =>[]
                     ], 200);
                 }
+            }
+        }
+
+        return response()->json([
+            "message" => "Penghapusan gagal",
+            "data" =>[]
+        ], 400);
+    }
+
+    /**
+     * @OA\Delete(
+     *     path="/api/v1/producttransaction/kasir/deletetransactionbyid/{id}/{cashierId}",
+     *     tags={"products"},
+     *     summary="Deletes a product",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="Product transaction id to delete",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         ),
+     *     ),
+	 * 	   @OA\Parameter(
+     *         name="cashierId",
+     *         in="path",
+     *         description="Cashier who deleted the product",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int64"
+     *         ),
+	 * 	   ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Product transaction not deleted it's because either the deletion failed or not found",
+     *     ),
+     *     security={
+     *         {"bearerAuth": {}}
+     *     },
+     * )
+     */
+    public function deleteTransactionById($id, $cashierId) {
+        $product_transaction = ProductTransaction::find($id);
+
+        if($product_transaction != null) {
+            $transaction_details = $product_transaction->productTransactionDetails()->get();
+
+            foreach($transaction_details as $transaction_detail) {
+                $product = Product::find($transaction_detail->Products_id);
+
+                if($product != null) {
+                    $product->productQuantity += $transaction_detail->itemQty;
+                    $product->updatedBy = $cashierId;
+
+                    if(!$product->save()) {
+                        return response()->json([
+                            "message" => "Penghapusan gagal",
+                            "data" =>[]
+                        ], 400);
+                    }
+                } else {
+                    return response()->json([
+                        "message" => "Penghapusan gagal",
+                        "data" =>[]
+                    ], 400);
+                }
+            }
+
+            if($product_transaction->delete()) {
+                return response()->json([
+                    "message" => "Penghapusan berhasil",
+                    "data" =>[]
+                ], 200);
             }
         }
 
