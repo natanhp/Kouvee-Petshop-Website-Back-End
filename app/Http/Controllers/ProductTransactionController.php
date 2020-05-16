@@ -229,14 +229,21 @@ class ProductTransactionController extends Controller {
             $oldQty = $transaction_detail->itemQty;
             $newQty = $request->itemQty;
             $diffQty = abs($oldQty - $newQty);
-            
+
             $product = Product::find($transaction_detail->Products_id);
+            $product_transaction = ProductTransaction::find($transaction_detail->ProductTransaction_id);
             
-            if($product != null) {
+            $oldSubTotal = $oldQty * $product->productPrice;
+            $newSubTotal = $newQty * $product->productPrice;
+            $diffSubTotal = abs($oldSubTotal - $newSubTotal);
+
+            if($product != null || $product_transaction != null) {
                 if($oldQty >= $newQty) {
                     $product->productQuantity += $diffQty;
+                    $product_transaction->total -= $diffSubTotal;
                 } else if($oldQty < $newQty) {
                     $productQty = $product->productQuantity;
+                    $product_transaction->total += $diffSubTotal;
                     
                     if($productQty - $diffQty < 0) {
                         return response()->json([
@@ -246,7 +253,15 @@ class ProductTransactionController extends Controller {
                     }
                      
                     $product->productQuantity-= $diffQty;
-                    $product->updatedBy = $request->updatedBy;
+                }
+
+                $product->updatedBy = $request->updatedBy;
+
+                if(!$product_transaction->save()) {
+                    return response()->json([
+                        "message" => "Update gagal",
+                        "data" =>[]
+                    ], 400);
                 }
 
                 if(!$product->save()) {
@@ -272,6 +287,87 @@ class ProductTransactionController extends Controller {
 
         return response()->json([
             "message" => "Update gagal",
+            "data" =>[]
+        ], 400);
+    }
+    
+    /**
+     * @OA\Delete(
+     *     path="/api/v1/producttransaction/kasir/updatedetailbyid/{id}/{cashierId}",
+     *     tags={"products"},
+     *     summary="Deletes a product",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="Product transaction detail id to delete",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int64"
+     *         ),
+     *     ),
+	 * 	   @OA\Parameter(
+     *         name="cashierId",
+     *         in="path",
+     *         description="Cashier who delted the product",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int64"
+     *         ),
+	 * 	   ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Product transaction detail not deleted it's because either the deletion failed or not found",
+     *     ),
+     *     security={
+     *         {"bearerAuth": {}}
+     *     },
+     * )
+     */
+    public function deleteDetailById($id, $cashierId) {
+        $transaction_detail = ProductTransactionDetail::find($id);
+
+        if($transaction_detail != null) {
+            
+            $product = Product::find($transaction_detail->Products_id);
+            $product_transaction = ProductTransaction::find($transaction_detail->ProductTransaction_id);
+            
+            if($product != null || $product_transaction != null) {
+                $subTotal = $transaction_detail->itemQty * $product->productPrice;
+
+                $product->productQuantity += $transaction_detail->itemQty;
+                $product->updatedBy = $cashierId;
+                $product_transaction->total -= $subTotal;
+                $product_transaction->updatedBy = $cashierId;
+
+                if(!$product_transaction->save()) {
+                    return response()->json([
+                        "message" => "Penghapusan gagal",
+                        "data" =>[]
+                    ], 400);
+                }
+
+                if(!$product->save()) {
+                    return response()->json([
+                        "message" => "Penghapusan gagal",
+                        "data" =>[]
+                    ], 400);
+                }
+
+                event(new ProductMinReached($product));
+                
+                if($transaction_detail->delete()) {
+                    return response()->json([
+                        "message" => "Penghapusan berhasil",
+                        "data" =>[]
+                    ], 200);
+                }
+            }
+        }
+
+        return response()->json([
+            "message" => "Penghapusan gagal",
             "data" =>[]
         ], 400);
     }
