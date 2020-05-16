@@ -1711,6 +1711,47 @@
                 ]
             }
         },
+        "/api/v1/producttransaction/kasir/updatedetailbyid/{id}/{cashierId}": {
+            "delete": {
+                "tags": [
+                    "products"
+                ],
+                "summary": "Deletes a product",
+                "operationId": "App\\Http\\Controllers\\ProductTransactionController::deleteDetailById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Product transaction detail id to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "cashierId",
+                        "in": "path",
+                        "description": "Cashier who delted the product",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Product transaction detail not deleted it's because either the deletion failed or not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/noa/products/getall": {
             "get": {
                 "tags": [
