@@ -43,12 +43,15 @@ class ProductTransactionController extends Controller {
 
         foreach($product_transactions as $product_transaction) {
             $product_transaction->cs_name = Employee::find($product_transaction->createdBy)->name;
-            $customer = Customer::find($product_transaction->Customers_id);
+            $customer = Customer::find($product_transaction->Customers_id, ['id', 'name', 'phoneNumber']);
             
             if($customer == null) {
-                $product_transaction->customer_name = '-';
+                $customer = new Customer();
+                $customer->name = '-';
+                $customer->phoneNumber = '-';
+                $product_transaction->customer = $customer;
             } else {
-                $product_transaction->customer_name = $customer->name;
+                $product_transaction->customer = $customer;
             }
 
             $product_transaction_details = ProductTransactionDetail::where('ProductTransaction_id', $product_transaction->id)->get();
