@@ -1792,6 +1792,49 @@
                 ]
             }
         },
+        "/api/v1/producttransaction/kasir/confirm": {
+            "put": {
+                "tags": [
+                    "product transaction"
+                ],
+                "summary": "Confirm a product transaction",
+                "operationId": "App\\Http\\Controllers\\ProductTransactionController::confirm",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "description": "The id of the product transaction detail",
+                                        "type": "string"
+                                    },
+                                    "total": {
+                                        "description": "The id of the product",
+                                        "type": "double"
+                                    },
+                                    "updatedBy": {
+                                        "description": "The foreign key of the owner who updates the product transaction detail",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Product is null or fails to save or product transaction detail fails to save"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/noa/products/getall": {
             "get": {
                 "tags": [
