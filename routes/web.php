@@ -141,6 +141,7 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         $router->group(['prefix' => 'kasir', 'middleware' => ['only.kasir']], function () use ($router) {
             $router->get('getall', 'ProductTransactionController@getAll');
             $router->put('updatedetailbyid', 'ProductTransactionController@updateDetailById');
+            $router->put('confirm', 'ProductTransactionController@confirm');
             $router->delete('deletedetailbyid/{id}/{cashierId}', 'ProductTransactionController@deleteDetailById');
             $router->delete('deletetransactionbyid/{id}/{cashierId}', 'ProductTransactionController@deleteTransactionById');
         });
