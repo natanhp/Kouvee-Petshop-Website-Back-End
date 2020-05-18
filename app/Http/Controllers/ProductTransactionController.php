@@ -448,5 +448,72 @@ class ProductTransactionController extends Controller {
             "data" =>[]
         ], 400);
     }
+
+    /**
+     * @OA\Put(
+     *     path="/api/v1/producttransaction/kasir/confirm",
+     *     tags={"product transaction"},
+     *     summary="Confirm a product transaction",
+     *     @OA\Response(
+     *         response=400,
+     *         description="Product is null or fails to save or product transaction detail fails to save"
+     *     ),
+     *     security={
+     *         {"bearerAuth": {}}
+     *     },
+     *     @OA\RequestBody(
+     *         description="Input data format",
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(
+     *                 type="object",
+	 * 				   @OA\Property(
+     *                     property="id",
+     *                     description="The id of the product transaction detail",
+     *                     type="string",
+     *                 ),
+     *                 @OA\Property(
+     *                     property="total",
+     *                     description="The id of the product",
+     *                     type="double",
+     *                 ),
+     *                 @OA\Property(
+     *                     property="updatedBy",
+     *                     description="The foreign key of the owner who updates the product transaction detail",
+     *                     type="integer"
+     *                 )
+     *             )
+     *         )
+     *     )
+     * )
+     */
+    public function confirm(Request $request) {
+        
+        $this->validate($request, [
+            'id' => 'required',
+            'updatedBy' => 'required|numeric',
+            'total' => 'required | numeric'
+        ]);
+
+        $product_transaction = ProductTransaction::find($request->id);
+
+        if($product_transaction != null) {
+            $product_transaction->total = $request->total;
+            $product_transaction->updatedBy = $request->updatedBy;
+            $product_transaction->isPaid = 1;
+
+            if($product_transaction->save()) {
+                return response()->json([
+                    "message" => "Konfirmasi pesanan berhasil",
+                    "data" =>[]
+                ], 200);
+            }
+        }
+
+        return response()->json([
+            "message" => "Konfirmasi pesanan gagal",
+            "data" =>[]
+        ], 400);
+    }
 }
 ?>
