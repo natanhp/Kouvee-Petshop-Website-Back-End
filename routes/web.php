@@ -156,7 +156,7 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
             $router->get('getall', 'ServiceTransactionController@getAll');
             $router->put('updatedetailbyid', 'ServiceTransactionController@updateDetailById');
             // $router->put('confirm', 'ProductTransactionController@confirm');
-            // $router->delete('deletedetailbyid/{id}/{cashierId}', 'ProductTransactionController@deleteDetailById');
+            $router->delete('deletedetailbyid/{id}/{cashierId}', 'ServiceTransactionController@deleteDetailById');
             // $router->delete('deletetransactionbyid/{id}/{cashierId}', 'ProductTransactionController@deleteTransactionById');
         });
 

@@ -238,5 +238,73 @@ class ServiceTransactionController extends Controller {
             "data" =>[]
         ], 400);
     }
+
+    /**
+     * @OA\Delete(
+     *     path="/api/v1/servicetransaction/kasir/deletedetailbyid/{id}/{cashierId}",
+     *     tags={"service transaction"},
+     *     summary="Deletes a product",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="Service transaction detail id to delete",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int64"
+     *         ),
+     *     ),
+	 * 	   @OA\Parameter(
+     *         name="cashierId",
+     *         in="path",
+     *         description="Cashier who deleted the product",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int64"
+     *         ),
+	 * 	   ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Service transaction detail not deleted it's because either the deletion failed or not found",
+     *     ),
+     *     security={
+     *         {"bearerAuth": {}}
+     *     },
+     * )
+     */
+    public function deleteDetailById($id, $cashierId) {
+        $transaction_detail = ServiceTransactionDetail::find($id);
+
+        if($transaction_detail != null) {
+            
+            $service_detail = ServiceDetail::find($transaction_detail->ServiceDetails_id);
+            $service_transaction = ServiceTransaction::find($transaction_detail->ServiceTransaction_id);
+            
+            if($service_detail != null || $service_transaction != null) {
+                $service_transaction->total -= $service_detail->price;
+                $service_transaction->updatedBy = $cashierId;
+
+                if(!$service_transaction->save()) {
+                    return response()->json([
+                        "message" => "Penghapusan gagal",
+                        "data" =>[]
+                    ], 400);
+                }
+                
+                if($transaction_detail->delete()) {
+                    return response()->json([
+                        "message" => "Penghapusan berhasil",
+                        "data" =>[]
+                    ], 200);
+                }
+            }
+        }
+
+        return response()->json([
+            "message" => "Penghapusan gagal",
+            "data" =>[]
+        ], 400);
+    }
 }
 ?>

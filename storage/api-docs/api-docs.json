@@ -1714,7 +1714,7 @@
         "/api/v1/producttransaction/kasir/deletedetailbyid/{id}/{cashierId}": {
             "delete": {
                 "tags": [
-                    "products"
+                    "product transaction"
                 ],
                 "summary": "Deletes a product",
                 "operationId": "App\\Http\\Controllers\\ProductTransactionController::deleteDetailById",
@@ -2434,6 +2434,47 @@
                 "responses": {
                     "400": {
                         "description": "Service detail is null or fails to save or service transaction detail fails to save"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/servicetransaction/kasir/deletedetailbyid/{id}/{cashierId}": {
+            "delete": {
+                "tags": [
+                    "service transaction"
+                ],
+                "summary": "Deletes a product",
+                "operationId": "App\\Http\\Controllers\\ServiceTransactionController::deleteDetailById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Service transaction detail id to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "cashierId",
+                        "in": "path",
+                        "description": "Cashier who deleted the product",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Service transaction detail not deleted it's because either the deletion failed or not found"
                     }
                 },
                 "security": [
