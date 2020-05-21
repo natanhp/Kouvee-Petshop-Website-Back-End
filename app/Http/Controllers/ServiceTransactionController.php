@@ -347,5 +347,72 @@ class ServiceTransactionController extends Controller {
             "data" =>[]
         ], 400);
     }
+
+    /**
+     * @OA\Put(
+     *     path="/api/v1/servicetransaction/kasir/confirm",
+     *     tags={"service transaction"},
+     *     summary="Confirm a service transaction",
+     *     @OA\Response(
+     *         response=400,
+     *         description="Service transaction is null or fails to save or service transaction detail fails to save"
+     *     ),
+     *     security={
+     *         {"bearerAuth": {}}
+     *     },
+     *     @OA\RequestBody(
+     *         description="Input data format",
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(
+     *                 type="object",
+	 * 				   @OA\Property(
+     *                     property="id",
+     *                     description="The id of the service transaction",
+     *                     type="string",
+     *                 ),
+     *                 @OA\Property(
+     *                     property="total",
+     *                     description="The total of service transaction",
+     *                     type="double",
+     *                 ),
+     *                 @OA\Property(
+     *                     property="updatedBy",
+     *                     description="The foreign key of the cashier who updates the product transaction detail",
+     *                     type="integer"
+     *                 )
+     *             )
+     *         )
+     *     )
+     * )
+     */
+    public function confirm(Request $request) {
+        
+        $this->validate($request, [
+            'id' => 'required',
+            'updatedBy' => 'required|numeric',
+            'total' => 'required | numeric'
+        ]);
+
+        $service_transaction = ServiceTransaction::find($request->id);
+
+        if($service_transaction != null) {
+            $service_transaction->total = $request->total;
+            $service_transaction->updatedBy = $request->updatedBy;
+            $service_transaction->isPaid = 1;
+
+            if($product_transaction->save()) {
+                return response()->json([
+                    "message" => "Konfirmasi pesanan berhasil",
+                    "data" =>[]
+                ], 200);
+            }
+        }
+
+        return response()->json([
+            "message" => "Konfirmasi pesanan gagal",
+            "data" =>[]
+        ], 400);
+    }
 }
 ?>
