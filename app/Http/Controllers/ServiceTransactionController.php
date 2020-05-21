@@ -421,7 +421,7 @@ class ServiceTransactionController extends Controller {
     *     security={
     *         {"bearerAuth": {}}
     *     },
-    *     description="Get all the service transaction",
+    *     description="Get all the unfinished service",
     *     @OA\Response(response="default", description="Service transaction and its detail")
     * ),
     */
@@ -438,9 +438,9 @@ class ServiceTransactionController extends Controller {
         foreach($service_transaction_details as $service_transaction_detail) {
             $transaction = ServiceTransaction::find($service_transaction_detail->ServiceTransaction_id);
 
-            $pet = Pet::find($transaction->Pets_id, ['id', 'name', 'PetSizes_id', 'PetTypes_id']);
-            $transaction->pet = $pet;
-            $transaction->customer = Customer::find($pet->Customers_id, ['id', 'name', 'phoneNumber']);
+            $pet = Pet::find($transaction->Pets_id, ['id', 'name', 'PetSizes_id', 'PetTypes_id', 'Customers_id']);
+            $service_transaction_detail->pet = $pet;
+            $service_transaction_detail->customer = Customer::find($pet->Customers_id, ['id', 'name', 'phoneNumber']);
 
             $service_detail = ServiceDetail::find($service_transaction_detail->ServiceDetails_id, ['id', 'price', 'PetTypes_id', 'PetSizes_id', 'Services_id']);
             $service_name = Service::find($service_detail->Services_id)->serviceName;

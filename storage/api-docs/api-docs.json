@@ -2562,7 +2562,7 @@
                 "tags": [
                     "service transaction"
                 ],
-                "description": "Get all the service transaction",
+                "description": "Get all the unfinished service",
                 "operationId": "App\\Http\\Controllers\\ServiceTransactionController::getAllUnfinishedService",
                 "responses": {
                     "default": {
