@@ -42,6 +42,13 @@ class ServiceTransaction extends Model
     protected $table = 'ServiceTransaction';
 
     /**
+     * The "type" of the auto-incrementing ID.
+     * 
+     * @var string
+     */
+    protected $keyType = 'string';
+    
+    /**
      * @var array
      */
     protected $fillable = ['date', 'total', 'updatedAt', 'createdAt', 'createdBy', 'updatedBy', 'isPaid', 'deletedAt'];

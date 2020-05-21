@@ -68,5 +68,94 @@ class ServiceTransactionController extends Controller {
             "data" => $service_transactions
         ], 200);
     }
+
+    /**
+     * @OA\Post(
+     *     path="/api/v1/servicetransaction/cs/insert",
+     *     tags={"service transaction"},
+     *     summary="Insert a new service transaction",
+     *     @OA\Response(
+     *         response=400,
+     *         description="Error"
+     *     ),
+     *     security={
+     *         {"bearerAuth": {}}
+     *     },
+     *     @OA\RequestBody(
+     *         description="Input data format",
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 type="object",
+     *                 @OA\Property(
+     *                     property="serviceTransactionDetails",
+     *                     description="Array of Service Transaction Detail",
+     *                     type="string",
+     *                 ),
+     *                 @OA\Property(
+     *                     property="createdBy",
+     *                     description="The id of the cs",
+     *                     type="integer",
+     *                 ),
+     *                 @OA\Property(
+     *                     property="total",
+     *                     description="The total price",
+     *                     type="double",
+     *                 )
+     *             )
+     *         )
+     *     )
+     * )
+     */
+    public function insert(Request $request) {
+
+        $this->validate($request, [
+            'createdBy' => 'required|numeric',
+            'serviceTransactionDetails' => 'required',
+            'total' => 'required|numeric'
+        ]);
+
+        $serviceTransactionDetails = $request->serviceTransactionDetails;
+
+        $latest_id = ServiceTransaction::latest()->withTrashed()->first();
+        $current_id;
+        $date = Carbon::parse(Carbon::now()->toDateString())->format('dmy');
+        if ($latest_id == null) {
+            $current_id = 'LY-'.$date.'-'.'00';    
+        } else {
+            $current_id = 'LY-'.$date.'-'.sprintf("%02d", substr($latest_id->id, strrpos($latest_id->id, '-') + 1) + 1);
+        }
+
+        $service_transaction = new ServiceTransaction;
+        $service_transaction->id = $current_id;
+        $service_transaction->createdBy = $request->createdBy;
+        $service_transaction->isPaid = 0;
+        $service_transaction->total = $request->total;
+        $service_transaction->Pets_id = $request->Pets_id;
+
+
+        if($service_transaction->save()) {
+            foreach($serviceTransactionDetails as $item) {
+                $service_transaction_detail = new ServiceTransactionDetail;
+                $service_transaction_detail->ServiceDetails_id = $item['ServiceDetails_id'];
+                $service_transaction_detail->createdBy = $item['createdBy'];
+                $service_transaction_detail->ServiceTransaction_id = $current_id;
+                $service_transaction_detail->isFinished = 0;
+                
+                $product_transaction_detail->save();
+            }
+
+         
+            return response()->json([
+                "message" => "Service transaction created",
+                "data" => [$service_transaction]
+            ], 200);
+        }
+
+        return response()->json([
+            "message" => "Service transaction not created",
+            "data" => []
+        ], 400);
+    }
 }
 ?>

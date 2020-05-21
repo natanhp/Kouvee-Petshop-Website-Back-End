@@ -160,8 +160,8 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
             // $router->delete('deletetransactionbyid/{id}/{cashierId}', 'ProductTransactionController@deleteTransactionById');
         });
 
-        // $router->group(['prefix' => 'cs', 'middleware' => ['only.cs']], function () use ($router) {
-        //     $router->post('insert', 'ProductTransactionController@insert');
-        // });
+        $router->group(['prefix' => 'cs', 'middleware' => ['only.cs']], function () use ($router) {
+            $router->post('insert', 'ServiceTransactionController@insert');
+        });
     });
 });

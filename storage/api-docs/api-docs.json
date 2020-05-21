@@ -2357,6 +2357,49 @@
                 ]
             }
         },
+        "/api/v1/servicetransaction/cs/insert": {
+            "post": {
+                "tags": [
+                    "service transaction"
+                ],
+                "summary": "Insert a new service transaction",
+                "operationId": "App\\Http\\Controllers\\ServiceTransactionController::insert",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "serviceTransactionDetails": {
+                                        "description": "Array of Service Transaction Detail",
+                                        "type": "string"
+                                    },
+                                    "createdBy": {
+                                        "description": "The id of the cs",
+                                        "type": "integer"
+                                    },
+                                    "total": {
+                                        "description": "The total price",
+                                        "type": "double"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/services/getall": {
             "get": {
                 "tags": [
