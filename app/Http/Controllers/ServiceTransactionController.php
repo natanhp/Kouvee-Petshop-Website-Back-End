@@ -157,5 +157,86 @@ class ServiceTransactionController extends Controller {
             "data" => []
         ], 400);
     }
+
+    /**
+     * @OA\Put(
+     *     path="/api/v1/servicetransaction/kasir/updatedetailbyid",
+     *     tags={"service transaction"},
+     *     summary="Update a detail in service transaction",
+     *     @OA\Response(
+     *         response=400,
+     *         description="Service detail is null or fails to save or service transaction detail fails to save"
+     *     ),
+     *     security={
+     *         {"bearerAuth": {}}
+     *     },
+     *     @OA\RequestBody(
+     *         description="Input data format",
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(
+     *                 type="object",
+	 * 				   @OA\Property(
+     *                     property="id",
+     *                     description="The id of the service transaction detail",
+     *                     type="integer",
+     *                 ),
+     *                 @OA\Property(
+     *                     property="new_service_detail_id",
+     *                     description="The new id of the service detail",
+     *                     type="integer",
+     *                 ),
+     *                 @OA\Property(
+     *                     property="updatedBy",
+     *                     description="The foreign key of the cashier who updates the service transaction detail",
+     *                     type="integer"
+     *                 )
+     *             )
+     *         )
+     *     )
+     * )
+     */
+    public function updateDetailById(Request $request) {
+
+        $this->validate($request, [
+            'id' => 'required|numeric',
+            'updatedBy' => 'required|numeric',
+            'new_service_detail_id' => 'required|numeric'
+        ]);
+
+        $transaction_detail = ServiceTransactionDetail::find($request->id);
+
+        if($transaction_detail != null) {
+            $service_detail = ServiceDetail::find($transaction_detail->ServiceDetails_id);
+            $new_service_detail = ServiceDetail::find($request->new_service_detail_id);
+            $service_transaction = ServiceTransaction::find($transaction_detail->ServiceTransaction_id);
+
+            if($service_detail != null || $new_service_detail != null || $service_transaction != null) {
+                $service_transaction->total -= $service_detail->price;
+                $service_transaction->total += $service_detail->price;
+                
+                if(!$service_transaction->save()) {
+                    return response()->json([
+                        "message" => "Update gagal",
+                        "data" =>[]
+                    ], 400);
+                }
+
+                $transaction_detail->updatedBy = $request->updatedBy;
+
+                if($transaction_detail->save()) {
+                    return response()->json([
+                        "message" => "Update berhasil",
+                        "data" =>[$transaction_detail]
+                    ], 200);
+                }
+            }
+        }
+
+        return response()->json([
+            "message" => "Update gagal",
+            "data" =>[]
+        ], 400);
+    }
 }
 ?>

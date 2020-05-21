@@ -154,7 +154,7 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
     $router->group(['prefix' => 'servicetransaction', 'middleware' => ['jwt.auth']], function () use ($router) {
         $router->group(['prefix' => 'kasir', 'middleware' => ['only.kasir']], function () use ($router) {
             $router->get('getall', 'ServiceTransactionController@getAll');
-            // $router->put('updatedetailbyid', 'ProductTransactionController@updateDetailById');
+            $router->put('updatedetailbyid', 'ServiceTransactionController@updateDetailById');
             // $router->put('confirm', 'ProductTransactionController@confirm');
             // $router->delete('deletedetailbyid/{id}/{cashierId}', 'ProductTransactionController@deleteDetailById');
             // $router->delete('deletetransactionbyid/{id}/{cashierId}', 'ProductTransactionController@deleteTransactionById');

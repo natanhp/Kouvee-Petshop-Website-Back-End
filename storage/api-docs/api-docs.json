@@ -2400,6 +2400,49 @@
                 ]
             }
         },
+        "/api/v1/servicetransaction/kasir/updatedetailbyid": {
+            "put": {
+                "tags": [
+                    "service transaction"
+                ],
+                "summary": "Update a detail in service transaction",
+                "operationId": "App\\Http\\Controllers\\ServiceTransactionController::updateDetailById",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "description": "The id of the service transaction detail",
+                                        "type": "integer"
+                                    },
+                                    "new_service_detail_id": {
+                                        "description": "The new id of the service detail",
+                                        "type": "integer"
+                                    },
+                                    "updatedBy": {
+                                        "description": "The foreign key of the cashier who updates the service transaction detail",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Service detail is null or fails to save or service transaction detail fails to save"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/services/getall": {
             "get": {
                 "tags": [
