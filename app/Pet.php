@@ -29,6 +29,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Pet extends Model
 {
     use SoftDeletes;
+    use \Askedio\SoftCascade\Traits\SoftCascadeTrait;
 
     /**
      * The table associated with the model.
@@ -36,6 +37,7 @@ class Pet extends Model
      * @var string
      */
     protected $table = 'Pets';
+    protected $softCascade = ['serviceTransactions'];
 
     const CREATED_AT = 'createdAt';
     const UPDATED_AT = 'updatedAt';
