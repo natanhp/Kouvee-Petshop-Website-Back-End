@@ -2338,6 +2338,25 @@
                 ]
             }
         },
+        "/api/v1/servicetransaction/kasir/getall": {
+            "get": {
+                "tags": [
+                    "service transaction"
+                ],
+                "description": "Get all the service transaction",
+                "operationId": "App\\Http\\Controllers\\ServiceTransactionController::getAll",
+                "responses": {
+                    "default": {
+                        "description": "Service transaction and its detail"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/services/getall": {
             "get": {
                 "tags": [
