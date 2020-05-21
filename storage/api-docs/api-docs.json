@@ -1755,7 +1755,7 @@
         "/api/v1/producttransaction/kasir/deletetransactionbyid/{id}/{cashierId}": {
             "delete": {
                 "tags": [
-                    "products"
+                    "product transaction"
                 ],
                 "summary": "Deletes a product",
                 "operationId": "App\\Http\\Controllers\\ProductTransactionController::deleteTransactionById",
@@ -2475,6 +2475,36 @@
                 "responses": {
                     "400": {
                         "description": "Service transaction detail not deleted it's because either the deletion failed or not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/servicetransaction/kasir/deletetransactionbyid/{id}": {
+            "delete": {
+                "tags": [
+                    "service transaction"
+                ],
+                "summary": "Deletes a product",
+                "operationId": "App\\Http\\Controllers\\ServiceTransactionController::deleteTransactionById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Product transaction id to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Product transaction not deleted it's because either the deletion failed or not found"
                     }
                 },
                 "security": [

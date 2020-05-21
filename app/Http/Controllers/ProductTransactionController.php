@@ -378,7 +378,7 @@ class ProductTransactionController extends Controller {
     /**
      * @OA\Delete(
      *     path="/api/v1/producttransaction/kasir/deletetransactionbyid/{id}/{cashierId}",
-     *     tags={"products"},
+     *     tags={"product transaction"},
      *     summary="Deletes a product",
      *     @OA\Parameter(
      *         name="id",

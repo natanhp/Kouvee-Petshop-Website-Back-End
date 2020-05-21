@@ -306,5 +306,46 @@ class ServiceTransactionController extends Controller {
             "data" =>[]
         ], 400);
     }
+
+    /**
+     * @OA\Delete(
+     *     path="/api/v1/servicetransaction/kasir/deletetransactionbyid/{id}",
+     *     tags={"service transaction"},
+     *     summary="Deletes a product",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="Product transaction id to delete",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string"
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Product transaction not deleted it's because either the deletion failed or not found",
+     *     ),
+     *     security={
+     *         {"bearerAuth": {}}
+     *     },
+     * )
+     */
+    public function deleteTransactionById($id) {
+        $service_transaction = ServiceTransaction::find($id);
+
+        if($service_transaction != null) {
+            if($service_transaction->delete()) {
+                return response()->json([
+                    "message" => "Penghapusan berhasil",
+                    "data" =>[]
+                ], 200);
+            }
+        }
+
+        return response()->json([
+            "message" => "Penghapusan gagal",
+            "data" =>[]
+        ], 400);
+    }
 }
 ?>

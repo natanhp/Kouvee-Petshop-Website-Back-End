@@ -157,7 +157,7 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
             $router->put('updatedetailbyid', 'ServiceTransactionController@updateDetailById');
             // $router->put('confirm', 'ProductTransactionController@confirm');
             $router->delete('deletedetailbyid/{id}/{cashierId}', 'ServiceTransactionController@deleteDetailById');
-            // $router->delete('deletetransactionbyid/{id}/{cashierId}', 'ProductTransactionController@deleteTransactionById');
+            $router->delete('deletetransactionbyid/{id}', 'ServiceTransactionController@deleteTransactionById');
         });
 
         $router->group(['prefix' => 'cs', 'middleware' => ['only.cs']], function () use ($router) {
