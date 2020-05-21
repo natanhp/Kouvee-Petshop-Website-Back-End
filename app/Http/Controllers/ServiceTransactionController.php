@@ -11,7 +11,6 @@ use App\Pet;
 use App\Service;
 use App\PetType;
 use App\PetSize;
-use App\Events\ProductMinReached;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -53,7 +52,7 @@ class ServiceTransactionController extends Controller {
 
             $service_transaction_details = ServiceTransactionDetail::where('ServiceTransaction_id', $service_transaction->id)->get();
             foreach($service_transaction_details as $service_transaction_detail) {
-                $service_detail = ServiceDetail::find($product_transaction_detail->ServiceDetails_id, ['id', 'price', 'PetTypes_id', 'PetSizes_id', 'Services_id']);
+                $service_detail = ServiceDetail::find($service_transaction_detail->ServiceDetails_id, ['id', 'price', 'PetTypes_id', 'PetSizes_id', 'Services_id']);
                 $service_name = Service::find($service_detail->Services_id)->serviceName;
                 $pet_type = PetType::find($service_detail->PetTypes_id)->type;
                 $pet_size = PetSize::find($service_detail->PetSizes_id)->size;
@@ -142,7 +141,7 @@ class ServiceTransactionController extends Controller {
                 $service_transaction_detail->ServiceTransaction_id = $current_id;
                 $service_transaction_detail->isFinished = 0;
                 
-                $product_transaction_detail->save();
+                $service_transaction_detail->save();
             }
 
          
@@ -243,7 +242,7 @@ class ServiceTransactionController extends Controller {
      * @OA\Delete(
      *     path="/api/v1/servicetransaction/kasir/deletedetailbyid/{id}/{cashierId}",
      *     tags={"service transaction"},
-     *     summary="Deletes a product",
+     *     summary="Deletes a service transaction",
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -257,7 +256,7 @@ class ServiceTransactionController extends Controller {
 	 * 	   @OA\Parameter(
      *         name="cashierId",
      *         in="path",
-     *         description="Cashier who deleted the product",
+     *         description="Cashier who deleted the service transaction detail",
      *         required=true,
      *         @OA\Schema(
      *             type="integer",
@@ -311,11 +310,11 @@ class ServiceTransactionController extends Controller {
      * @OA\Delete(
      *     path="/api/v1/servicetransaction/kasir/deletetransactionbyid/{id}",
      *     tags={"service transaction"},
-     *     summary="Deletes a product",
+     *     summary="Deletes a service transaction",
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
-     *         description="Product transaction id to delete",
+     *         description="Service transaction id to delete",
      *         required=true,
      *         @OA\Schema(
      *             type="string"
@@ -323,7 +322,7 @@ class ServiceTransactionController extends Controller {
      *     ),
      *     @OA\Response(
      *         response=400,
-     *         description="Product transaction not deleted it's because either the deletion failed or not found",
+     *         description="Service transaction not deleted it's because either the deletion failed or not found",
      *     ),
      *     security={
      *         {"bearerAuth": {}}
@@ -378,7 +377,7 @@ class ServiceTransactionController extends Controller {
      *                 ),
      *                 @OA\Property(
      *                     property="updatedBy",
-     *                     description="The foreign key of the cashier who updates the product transaction detail",
+     *                     description="The foreign key of the cashier who updates the service transaction detail",
      *                     type="integer"
      *                 )
      *             )
@@ -401,7 +400,7 @@ class ServiceTransactionController extends Controller {
             $service_transaction->updatedBy = $request->updatedBy;
             $service_transaction->isPaid = 1;
 
-            if($product_transaction->save()) {
+            if($service_transaction->save()) {
                 return response()->json([
                     "message" => "Konfirmasi pesanan berhasil",
                     "data" =>[]
@@ -414,5 +413,47 @@ class ServiceTransactionController extends Controller {
             "data" =>[]
         ], 400);
     }
+
+    /**
+    * @OA\Get(
+	*     path="/api/v1/servicetransaction/cs/getallunfinishedservice",
+	*	  tags={"service transaction"},
+    *     security={
+    *         {"bearerAuth": {}}
+    *     },
+    *     description="Get all the service transaction",
+    *     @OA\Response(response="default", description="Service transaction and its detail")
+    * ),
+    */
+    public function getAllUnfinishedService() {
+        $service_transaction_details = ServiceTransactionDetail::where('isFinished', 0)->get();
+    
+        if(!$service_transaction_details) {
+            return response()->json([
+                "message" => "Get data error",
+                "data" => []
+            ], 400);
+        }
+
+        foreach($service_transaction_details as $service_transaction_detail) {
+            $transaction = ServiceTransaction::find($service_transaction_detail->ServiceTransaction_id);
+
+            $pet = Pet::find($transaction->Pets_id, ['id', 'name', 'PetSizes_id', 'PetTypes_id']);
+            $transaction->pet = $pet;
+            $transaction->customer = Customer::find($pet->Customers_id, ['id', 'name', 'phoneNumber']);
+
+            $service_detail = ServiceDetail::find($service_transaction_detail->ServiceDetails_id, ['id', 'price', 'PetTypes_id', 'PetSizes_id', 'Services_id']);
+            $service_name = Service::find($service_detail->Services_id)->serviceName;
+            $pet_type = PetType::find($service_detail->PetTypes_id)->type;
+            $pet_size = PetSize::find($service_detail->PetSizes_id)->size;
+            $service_detail->complete_name = "$service_name $pet_type $pet_size";
+            $service_transaction_detail->service = $service_detail;
+        }
+
+        return response()->json([
+            "message" => "Get data success",
+            "data" => $service_transaction_details
+        ], 200);
+    }    
 }
 ?>

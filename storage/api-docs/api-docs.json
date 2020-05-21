@@ -2448,7 +2448,7 @@
                 "tags": [
                     "service transaction"
                 ],
-                "summary": "Deletes a product",
+                "summary": "Deletes a service transaction",
                 "operationId": "App\\Http\\Controllers\\ServiceTransactionController::deleteDetailById",
                 "parameters": [
                     {
@@ -2464,7 +2464,7 @@
                     {
                         "name": "cashierId",
                         "in": "path",
-                        "description": "Cashier who deleted the product",
+                        "description": "Cashier who deleted the service transaction detail",
                         "required": true,
                         "schema": {
                             "type": "integer",
@@ -2489,13 +2489,13 @@
                 "tags": [
                     "service transaction"
                 ],
-                "summary": "Deletes a product",
+                "summary": "Deletes a service transaction",
                 "operationId": "App\\Http\\Controllers\\ServiceTransactionController::deleteTransactionById",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "Product transaction id to delete",
+                        "description": "Service transaction id to delete",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -2504,7 +2504,7 @@
                 ],
                 "responses": {
                     "400": {
-                        "description": "Product transaction not deleted it's because either the deletion failed or not found"
+                        "description": "Service transaction not deleted it's because either the deletion failed or not found"
                     }
                 },
                 "security": [
@@ -2536,7 +2536,7 @@
                                         "type": "double"
                                     },
                                     "updatedBy": {
-                                        "description": "The foreign key of the cashier who updates the product transaction detail",
+                                        "description": "The foreign key of the cashier who updates the service transaction detail",
                                         "type": "integer"
                                     }
                                 },
@@ -2548,6 +2548,25 @@
                 "responses": {
                     "400": {
                         "description": "Service transaction is null or fails to save or service transaction detail fails to save"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/servicetransaction/cs/getallunfinishedservice": {
+            "get": {
+                "tags": [
+                    "service transaction"
+                ],
+                "description": "Get all the service transaction",
+                "operationId": "App\\Http\\Controllers\\ServiceTransactionController::getAllUnfinishedService",
+                "responses": {
+                    "default": {
+                        "description": "Service transaction and its detail"
                     }
                 },
                 "security": [
