@@ -98,9 +98,9 @@ class ReportController extends Controller {
     * ),
     */
     public function bestSellingProduct($this_year) {
-        $services = ProductTransactionDetail::all();
+        $product = ProductTransactionDetail::all();
 
-        $product_month = $this->divideProductsBasedOnMonth($services, (string) $this_year);
+        $product_month = $this->divideProductsBasedOnMonth($product, (string) $this_year);
         $arr_report = array();
 
         for($i = 1; $i <= 12; $i++) {
@@ -123,6 +123,81 @@ class ReportController extends Controller {
         }
 
         return response()->json($arr_report);
+    }
+
+    /**
+    * @OA\Get(
+	*     path="/api/v1/report/yearly/{this_year}",
+	*	  tags={"report"},
+    *     security={
+    *         {"bearerAuth": {}}
+    *     },
+    *     description="Get the yearly income",
+    *     @OA\Parameter(
+    *         name="this_year",
+    *         in="path",
+    *         description="Year",
+    *         required=true,
+    *         @OA\Schema(
+    *             type="integer",
+    *             format="int64"
+    *         ),
+    *     ),
+    *     @OA\Response(response="default", description="Return the yearly income")
+    * ),
+    */
+    public function yearly($this_year) {
+        $products = ProductTransactionDetail::all();
+        $services = ServiceTransactionDetail::all();
+        
+
+        $product_month = $this->divideProductsBasedOnMonth($products, (string) $this_year);
+        $service_month = $this->divideServicesBasedOnMonth($services, (string) $this_year);
+        $arr_report = array();
+
+        for($i = 1; $i <= 12; $i++) {
+            $month = date('F', mktime(0, 0, 0, $i, 10));
+
+            if(!isset($product_month[$i]) || !isset($service_month[$i])) {
+                $arr_report[$month] = array(
+                    "service" => 0,
+                    "product" => 0,
+                    "sub_total" => 0
+                );
+            } else {
+                $total_service = 0;
+                $total_product = 0;
+
+                $product_report = $product_month[$i];
+                $service_report = $service_month[$i];
+                
+                foreach($service_report as $item) {
+                    $service_detail = ServiceDetail::find($item);
+                    $total_service += $service_detail->price;
+                }
+
+                foreach($product_report as $key => $value) {
+                    $product = Product::find($key);
+                    $total_product += $product->productPrice * $value;
+                }
+                
+                $arr_report[$month] = array(
+                    "service" => $total_service,
+                    "product" => $total_product,
+                    "sub_total" => $total_service + $total_product
+                );
+            }
+        }
+
+        $total = 0;
+        foreach($arr_report as $item) {
+            $total += $item["sub_total"];
+        }
+
+        return response()->json([
+            "report" => $arr_report,
+            "total" => $total
+        ]);
     }
 
     private function mostFrequentService($arr, $n) {
