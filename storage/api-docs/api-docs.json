@@ -2187,13 +2187,13 @@
                 ]
             }
         },
-        "/api/v1/report/yearly/{this_year}": {
+        "/api/v1/report/yearlyincome/{this_year}": {
             "get": {
                 "tags": [
                     "report"
                 ],
                 "description": "Get the yearly income",
-                "operationId": "App\\Http\\Controllers\\ReportController::yearly",
+                "operationId": "App\\Http\\Controllers\\ReportController::yearlyIncome",
                 "parameters": [
                     {
                         "name": "this_year",
@@ -2209,6 +2209,47 @@
                 "responses": {
                     "default": {
                         "description": "Return the yearly income"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/report/monthlyincome/{this_year}/{this_month}": {
+            "get": {
+                "tags": [
+                    "report"
+                ],
+                "description": "Get the montly income",
+                "operationId": "App\\Http\\Controllers\\ReportController::monthlyIncome",
+                "parameters": [
+                    {
+                        "name": "this_year",
+                        "in": "path",
+                        "description": "Year",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "this_month",
+                        "in": "path",
+                        "description": "Month",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Return the monthly income"
                     }
                 },
                 "security": [

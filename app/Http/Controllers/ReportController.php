@@ -127,7 +127,7 @@ class ReportController extends Controller {
 
     /**
     * @OA\Get(
-	*     path="/api/v1/report/yearly/{this_year}",
+	*     path="/api/v1/report/yearlyincome/{this_year}",
 	*	  tags={"report"},
     *     security={
     *         {"bearerAuth": {}}
@@ -146,7 +146,7 @@ class ReportController extends Controller {
     *     @OA\Response(response="default", description="Return the yearly income")
     * ),
     */
-    public function yearly($this_year) {
+    public function yearlyIncome($this_year) {
         $products = ProductTransactionDetail::all();
         $services = ServiceTransactionDetail::all();
         
@@ -197,6 +197,110 @@ class ReportController extends Controller {
             "report" => $arr_report,
             "total" => $total
         ]);
+    }
+
+    /**
+    * @OA\Get(
+	*     path="/api/v1/report/monthlyincome/{this_year}/{this_month}",
+	*	  tags={"report"},
+    *     security={
+    *         {"bearerAuth": {}}
+    *     },
+    *     description="Get the montly income",
+    *     @OA\Parameter(
+    *         name="this_year",
+    *         in="path",
+    *         description="Year",
+    *         required=true,
+    *         @OA\Schema(
+    *             type="integer",
+    *             format="int64"
+    *         ),
+    *     ),
+    *     @OA\Parameter(
+    *         name="this_month",
+    *         in="path",
+    *         description="Month",
+    *         required=true,
+    *         @OA\Schema(
+    *             type="integer",
+    *             format="int64"
+    *         ),
+    *     ),
+    *     @OA\Response(response="default", description="Return the monthly income")
+    * ),
+    */
+    public function monthlyIncome($this_year, $this_month) {
+        $products = ProductTransactionDetail::all();
+        $services = ServiceTransactionDetail::all();
+        
+
+        $product_month = $this->getProductBasedOnMonth($products, (string) $this_year, $this_month);
+        $service_month = $this->getServiceBasedOnMonth($services, (string) $this_year, $this_month);
+        $services_grouped = $this->groupingArrayTransaction($service_month);
+        $product_grouped = $this->groupingArrayTransaction($product_month);
+        $arr_report = array();
+        $arr_report["services"]= array();
+        $arr_report["services"]["service_total"] = 0;
+        
+        $arr_report["products"]= array();
+        $arr_report["products"]["product_total"] = 0;
+
+        foreach($services_grouped as $key => $value) {
+            $service_detail = ServiceDetail::find($key);
+            $service = Service::find($service_detail->Services_id)->serviceName;
+            $type = PetType::find($service_detail->PetTypes_id)->type;
+            $size = PetSize::find($service_detail->PetSizes_id)->size;
+            $service_name = "$service $type $size";
+
+            array_push($arr_report["services"], [
+                "name" => $service_name,
+                "sub_total" => $value
+            ]);
+
+            $arr_report["services"]["service_total"] += $service_detail->price;
+        }
+
+        foreach($product_grouped as $key => $value) {
+            $product = Product::find($key);
+
+            array_push($arr_report["products"], [
+                "name" => $product->productName,
+                "sub_total" => $value
+            ]);
+
+            $arr_report["products"]["product_total"] += $value;
+        }
+
+        if(!isset($arr_report['services'][0])) {
+            $arr_report['services'][0] = array(
+                "name" => "",
+                "sub_total" => 0
+            );
+        }
+
+        if(!isset($arr_report['products'][0])) {
+            $arr_report['products'][0] = array(
+                "name" => "",
+                "sub_total" => 0
+            );
+        }
+
+        return response()->json($arr_report);
+    }
+
+    private function groupingArrayTransaction($arr) {
+        $hash = array();
+
+        foreach($arr as $item) {
+            if(!isset($hash[$item['id']])) {
+                $hash[$item['id']] = $item['price'];
+            } else {
+                $hash[$item['id']] += $item['price'];
+            }
+        }
+
+        return $hash;
     }
 
     private function mostFrequentService($arr, $n) {
@@ -271,6 +375,44 @@ class ReportController extends Controller {
         }
 
         return $arr_months;
+    }
+
+    private function getServiceBasedOnMonth($detail, $this_year, $this_month) {
+        $arr_services = array();
+
+        foreach($detail as $item) {
+            $timestamp = $item['createdAt'];
+            $year = Carbon::parse($timestamp)->format('Y');
+            $month = (int) Carbon::parse($timestamp)->format('m');
+            $service_detail = ServiceDetail::find($item['ServiceDetails_id']);
+            if($this_year === $year && (int) $this_month === $month) {
+                array_push($arr_services, [
+                    "id" => $item['ServiceDetails_id'],
+                    "price" => $service_detail->price
+                ]);
+            }
+        }
+
+        return $arr_services;
+    }
+
+    private function getProductBasedOnMonth($detail, $this_year, $this_month) {
+        $arr_product = array();
+
+        foreach($detail as $item) {
+            $timestamp = $item['createdAt'];
+            $year = Carbon::parse($timestamp)->format('Y');
+            $month = (int) Carbon::parse($timestamp)->format('m');
+            $product = Product::find($item['Products_id']);
+            if($this_year === $year && (int) $this_month === $month) {
+                array_push($arr_product, [
+                    "id" => $item['Products_id'],
+                    "price" => $product->productPrice * $item->itemQty
+                ]);
+            }
+        }
+
+        return $arr_product;
     }
 
     private function divideProductsBasedOnMonth($detail, $this_year) {

@@ -169,6 +169,7 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
     $router->group(['prefix' => 'report', 'middleware' => ['jwt.auth', 'only.owner']], function () use ($router) {
         $router->get('bestsellingservice/{this_year}', 'ReportController@bestSellingService');
         $router->get('bestsellingproduct/{this_year}', 'ReportController@bestSellingProduct');
-        $router->get('yearly/{this_year}', 'ReportController@yearly');
+        $router->get('yearlyincome/{this_year}', 'ReportController@yearlyIncome');
+        $router->get('monthlyincome/{this_year}/{this_month}', 'ReportController@monthlyIncome');
     });
 });
