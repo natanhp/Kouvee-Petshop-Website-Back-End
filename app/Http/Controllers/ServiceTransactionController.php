@@ -131,7 +131,7 @@ class ServiceTransactionController extends Controller {
         $service_transaction->isPaid = 0;
         $service_transaction->total = $request->total;
         $service_transaction->Pets_id = $request->Pets_id;
-        $service_transaction_detail->Employees_id = $request->createdBy;
+        $service_transaction->Employees_id = $request->createdBy;
 
         if($service_transaction->save()) {
             foreach($serviceTransactionDetails as $item) {
