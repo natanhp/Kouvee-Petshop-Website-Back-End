@@ -154,6 +154,7 @@ class ReportController extends Controller {
         $product_month = $this->divideProductsBasedOnMonth($products, (string) $this_year);
         $service_month = $this->divideServicesBasedOnMonth($services, (string) $this_year);
         $arr_report = array();
+        $total = 0;
 
         for($i = 1; $i <= 12; $i++) {
             $month = date('F', mktime(0, 0, 0, $i, 10));
@@ -181,17 +182,15 @@ class ReportController extends Controller {
                     $total_product += $product->productPrice * $value;
                 }
                 
+                $sub_total = $total_service + $total_product;
+                $total += $sub_total;
+
                 $arr_report[$month] = array(
                     "service" => $total_service,
                     "product" => $total_product,
-                    "sub_total" => $total_service + $total_product
+                    "sub_total" => $sub_total
                 );
             }
-        }
-
-        $total = 0;
-        foreach($arr_report as $item) {
-            $total += $item["sub_total"];
         }
 
         return response()->json([
