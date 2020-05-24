@@ -156,20 +156,51 @@ class ReportController extends Controller {
         $service_month = $this->divideServicesBasedOnMonth($services, (string) $this_year);
         $arr_report = array();
         $total = 0;
-
+        
         for($i = 1; $i <= 12; $i++) {
             $month = date('F', mktime(0, 0, 0, $i, 10));
+            $total_service = 0;
+            $total_product = 0;
 
-            if(!isset($product_month[$i]) || !isset($service_month[$i])) {
+            if(!isset($product_month[$i]) && !isset($service_month[$i])) {
                 $arr_report[$month] = array(
                     "service" => 0,
                     "product" => 0,
                     "sub_total" => 0
                 );
-            } else {
-                $total_service = 0;
-                $total_product = 0;
+            } else if(!isset($product_month[$i])) {
+                $service_report = $service_month[$i];
+                
+                foreach($service_report as $item) {
+                    $service_detail = ServiceDetail::find($item);
+                    $total_service += $service_detail->price;
+                }
+                
+                $sub_total = $total_service + $total_product;
+                $total += $sub_total;
 
+                $arr_report[$month] = array(
+                    "service" => $total_service,
+                    "product" => $total_product,
+                    "sub_total" => $sub_total
+                );
+            } else if(!isset($service_month[$i])) {
+                $product_report = $product_month[$i];
+                
+                foreach($service_report as $item) {
+                    $service_detail = ServiceDetail::find($item);
+                    $total_service += $service_detail->price;
+                }
+                
+                $sub_total = $total_service + $total_product;
+                $total += $sub_total;
+
+                $arr_report[$month] = array(
+                    "service" => $total_service,
+                    "product" => $total_product,
+                    "sub_total" => $sub_total
+                );
+            } else {
                 $product_report = $product_month[$i];
                 $service_report = $service_month[$i];
                 
