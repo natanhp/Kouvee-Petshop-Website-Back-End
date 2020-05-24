@@ -90,6 +90,6 @@ class ServiceTransaction extends Model
      */
     public function serviceTransactionDetails()
     {
-        return $this->hasMany('App\ServiceTransactionDetail');
+        return $this->hasMany('App\ServiceTransactionDetail', 'ServiceDetails_id');
     }
 }
