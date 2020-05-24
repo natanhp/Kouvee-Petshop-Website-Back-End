@@ -55,7 +55,7 @@ class ServiceTransactionDetail extends Model
      */
     public function serviceTransaction()
     {
-        return $this->belongsTo('App\ServiceTransaction');
+        return $this->belongsTo('App\ServiceTransaction', 'ServiceDetails_id');
     }
 
     /**

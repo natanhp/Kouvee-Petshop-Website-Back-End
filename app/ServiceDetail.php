@@ -26,6 +26,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class ServiceDetail extends Model
 {
     use SoftDeletes;
+    use \Askedio\SoftCascade\Traits\SoftCascadeTrait;
     
     /**
      * The table associated with the model.
@@ -33,6 +34,7 @@ class ServiceDetail extends Model
      * @var string
      */
     protected $table = 'ServiceDetails';
+    protected $softCascade = ['serviceTransactionDetails'];
 
     const CREATED_AT = 'createdAt';
     const UPDATED_AT = 'updatedAt';
