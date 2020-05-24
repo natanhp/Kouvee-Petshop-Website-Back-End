@@ -187,9 +187,9 @@ class ReportController extends Controller {
             } else if(!isset($service_month[$i])) {
                 $product_report = $product_month[$i];
                 
-                foreach($service_report as $item) {
-                    $service_detail = ServiceDetail::find($item);
-                    $total_service += $service_detail->price;
+                foreach($product_report as $key => $value) {
+                    $product = Product::find($key);
+                    $total_product += $product->productPrice * $value;
                 }
                 
                 $sub_total = $total_service + $total_product;
