@@ -172,5 +172,6 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         $router->get('yearlyincome/{this_year}', 'ReportController@yearlyIncome');
         $router->get('yearlyrestockproduct/{this_year}', 'ReportController@yearlyRestockProduct');
         $router->get('monthlyincome/{this_year}/{this_month}', 'ReportController@monthlyIncome');
+        $router->get('monthlyrestockproduct/{this_year}/{this_month}', 'ReportController@monthlyRestockProduct');
     });
 });

@@ -351,6 +351,69 @@ class ReportController extends Controller {
         ]);
     }
 
+    /**
+    * @OA\Get(
+	*     path="/api/v1/report/monthlyrestockproduct/{this_year}/{this_month}",
+	*	  tags={"report"},
+    *     security={
+    *         {"bearerAuth": {}}
+    *     },
+    *     description="Get the montly restock product outcome",
+    *     @OA\Parameter(
+    *         name="this_year",
+    *         in="path",
+    *         description="Year",
+    *         required=true,
+    *         @OA\Schema(
+    *             type="integer",
+    *             format="int64"
+    *         ),
+    *     ),
+    *     @OA\Parameter(
+    *         name="this_month",
+    *         in="path",
+    *         description="Month",
+    *         required=true,
+    *         @OA\Schema(
+    *             type="integer",
+    *             format="int64"
+    *         ),
+    *     ),
+    *     @OA\Response(response="default", description="Return the monthly restock product outcome")
+    * ),
+    */
+    public function monthlyRestockProduct($this_year, $this_month) {
+        $products = ProductRestockDetail::all();
+        
+
+        $product_month = $this->getProductBasedOnMonth($products, (string) $this_year, $this_month);
+        $product_grouped = $this->groupingArrayTransaction($product_month);
+        $arr_report = array();
+        $arr_report["products"] = array();
+        $arr_report["total"] = 0;
+        $total = 0;
+
+        foreach($product_grouped as $key => $value) {
+            $product = Product::find($key);
+
+            array_push($arr_report["products"], [
+                "name" => $product->productName,
+                "sub_total" => $value
+            ]);
+
+            $arr_report["total"] += $value;
+        }
+
+        if(!isset($arr_report['products'][0])) {
+            $arr_report['products'][0] = array(
+                "name" => "",
+                "sub_total" => 0
+            );
+        }
+
+        return response()->json($arr_report);
+    }
+
     private function groupingArrayTransaction($arr) {
         $hash = array();
 
