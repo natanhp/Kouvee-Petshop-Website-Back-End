@@ -31,7 +31,6 @@ class ServiceTransactionDetail extends Model
      * @var string
      */
     protected $table = 'ServiceTransactionDetail';
-    protected $softCascade = ['serviceTransactionsCreatedBy'];
 
     const CREATED_AT = 'createdAt';
     const UPDATED_AT = 'updatedAt';

@@ -45,8 +45,10 @@ class ServiceTransactionController extends Controller {
         }
 
         foreach($service_transactions as $service_transaction) {
-            $service_transactions->cs_name = Employee::find($service_transaction->createdBy)->name;
+            $service_transaction->cs_name = Employee::find($service_transaction->createdBy)->name;
             $pet = Pet::find($service_transaction->Pets_id, ['id', 'name', 'PetSizes_id', 'PetTypes_id', 'Customers_id']);
+            $pet_type = PetType::find($pet->PetTypes_id)->type;
+            $pet->type = $pet_type;
             $service_transaction->pet = $pet;
             $service_transaction->customer = Customer::find($pet->Customers_id, ['id', 'name', 'phoneNumber']);
 
@@ -54,7 +56,6 @@ class ServiceTransactionController extends Controller {
             foreach($service_transaction_details as $service_transaction_detail) {
                 $service_detail = ServiceDetail::find($service_transaction_detail->ServiceDetails_id, ['id', 'price', 'PetTypes_id', 'PetSizes_id', 'Services_id']);
                 $service_name = Service::find($service_detail->Services_id)->serviceName;
-                $pet_type = PetType::find($service_detail->PetTypes_id)->type;
                 $pet_size = PetSize::find($service_detail->PetSizes_id)->size;
                 $service_detail->complete_name = "$service_name $pet_type $pet_size";
                 $service_transaction_detail->service = $service_detail;
