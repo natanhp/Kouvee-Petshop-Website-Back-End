@@ -315,7 +315,7 @@ class ReportController extends Controller {
         $restock = ProductRestockDetail::all();
         
 
-        $restock_month = $this->divideProductsBasedOnMonth($restock, (string) $this_year);
+        $restock_month = $this->divideProductRestockBasedOnMonth($restock, (string) $this_year);
 
         $arr_report = array();
         $total = 0;
@@ -386,7 +386,7 @@ class ReportController extends Controller {
         $products = ProductRestockDetail::all();
         
 
-        $product_month = $this->getProductBasedOnMonth($products, (string) $this_year, $this_month);
+        $product_month = $this->getProductRestockBasedOnMonth($products, (string) $this_year, $this_month);
         $product_grouped = $this->groupingArrayTransaction($product_month);
         $arr_report = array();
         $arr_report["products"] = array();
@@ -540,11 +540,60 @@ class ReportController extends Controller {
         return $arr_product;
     }
 
+    private function getProductRestockBasedOnMonth($detail, $this_year, $this_month) {
+        $arr_product = array();
+
+        foreach($detail as $item) {
+            $timestamp = $item['created_at'];
+            $year = Carbon::parse($timestamp)->format('Y');
+            $month = (int) Carbon::parse($timestamp)->format('m');
+            $product = Product::find($item['Products_id']);
+            if($this_year === $year && (int) $this_month === $month) {
+                array_push($arr_product, [
+                    "id" => $item['Products_id'],
+                    "price" => $product->productPrice * $item->itemQty
+                ]);
+            }
+        }
+
+        return $arr_product;
+    }
+
     private function divideProductsBasedOnMonth($detail, $this_year) {
         $arr_months = array();
 
         foreach($detail as $item) {
             $timestamp = $item['createdAt'];
+            $year = Carbon::parse($timestamp)->format('Y');
+            
+            if($this_year === $year) {
+                $month = (int) Carbon::parse($timestamp)->format('m');
+                if(!isset($arr_months[$month])) {
+                    $arr_months[$month] = array(
+                        $item['Products_id'] => $item['itemQty']
+                    );
+                } else {
+                    $arr_item = $arr_months[$month];
+            
+                    if(!isset($arr_item[$item['Products_id']])) {
+                        $arr_item[$item['Products_id']] = $item['itemQty'];    
+                    } else {
+                        $arr_item[$item['Products_id']] += $item['itemQty'];            
+                    }
+            
+                    $arr_months[$month] = $arr_item;
+                }
+            }
+        }
+
+        return $arr_months;
+    }
+
+    private function divideProductRestockBasedOnMonth($detail, $this_year) {
+        $arr_months = array();
+
+        foreach($detail as $item) {
+            $timestamp = $item['created_at'];
             $year = Carbon::parse($timestamp)->format('Y');
             
             if($this_year === $year) {
