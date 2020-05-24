@@ -2259,6 +2259,37 @@
                 ]
             }
         },
+        "/api/v1/report/yearlyrestockproduct/{this_year}": {
+            "get": {
+                "tags": [
+                    "report"
+                ],
+                "description": "Get the yearly restock report",
+                "operationId": "App\\Http\\Controllers\\ReportController::yearlyRestockProduct",
+                "parameters": [
+                    {
+                        "name": "this_year",
+                        "in": "path",
+                        "description": "Year",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Return the yearly restock report"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/noa/servicedetails/getall": {
             "get": {
                 "tags": [

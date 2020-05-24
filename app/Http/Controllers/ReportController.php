@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\ServiceTransaction;
 use App\ServiceTransactionDetail;
 use App\ProductTransactionDetail;
+use App\ProductRestockDetail;
 use App\ServiceDetail;
 use App\Employee;
 use App\Customer;
@@ -287,6 +288,67 @@ class ReportController extends Controller {
         }
 
         return response()->json($arr_report);
+    }
+
+    /**
+    * @OA\Get(
+	*     path="/api/v1/report/yearlyrestockproduct/{this_year}",
+	*	  tags={"report"},
+    *     security={
+    *         {"bearerAuth": {}}
+    *     },
+    *     description="Get the yearly restock report",
+    *     @OA\Parameter(
+    *         name="this_year",
+    *         in="path",
+    *         description="Year",
+    *         required=true,
+    *         @OA\Schema(
+    *             type="integer",
+    *             format="int64"
+    *         ),
+    *     ),
+    *     @OA\Response(response="default", description="Return the yearly restock report")
+    * ),
+    */
+    public function yearlyRestockProduct($this_year) {
+        $restock = ProductRestockDetail::all();
+        
+
+        $restock_month = $this->divideProductsBasedOnMonth($restock, (string) $this_year);
+
+        $arr_report = array();
+        $total = 0;
+
+        for($i = 1; $i <= 12; $i++) {
+            $month = date('F', mktime(0, 0, 0, $i, 10));
+
+            if(!isset($restock_month[$i])) {
+                $arr_report[$month] = array(
+                    "outcome" => 0
+                );
+            } else {
+                $total_outcome = 0;
+
+                $restock_report = $restock_month[$i];
+
+                foreach($restock_report as $key => $value) {
+                    $product = Product::find($key);
+                    $total_outcome += $product->productPrice * $value;
+                }
+
+                $total += $total_outcome;
+
+                $arr_report[$month] = array(
+                    "outcome" => $total_outcome
+                );
+            }
+        }
+
+        return response()->json([
+            "report" => $arr_report,
+            "total" => $total
+        ]);
     }
 
     private function groupingArrayTransaction($arr) {

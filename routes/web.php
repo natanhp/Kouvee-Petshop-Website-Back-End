@@ -170,6 +170,7 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         $router->get('bestsellingservice/{this_year}', 'ReportController@bestSellingService');
         $router->get('bestsellingproduct/{this_year}', 'ReportController@bestSellingProduct');
         $router->get('yearlyincome/{this_year}', 'ReportController@yearlyIncome');
+        $router->get('yearlyrestockproduct/{this_year}', 'ReportController@yearlyRestockProduct');
         $router->get('monthlyincome/{this_year}/{this_month}', 'ReportController@monthlyIncome');
     });
 });
