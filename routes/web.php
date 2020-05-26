@@ -163,6 +163,7 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         $router->group(['prefix' => 'cs', 'middleware' => ['only.cs']], function () use ($router) {
             $router->post('insert', 'ServiceTransactionController@insert');
             $router->get('getallunfinishedservice', 'ServiceTransactionController@getAllUnfinishedService');
+            $router->get('finish', 'ServiceTransactionController@finish');
         });
     });
 
