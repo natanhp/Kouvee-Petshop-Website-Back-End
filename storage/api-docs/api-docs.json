@@ -2587,6 +2587,10 @@
                                     "total": {
                                         "description": "The total price",
                                         "type": "double"
+                                    },
+                                    "Pets_id": {
+                                        "description": "The id of the Pet",
+                                        "type": "double"
                                     }
                                 },
                                 "type": "object"
@@ -2773,6 +2777,45 @@
                 "responses": {
                     "default": {
                         "description": "Service transaction and its detail"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/servicetransaction/cs/finish": {
+            "put": {
+                "tags": [
+                    "service transaction"
+                ],
+                "summary": "Confirm a service transaction",
+                "operationId": "App\\Http\\Controllers\\ServiceTransactionController::finish",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "description": "The id of the service transaction detail",
+                                        "type": "string"
+                                    },
+                                    "updatedBy": {
+                                        "description": "The foreign key of the cs who updates the service transaction detail",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Service transaction is null or fails to save or service transaction detail fails to save"
                     }
                 },
                 "security": [

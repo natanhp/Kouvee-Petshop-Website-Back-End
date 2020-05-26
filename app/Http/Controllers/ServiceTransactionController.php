@@ -14,6 +14,7 @@ use App\PetSize;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use App\Events\GroomingFinishNotif;
 
 class ServiceTransactionController extends Controller {
 
@@ -101,6 +102,11 @@ class ServiceTransactionController extends Controller {
      *                     property="total",
      *                     description="The total price",
      *                     type="double",
+     *                 ),
+     *                 @OA\Property(
+     *                     property="Pets_id",
+     *                     description="The id of the Pet",
+     *                     type="double",
      *                 )
      *             )
      *         )
@@ -112,7 +118,8 @@ class ServiceTransactionController extends Controller {
         $this->validate($request, [
             'createdBy' => 'required|numeric',
             'serviceTransactionDetails' => 'required',
-            'total' => 'required|numeric'
+            'total' => 'required|numeric',
+            'Pets_id' => 'required|numeric',
         ]);
 
         $serviceTransactionDetails = $request->serviceTransactionDetails;
@@ -456,5 +463,68 @@ class ServiceTransactionController extends Controller {
             "data" => $service_transaction_details
         ], 200);
     }    
+
+    /**
+     * @OA\Put(
+     *     path="/api/v1/servicetransaction/cs/finish",
+     *     tags={"service transaction"},
+     *     summary="Confirm a service transaction",
+     *     @OA\Response(
+     *         response=400,
+     *         description="Service transaction is null or fails to save or service transaction detail fails to save"
+     *     ),
+     *     security={
+     *         {"bearerAuth": {}}
+     *     },
+     *     @OA\RequestBody(
+     *         description="Input data format",
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(
+     *                 type="object",
+	 * 				   @OA\Property(
+     *                     property="id",
+     *                     description="The id of the service transaction detail",
+     *                     type="string",
+     *                 ),
+     *                 @OA\Property(
+     *                     property="updatedBy",
+     *                     description="The foreign key of the cs who updates the service transaction detail",
+     *                     type="integer"
+     *                 )
+     *             )
+     *         )
+     *     )
+     * )
+     */
+    public function finish(Request $request) {
+        
+        $this->validate($request, [
+            'id' => 'required',
+            'updatedBy' => 'required|numeric',
+        ]);
+
+        $service_transaction_detail = ServiceTransactionDetail::find($request->id);
+
+        if($service_transaction_detail != null) {
+            $service_transaction_detail->updatedBy = $request->updatedBy;
+            $service_transaction_detail->isFinished = 1;
+
+            if($service_transaction_detail->save()) {
+                event(new GroomingFinishNotif($service_transaction_detail));
+
+                return response()->json([
+                    "message" => "Konfirmasi berhasil",
+                    "data" =>[]
+                ], 200);
+            }
+        }
+
+        return response()->json([
+            "message" => "Konfirmasi gagal",
+            "data" =>[]
+        ], 400);
+    }
+
 }
 ?>

@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Customer;
+use App\Pet;
+use App\ServiceDetail;
+use App\Service;
+use App\PetType;
+use App\PetSize;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -27,9 +32,37 @@ class CustomersController extends Controller {
     * ),
     */
     public function getAll() {
+        $customers = Customer::all();
+        
+        foreach($customers as $customer) {
+            if($customer != null) {
+                $pets = Pet::where('Customers_id', $customer->id)->get(['id', 'name', 'PetTypes_id', 'PetSizes_id']);
+                
+                foreach($pets as $pet) {
+                    if($pet != null) {
+                        $service_details = ServiceDetail::where('PetTypes_id', $pet->PetTypes_id)->where('PetSizes_id', $pet->PetSizes_id)->get();
+            
+                        if($service_details != null) {
+                            foreach($service_details as $service_detail) {
+                                $service_name = Service::find($service_detail->Services_id)->serviceName;
+                                $pet_type = PetType::find($service_detail->PetTypes_id)->type;
+                                $pet_size = PetSize::find($service_detail->PetSizes_id)->size;
+                                $service_detail->complete_name = "$service_name $pet_type $pet_size";
+                            }
+
+                            $pet->service_details = $service_details;
+                        }
+                    }
+                }
+
+                $customer->pets = $pets;
+            }
+        }
+        
+
         return response()->json([
             "message" => "success", 
-            "data" => Customer::all()
+            "data" => $customers
         ], 200);
 	}
 
