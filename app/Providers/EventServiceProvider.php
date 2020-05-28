@@ -15,5 +15,8 @@ class EventServiceProvider extends ServiceProvider
         \App\Events\ProductMinReached::class => [
             \App\Listeners\SendRestockNotification::class,
         ],
+        \App\Events\GroomingFinishNotif::class => [
+            \App\Listeners\SendSMSNotif::class,
+        ],
     ];
 }
