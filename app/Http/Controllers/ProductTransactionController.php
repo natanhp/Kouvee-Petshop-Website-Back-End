@@ -59,7 +59,7 @@ class ProductTransactionController extends Controller {
                 $product = Product::find($product_transaction_detail->Products_id, ['id', 'productName', 'productPrice', 'meassurement']);
                 $product_transaction_detail->product = $product;
             }
-            $product_transaction->productTransactionkDetails = $product_transaction_details;
+            $product_transaction->productTransactionDetails = $product_transaction_details;
         }
 
         return response()->json([
