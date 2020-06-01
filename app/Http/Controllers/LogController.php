@@ -829,6 +829,18 @@ class LogController extends Controller {
 
                     $data->updater = $employee;
                 }
+
+                $deletor = Employee::withTrashed()->find($data->updatedBy, ['id', 'name']);
+
+                if($deletor != null) {
+                    $data->deletor = $deletor;
+                } else {
+                    $employee = new Employee();
+                    $employee->id = -1;
+                    $employee->name = "";
+
+                    $data->deletor = $employee;
+                }
             }
             
             return response()->json([
@@ -883,6 +895,18 @@ class LogController extends Controller {
                     $employee->name = "";
 
                     $data->updater = $employee;
+                }
+
+                $deletor = Employee::withTrashed()->find($data->updatedBy, ['id', 'name']);
+
+                if($deletor != null) {
+                    $data->deletor = $deletor;
+                } else {
+                    $employee = new Employee();
+                    $employee->id = -1;
+                    $employee->name = "";
+
+                    $data->deletor = $employee;
                 }
             }
             
