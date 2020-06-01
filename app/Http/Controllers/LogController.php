@@ -96,7 +96,7 @@ class LogController extends Controller {
     * ),
     */
     public function product() {
-        $datas = Product::withTrashed()->get();
+        $datas = Product::withTrashed()->get()->makeHidden(['image']);
 
         if($datas != null) {
             foreach($datas as $data) {
