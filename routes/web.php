@@ -175,4 +175,23 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         $router->get('monthlyincome/{this_year}/{this_month}', 'ReportController@monthlyIncome');
         $router->get('monthlyrestockproduct/{this_year}/{this_month}', 'ReportController@monthlyRestockProduct');
     });
+
+    $router->group(['prefix' => 'log', 'middleware' => ['jwt.auth', 'only.owner']], function () use ($router) {
+        $router->get('productrestockdetail', 'LogController@productRestockDetail');
+        $router->get('product', 'LogController@product');
+        $router->get('productrestock', 'LogController@productRestock');
+        $router->get('supplier', 'LogController@supplier');
+        $router->get('customer', 'LogController@customer');
+        $router->get('employee', 'LogController@employee');
+        $router->get('fcm', 'LogController@fcm');
+        $router->get('pet', 'LogController@pet');
+        $router->get('petsize', 'LogController@petSize');
+        $router->get('pettype', 'LogController@petType');
+        $router->get('producttransactiondetail', 'LogController@productTransactionDetail');
+        $router->get('servicetransactiondetail', 'LogController@serviceTransactionDetail');
+        $router->get('producttransaction', 'LogController@productTransaction');
+        $router->get('servicetransaction', 'LogController@serviceTransaction');
+        $router->get('servicedetail', 'LogController@serviceDetail');
+        $router->get('service', 'LogController@service');
+    });
 });

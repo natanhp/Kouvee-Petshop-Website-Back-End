@@ -703,6 +703,291 @@
                 ]
             }
         },
+        "/api/v1/log/productrestockdetail": {
+            "get": {
+                "tags": [
+                    "log"
+                ],
+                "description": "Get all Product Restock Detail Log",
+                "operationId": "App\\Http\\Controllers\\LogController::productRestockDetail",
+                "responses": {
+                    "default": {
+                        "description": "All Product Restock Detail Log"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/log/product": {
+            "get": {
+                "tags": [
+                    "log"
+                ],
+                "description": "Get all Product Log",
+                "operationId": "App\\Http\\Controllers\\LogController::product",
+                "responses": {
+                    "default": {
+                        "description": "All Product Log"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/log/productrestock": {
+            "get": {
+                "tags": [
+                    "log"
+                ],
+                "description": "Get all Product Restock Log",
+                "operationId": "App\\Http\\Controllers\\LogController::productRestock",
+                "responses": {
+                    "default": {
+                        "description": "All Product Restock Log"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/log/supplier": {
+            "get": {
+                "tags": [
+                    "log"
+                ],
+                "description": "Get all Supplier Log",
+                "operationId": "App\\Http\\Controllers\\LogController::supplier",
+                "responses": {
+                    "default": {
+                        "description": "All Supplier Log"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/log/producttransactiondetail": {
+            "get": {
+                "tags": [
+                    "log"
+                ],
+                "description": "Get all Product Transaction Detail Log",
+                "operationId": "App\\Http\\Controllers\\LogController::productTransactionDetail",
+                "responses": {
+                    "default": {
+                        "description": "All Product Transaction Detail Log"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/log/employee": {
+            "get": {
+                "tags": [
+                    "log"
+                ],
+                "description": "Get all Employee Log",
+                "operationId": "App\\Http\\Controllers\\LogController::employee",
+                "responses": {
+                    "default": {
+                        "description": "All Employee Log"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/log/fcm": {
+            "get": {
+                "tags": [
+                    "log"
+                ],
+                "description": "Get all FCM Log",
+                "operationId": "App\\Http\\Controllers\\LogController::fcm",
+                "responses": {
+                    "default": {
+                        "description": "All FCM Log"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/log/servicetransactiondetail": {
+            "get": {
+                "tags": [
+                    "log"
+                ],
+                "description": "Get all Service Transaction Detail Log",
+                "operationId": "App\\Http\\Controllers\\LogController::serviceTransactionDetail",
+                "responses": {
+                    "default": {
+                        "description": "All Service Transaction Detail Log"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/log/servicetransaction": {
+            "get": {
+                "tags": [
+                    "log"
+                ],
+                "description": "Get all Service Transaction Log",
+                "operationId": "App\\Http\\Controllers\\LogController::serviceTransaction",
+                "responses": {
+                    "default": {
+                        "description": "All Service Transaction Log"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/log/customer": {
+            "get": {
+                "tags": [
+                    "log"
+                ],
+                "description": "Get all Customer Log",
+                "operationId": "App\\Http\\Controllers\\LogController::customer",
+                "responses": {
+                    "default": {
+                        "description": "All Customer Log"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/log/pet": {
+            "get": {
+                "tags": [
+                    "log"
+                ],
+                "description": "Get all Pet Log",
+                "operationId": "App\\Http\\Controllers\\LogController::pet",
+                "responses": {
+                    "default": {
+                        "description": "All Pet Log"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/log/servicedetail": {
+            "get": {
+                "tags": [
+                    "log"
+                ],
+                "description": "Get all Service Detail Log",
+                "operationId": "App\\Http\\Controllers\\LogController::serviceDetail",
+                "responses": {
+                    "default": {
+                        "description": "All Service Detail Log"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/log/service": {
+            "get": {
+                "tags": [
+                    "log"
+                ],
+                "description": "Get all Service Log",
+                "operationId": "App\\Http\\Controllers\\LogController::service",
+                "responses": {
+                    "default": {
+                        "description": "All Service Log"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/log/petsize": {
+            "get": {
+                "tags": [
+                    "log"
+                ],
+                "description": "Get all Pet Size Log",
+                "operationId": "App\\Http\\Controllers\\LogController::petSize",
+                "responses": {
+                    "default": {
+                        "description": "All Pet Size Log"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/log/pettype": {
+            "get": {
+                "tags": [
+                    "log"
+                ],
+                "description": "Get all Pet Type Log",
+                "operationId": "App\\Http\\Controllers\\LogController::petType",
+                "responses": {
+                    "default": {
+                        "description": "All Pet Type Log"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/uni/petsizes/getall": {
             "get": {
                 "tags": [
