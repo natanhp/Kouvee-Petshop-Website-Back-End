@@ -289,6 +289,16 @@ class LogController extends Controller {
 
         if($datas != null) {
             foreach($datas as $data) {
+                $product = Product::withTrashed()->find($data->Products_id, ['id', 'productName']);
+
+                if($product == null) {
+                    $product = new Product();
+                    $product->id = -1;
+                    $product->productName = "";
+                }
+
+                $data->product = $product;
+
                 $creator = Employee::withTrashed()->find($data->createdBy, ['id', 'name']);
 
 
@@ -439,6 +449,13 @@ class LogController extends Controller {
 
         if($datas != null) {
             foreach($datas as $data) {
+                $service_detail = ServiceDetail::withTrashed()->find($data->ServiceDetails_id, ['id', 'Services_id', 'PetTypes_id', 'PetSizes_id']);
+                $service_name = Service::withTrashed()->find($data->Services_id)->serviceName;
+                $pet_type = PetType::withTrashed()->find($data->PetTypes_id)->type;
+                $pet_size = PetSize::withTrashed()->find($data->PetSizes_id)->size;
+                
+                $data->complete_name = "$service_name $pet_type $pet_size";
+
                 $creator = Employee::withTrashed()->find($data->createdBy, ['id', 'name']);
 
 
@@ -683,6 +700,12 @@ class LogController extends Controller {
 
         if($datas != null) {
             foreach($datas as $data) {
+                $service_name = Service::withTrashed()->find($data->Services_id)->serviceName;
+                $pet_type = PetType::withTrashed()->find($data->PetTypes_id)->type;
+                $pet_size = PetSize::withTrashed()->find($data->PetSizes_id)->size;
+                
+                $data->complete_name = "$service_name $pet_type $pet_size";
+
                 $creator = Employee::withTrashed()->find($data->createdBy, ['id', 'name']);
 
 
