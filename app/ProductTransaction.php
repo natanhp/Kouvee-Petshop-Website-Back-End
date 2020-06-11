@@ -3,12 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property string $id
- * @property string $date
  * @property float $total
- * @property string $isDeleted
  * @property string $createdAt
  * @property string $updatedAt
  * @property int $Employees_id
@@ -17,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $updatedBy
  * @property string $isPaid
  * @property int $itemQty
+ * @property string $deletedAt
  * @property Customer $customer
  * @property Employee $employee
  * @property Employee $employee
@@ -25,17 +25,41 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ProductTransaction extends Model
 {
+
+    use SoftDeletes;
+    use \Askedio\SoftCascade\Traits\SoftCascadeTrait;
+
+
     /**
      * The table associated with the model.
      * 
      * @var string
      */
     protected $table = 'ProductTransaction';
+    protected $softCascade = ['productTransactionDetails'];
+
+    const CREATED_AT = 'createdAt';
+    const UPDATED_AT = 'updatedAt';
+    const DELETED_AT = 'deletedAt';
+
+    /**
+     * The "type" of the auto-incrementing ID.
+     * 
+     * @var string
+     */
+    protected $keyType = 'string';
+
+    /**
+     * Indicates if the IDs are auto-incrementing.
+     * 
+     * @var bool
+     */
+    public $incrementing = false;
 
     /**
      * @var array
      */
-    protected $fillable = ['date', 'total', 'isDeleted', 'createdAt', 'updatedAt', 'createdBy', 'updatedBy', 'isPaid', 'itemQty'];
+    protected $fillable = ['total', 'createdAt', 'updatedAt', 'createdBy', 'updatedBy', 'isPaid', 'itemQty', 'deletedAt'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -48,7 +72,7 @@ class ProductTransaction extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function employeeEmployeesId()
+    public function employee()
     {
         return $this->belongsTo('App\Employee', 'Employees_id');
     }
@@ -74,6 +98,6 @@ class ProductTransaction extends Model
      */
     public function productTransactionDetails()
     {
-        return $this->hasMany('App\ProductTransactionDetail');
+        return $this->hasMany('App\ProductTransactionDetail', 'ProductTransaction_id');
     }
 }

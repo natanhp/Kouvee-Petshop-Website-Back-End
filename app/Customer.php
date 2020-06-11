@@ -35,7 +35,7 @@ class Customer extends Model
      * @var string
      */
     protected $table = 'Customers';
-    protected $softCascade = ['pets'];
+    protected $softCascade = ['pets', 'productTransactions'];
 
     const CREATED_AT = 'createdAt';
     const UPDATED_AT = 'updatedAt';

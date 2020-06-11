@@ -86,6 +86,7 @@ $app->routeMiddleware([
     'jwt.auth' => App\Http\Middleware\JwtMiddleware::class,
     'only.cs' => App\Http\Middleware\OnlyCSMiddleware::class,
     'only.owner' => App\Http\Middleware\OnlyOwnerMiddleware::class,
+    'only.kasir' => App\Http\Middleware\OnlyKasirMiddleware::class,
 ]);
 
 $app->middleware([

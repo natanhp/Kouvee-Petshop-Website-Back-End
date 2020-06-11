@@ -61,7 +61,7 @@ class ProductRestockController extends Controller {
      * @OA\Post(
      *     path="/api/v1/productrestock/insert",
      *     tags={"product restock"},
-     *     summary="Insert a new service detail",
+     *     summary="Insert a new product restock",
      *     @OA\Response(
      *         response=400,
      *         description="Error"
@@ -130,7 +130,6 @@ class ProductRestockController extends Controller {
                 $product_restock_detail->Products_id = $item['Products_id'];
                 $product_restock_detail->createdBy = $item['createdBy'];
                 $product_restock_detail->product_restock_id = $current_id;
-                $created_by = $item['createdBy'];
 
                 $product_restock_detail->save();
             }
@@ -178,7 +177,7 @@ class ProductRestockController extends Controller {
     * ),
     */
     public function confirm($id, $ownerId) {
-        $product_restock = ProductRestock::find($id)->first();
+        $product_restock = ProductRestock::find($id);
         $product_restock_details = ProductRestockDetail::where('product_restock_id', $product_restock->id)->get();
         foreach($product_restock_details as $product_restock_detail) {
             $id = $product_restock_detail->Products_id;
@@ -193,7 +192,7 @@ class ProductRestockController extends Controller {
         if($product_restock->delete()) {
             return response()->json([
                 "message" => "Success",
-                "data" => "Stock updated"
+                "data" => [$product_restock]
             ], 200);
         } else {
             return response()->json([

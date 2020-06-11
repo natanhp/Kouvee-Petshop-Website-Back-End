@@ -3,16 +3,18 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 /**
  * @property int $id
- * @property string $isDeleted
  * @property string $createdAt
  * @property string $updatedAt
  * @property int $Products_id
  * @property string $ProductTransaction_id
  * @property int $createdBy
  * @property int $updatedBy
+ * @property string $deletedAt
  * @property ProductTransaction $productTransaction
  * @property Product $product
  * @property Employee $employee
@@ -20,6 +22,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ProductTransactionDetail extends Model
 {
+    use SoftDeletes;
+
+
     /**
      * The table associated with the model.
      * 
@@ -27,17 +32,21 @@ class ProductTransactionDetail extends Model
      */
     protected $table = 'ProductTransactionDetail';
 
+    const CREATED_AT = 'createdAt';
+    const UPDATED_AT = 'updatedAt';
+    const DELETED_AT = 'deletedAt';
+
     /**
      * @var array
      */
-    protected $fillable = ['isDeleted', 'createdAt', 'updatedAt', 'createdBy', 'updatedBy'];
+    protected $fillable = ['createdAt', 'updatedAt', 'createdBy', 'updatedBy', 'deletedAt'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function productTransaction()
     {
-        return $this->belongsTo('App\ProductTransaction');
+        return $this->belongsTo('App\ProductTransaction', 'ProductTransaction_id');
     }
 
     /**

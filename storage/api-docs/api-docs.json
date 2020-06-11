@@ -703,6 +703,291 @@
                 ]
             }
         },
+        "/api/v1/log/productrestockdetail": {
+            "get": {
+                "tags": [
+                    "log"
+                ],
+                "description": "Get all Product Restock Detail Log",
+                "operationId": "App\\Http\\Controllers\\LogController::productRestockDetail",
+                "responses": {
+                    "default": {
+                        "description": "All Product Restock Detail Log"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/log/product": {
+            "get": {
+                "tags": [
+                    "log"
+                ],
+                "description": "Get all Product Log",
+                "operationId": "App\\Http\\Controllers\\LogController::product",
+                "responses": {
+                    "default": {
+                        "description": "All Product Log"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/log/productrestock": {
+            "get": {
+                "tags": [
+                    "log"
+                ],
+                "description": "Get all Product Restock Log",
+                "operationId": "App\\Http\\Controllers\\LogController::productRestock",
+                "responses": {
+                    "default": {
+                        "description": "All Product Restock Log"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/log/supplier": {
+            "get": {
+                "tags": [
+                    "log"
+                ],
+                "description": "Get all Supplier Log",
+                "operationId": "App\\Http\\Controllers\\LogController::supplier",
+                "responses": {
+                    "default": {
+                        "description": "All Supplier Log"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/log/producttransactiondetail": {
+            "get": {
+                "tags": [
+                    "log"
+                ],
+                "description": "Get all Product Transaction Detail Log",
+                "operationId": "App\\Http\\Controllers\\LogController::productTransactionDetail",
+                "responses": {
+                    "default": {
+                        "description": "All Product Transaction Detail Log"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/log/employee": {
+            "get": {
+                "tags": [
+                    "log"
+                ],
+                "description": "Get all Employee Log",
+                "operationId": "App\\Http\\Controllers\\LogController::employee",
+                "responses": {
+                    "default": {
+                        "description": "All Employee Log"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/log/fcm": {
+            "get": {
+                "tags": [
+                    "log"
+                ],
+                "description": "Get all FCM Log",
+                "operationId": "App\\Http\\Controllers\\LogController::fcm",
+                "responses": {
+                    "default": {
+                        "description": "All FCM Log"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/log/servicetransactiondetail": {
+            "get": {
+                "tags": [
+                    "log"
+                ],
+                "description": "Get all Service Transaction Detail Log",
+                "operationId": "App\\Http\\Controllers\\LogController::serviceTransactionDetail",
+                "responses": {
+                    "default": {
+                        "description": "All Service Transaction Detail Log"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/log/servicetransaction": {
+            "get": {
+                "tags": [
+                    "log"
+                ],
+                "description": "Get all Service Transaction Log",
+                "operationId": "App\\Http\\Controllers\\LogController::serviceTransaction",
+                "responses": {
+                    "default": {
+                        "description": "All Service Transaction Log"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/log/customer": {
+            "get": {
+                "tags": [
+                    "log"
+                ],
+                "description": "Get all Customer Log",
+                "operationId": "App\\Http\\Controllers\\LogController::customer",
+                "responses": {
+                    "default": {
+                        "description": "All Customer Log"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/log/pet": {
+            "get": {
+                "tags": [
+                    "log"
+                ],
+                "description": "Get all Pet Log",
+                "operationId": "App\\Http\\Controllers\\LogController::pet",
+                "responses": {
+                    "default": {
+                        "description": "All Pet Log"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/log/servicedetail": {
+            "get": {
+                "tags": [
+                    "log"
+                ],
+                "description": "Get all Service Detail Log",
+                "operationId": "App\\Http\\Controllers\\LogController::serviceDetail",
+                "responses": {
+                    "default": {
+                        "description": "All Service Detail Log"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/log/service": {
+            "get": {
+                "tags": [
+                    "log"
+                ],
+                "description": "Get all Service Log",
+                "operationId": "App\\Http\\Controllers\\LogController::service",
+                "responses": {
+                    "default": {
+                        "description": "All Service Log"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/log/petsize": {
+            "get": {
+                "tags": [
+                    "log"
+                ],
+                "description": "Get all Pet Size Log",
+                "operationId": "App\\Http\\Controllers\\LogController::petSize",
+                "responses": {
+                    "default": {
+                        "description": "All Pet Size Log"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/log/pettype": {
+            "get": {
+                "tags": [
+                    "log"
+                ],
+                "description": "Get all Pet Type Log",
+                "operationId": "App\\Http\\Controllers\\LogController::petType",
+                "responses": {
+                    "default": {
+                        "description": "All Pet Type Log"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/uni/petsizes/getall": {
             "get": {
                 "tags": [
@@ -1461,7 +1746,7 @@
                 "tags": [
                     "product restock"
                 ],
-                "summary": "Insert a new service detail",
+                "summary": "Insert a new product restock",
                 "operationId": "App\\Http\\Controllers\\ProductRestockController::insert",
                 "requestBody": {
                     "description": "Input data format",
@@ -1593,6 +1878,239 @@
                 "responses": {
                     "default": {
                         "description": "Restore the deleted product restock"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/producttransaction/kasir/getall": {
+            "get": {
+                "tags": [
+                    "product transaction"
+                ],
+                "description": "Get all the product transaction",
+                "operationId": "App\\Http\\Controllers\\ProductTransactionController::getAll",
+                "responses": {
+                    "default": {
+                        "description": "Product transaction and its detail"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/producttransaction/cs/insert": {
+            "post": {
+                "tags": [
+                    "product transaction"
+                ],
+                "summary": "Insert a new product transaction",
+                "operationId": "App\\Http\\Controllers\\ProductTransactionController::insert",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "productTransactionDetails": {
+                                        "description": "Array of Product Restock Detail",
+                                        "type": "string"
+                                    },
+                                    "createdBy": {
+                                        "description": "The id of the owner",
+                                        "type": "integer"
+                                    },
+                                    "total": {
+                                        "description": "The total price",
+                                        "type": "double"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/producttransaction/kasir/updatedetailbyid": {
+            "put": {
+                "tags": [
+                    "product transaction"
+                ],
+                "summary": "Update a detail in product transaction",
+                "operationId": "App\\Http\\Controllers\\ProductTransactionController::updateDetailById",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "description": "The id of the product transaction detail",
+                                        "type": "integer"
+                                    },
+                                    "Products_id": {
+                                        "description": "The id of the product",
+                                        "type": "integer"
+                                    },
+                                    "itemQty": {
+                                        "description": "The new quantity of the detail",
+                                        "type": "integer"
+                                    },
+                                    "updatedBy": {
+                                        "description": "The foreign key of the owner who updates the product transaction detail",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Product is null or fails to save or product transaction detail fails to save"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/producttransaction/kasir/deletedetailbyid/{id}/{cashierId}": {
+            "delete": {
+                "tags": [
+                    "product transaction"
+                ],
+                "summary": "Deletes a product",
+                "operationId": "App\\Http\\Controllers\\ProductTransactionController::deleteDetailById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Product transaction detail id to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "cashierId",
+                        "in": "path",
+                        "description": "Cashier who delted the product",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Product transaction detail not deleted it's because either the deletion failed or not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/producttransaction/kasir/deletetransactionbyid/{id}/{cashierId}": {
+            "delete": {
+                "tags": [
+                    "product transaction"
+                ],
+                "summary": "Deletes a product",
+                "operationId": "App\\Http\\Controllers\\ProductTransactionController::deleteTransactionById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Product transaction id to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "cashierId",
+                        "in": "path",
+                        "description": "Cashier who deleted the product",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Product transaction not deleted it's because either the deletion failed or not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/producttransaction/kasir/confirm": {
+            "put": {
+                "tags": [
+                    "product transaction"
+                ],
+                "summary": "Confirm a product transaction",
+                "operationId": "App\\Http\\Controllers\\ProductTransactionController::confirm",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "description": "The id of the product transaction detail",
+                                        "type": "string"
+                                    },
+                                    "total": {
+                                        "description": "The id of the product",
+                                        "type": "double"
+                                    },
+                                    "updatedBy": {
+                                        "description": "The foreign key of the owner who updates the product transaction detail",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Product is null or fails to save or product transaction detail fails to save"
                     }
                 },
                 "security": [
@@ -1892,6 +2410,212 @@
                 }
             }
         },
+        "/api/v1/report/bestsellingservice/{this_year}": {
+            "get": {
+                "tags": [
+                    "report"
+                ],
+                "description": "Get all the best selling service",
+                "operationId": "App\\Http\\Controllers\\ReportController::bestSellingService",
+                "parameters": [
+                    {
+                        "name": "this_year",
+                        "in": "path",
+                        "description": "Year of service",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Return the best selling service of the year by month"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/report/bestsellingproduct/{this_year}": {
+            "get": {
+                "tags": [
+                    "report"
+                ],
+                "description": "Get all the best selling product",
+                "operationId": "App\\Http\\Controllers\\ReportController::bestSellingProduct",
+                "parameters": [
+                    {
+                        "name": "this_year",
+                        "in": "path",
+                        "description": "Year of product",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Return the best selling product of the year by month"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/report/yearlyincome/{this_year}": {
+            "get": {
+                "tags": [
+                    "report"
+                ],
+                "description": "Get the yearly income",
+                "operationId": "App\\Http\\Controllers\\ReportController::yearlyIncome",
+                "parameters": [
+                    {
+                        "name": "this_year",
+                        "in": "path",
+                        "description": "Year",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Return the yearly income"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/report/monthlyincome/{this_year}/{this_month}": {
+            "get": {
+                "tags": [
+                    "report"
+                ],
+                "description": "Get the montly income",
+                "operationId": "App\\Http\\Controllers\\ReportController::monthlyIncome",
+                "parameters": [
+                    {
+                        "name": "this_year",
+                        "in": "path",
+                        "description": "Year",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "this_month",
+                        "in": "path",
+                        "description": "Month",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Return the monthly income"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/report/yearlyrestockproduct/{this_year}": {
+            "get": {
+                "tags": [
+                    "report"
+                ],
+                "description": "Get the yearly restock report",
+                "operationId": "App\\Http\\Controllers\\ReportController::yearlyRestockProduct",
+                "parameters": [
+                    {
+                        "name": "this_year",
+                        "in": "path",
+                        "description": "Year",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Return the yearly restock report"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/report/monthlyrestockproduct/{this_year}/{this_month}": {
+            "get": {
+                "tags": [
+                    "report"
+                ],
+                "description": "Get the montly restock product outcome",
+                "operationId": "App\\Http\\Controllers\\ReportController::monthlyRestockProduct",
+                "parameters": [
+                    {
+                        "name": "this_year",
+                        "in": "path",
+                        "description": "Year",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "this_month",
+                        "in": "path",
+                        "description": "Month",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Return the monthly restock product outcome"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/noa/servicedetails/getall": {
             "get": {
                 "tags": [
@@ -2096,6 +2820,287 @@
                 "responses": {
                     "default": {
                         "description": "Restore the deleted service detail"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/servicetransaction/kasir/getall": {
+            "get": {
+                "tags": [
+                    "service transaction"
+                ],
+                "description": "Get all the service transaction",
+                "operationId": "App\\Http\\Controllers\\ServiceTransactionController::getAll",
+                "responses": {
+                    "default": {
+                        "description": "Service transaction and its detail"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/servicetransaction/cs/insert": {
+            "post": {
+                "tags": [
+                    "service transaction"
+                ],
+                "summary": "Insert a new service transaction",
+                "operationId": "App\\Http\\Controllers\\ServiceTransactionController::insert",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "serviceTransactionDetails": {
+                                        "description": "Array of Service Transaction Detail",
+                                        "type": "string"
+                                    },
+                                    "createdBy": {
+                                        "description": "The id of the cs",
+                                        "type": "integer"
+                                    },
+                                    "total": {
+                                        "description": "The total price",
+                                        "type": "double"
+                                    },
+                                    "Pets_id": {
+                                        "description": "The id of the Pet",
+                                        "type": "double"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/servicetransaction/kasir/updatedetailbyid": {
+            "put": {
+                "tags": [
+                    "service transaction"
+                ],
+                "summary": "Update a detail in service transaction",
+                "operationId": "App\\Http\\Controllers\\ServiceTransactionController::updateDetailById",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "description": "The id of the service transaction detail",
+                                        "type": "integer"
+                                    },
+                                    "new_service_detail_id": {
+                                        "description": "The new id of the service detail",
+                                        "type": "integer"
+                                    },
+                                    "updatedBy": {
+                                        "description": "The foreign key of the cashier who updates the service transaction detail",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Service detail is null or fails to save or service transaction detail fails to save"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/servicetransaction/kasir/deletedetailbyid/{id}/{cashierId}": {
+            "delete": {
+                "tags": [
+                    "service transaction"
+                ],
+                "summary": "Deletes a service transaction",
+                "operationId": "App\\Http\\Controllers\\ServiceTransactionController::deleteDetailById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Service transaction detail id to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "cashierId",
+                        "in": "path",
+                        "description": "Cashier who deleted the service transaction detail",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Service transaction detail not deleted it's because either the deletion failed or not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/servicetransaction/kasir/deletetransactionbyid/{id}": {
+            "delete": {
+                "tags": [
+                    "service transaction"
+                ],
+                "summary": "Deletes a service transaction",
+                "operationId": "App\\Http\\Controllers\\ServiceTransactionController::deleteTransactionById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Service transaction id to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Service transaction not deleted it's because either the deletion failed or not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/servicetransaction/kasir/confirm": {
+            "put": {
+                "tags": [
+                    "service transaction"
+                ],
+                "summary": "Confirm a service transaction",
+                "operationId": "App\\Http\\Controllers\\ServiceTransactionController::confirm",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "description": "The id of the service transaction",
+                                        "type": "string"
+                                    },
+                                    "total": {
+                                        "description": "The total of service transaction",
+                                        "type": "double"
+                                    },
+                                    "updatedBy": {
+                                        "description": "The foreign key of the cashier who updates the service transaction detail",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Service transaction is null or fails to save or service transaction detail fails to save"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/servicetransaction/cs/getallunfinishedservice": {
+            "get": {
+                "tags": [
+                    "service transaction"
+                ],
+                "description": "Get all the unfinished service",
+                "operationId": "App\\Http\\Controllers\\ServiceTransactionController::getAllUnfinishedService",
+                "responses": {
+                    "default": {
+                        "description": "Service transaction and its detail"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/servicetransaction/cs/finish": {
+            "put": {
+                "tags": [
+                    "service transaction"
+                ],
+                "summary": "Confirm a service transaction",
+                "operationId": "App\\Http\\Controllers\\ServiceTransactionController::finish",
+                "requestBody": {
+                    "description": "Input data format",
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "description": "The id of the service transaction detail",
+                                        "type": "string"
+                                    },
+                                    "updatedBy": {
+                                        "description": "The foreign key of the cs who updates the service transaction detail",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Service transaction is null or fails to save or service transaction detail fails to save"
                     }
                 },
                 "security": [

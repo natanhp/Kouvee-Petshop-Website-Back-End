@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property string $id
@@ -10,12 +11,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property float $total
  * @property string $updatedAt
  * @property string $createdAt
- * @property string $isDeleted
  * @property int $Pets_id
  * @property int $Employees_id
  * @property int $createdBy
  * @property int $updatedBy
  * @property string $isPaid
+ * @property string $deletedAt
  * @property Employee $employee
  * @property Pet $pet
  * @property Employee $employee
@@ -24,6 +25,15 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ServiceTransaction extends Model
 {
+    use SoftDeletes;
+    use \Askedio\SoftCascade\Traits\SoftCascadeTrait;
+
+    const CREATED_AT = 'createdAt';
+    const UPDATED_AT = 'updatedAt';
+    const DELETED_AT = 'deletedAt';
+
+    protected $softCascade = ['serviceTransactionDetails'];
+
     /**
      * The table associated with the model.
      * 
@@ -32,14 +42,21 @@ class ServiceTransaction extends Model
     protected $table = 'ServiceTransaction';
 
     /**
+     * The "type" of the auto-incrementing ID.
+     * 
+     * @var string
+     */
+    protected $keyType = 'string';
+    
+    /**
      * @var array
      */
-    protected $fillable = ['date', 'total', 'updatedAt', 'createdAt', 'isDeleted', 'createdBy', 'updatedBy', 'isPaid'];
+    protected $fillable = ['date', 'total', 'updatedAt', 'createdAt', 'createdBy', 'updatedBy', 'isPaid', 'deletedAt'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function employeeEmployeesId()
+    public function employee()
     {
         return $this->belongsTo('App\Employee', 'Employees_id');
     }
@@ -73,6 +90,6 @@ class ServiceTransaction extends Model
      */
     public function serviceTransactionDetails()
     {
-        return $this->hasMany('App\ServiceTransactionDetail');
+        return $this->hasMany('App\ServiceTransactionDetail', 'ServiceDetails_id');
     }
 }

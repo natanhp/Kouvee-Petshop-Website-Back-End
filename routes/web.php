@@ -136,4 +136,62 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
         $router->post('insert', 'FCMController@insert');
         $router->delete('delete/{token}', 'FCMController@delete');
     });
+
+    $router->group(['prefix' => 'producttransaction', 'middleware' => ['jwt.auth']], function () use ($router) {
+        $router->group(['prefix' => 'kasir', 'middleware' => ['only.kasir']], function () use ($router) {
+            $router->get('getall', 'ProductTransactionController@getAll');
+            $router->put('updatedetailbyid', 'ProductTransactionController@updateDetailById');
+            $router->put('confirm', 'ProductTransactionController@confirm');
+            $router->delete('deletedetailbyid/{id}/{cashierId}', 'ProductTransactionController@deleteDetailById');
+            $router->delete('deletetransactionbyid/{id}/{cashierId}', 'ProductTransactionController@deleteTransactionById');
+        });
+
+        $router->group(['prefix' => 'cs', 'middleware' => ['only.cs']], function () use ($router) {
+            $router->post('insert', 'ProductTransactionController@insert');
+        });
+    });
+
+    $router->group(['prefix' => 'servicetransaction', 'middleware' => ['jwt.auth']], function () use ($router) {
+        $router->group(['prefix' => 'kasir', 'middleware' => ['only.kasir']], function () use ($router) {
+            $router->get('getall', 'ServiceTransactionController@getAll');
+            $router->put('updatedetailbyid', 'ServiceTransactionController@updateDetailById');
+            $router->put('confirm', 'ServiceTransactionController@confirm');
+            $router->delete('deletedetailbyid/{id}/{cashierId}', 'ServiceTransactionController@deleteDetailById');
+            $router->delete('deletetransactionbyid/{id}', 'ServiceTransactionController@deleteTransactionById');
+        });
+
+        $router->group(['prefix' => 'cs', 'middleware' => ['only.cs']], function () use ($router) {
+            $router->post('insert', 'ServiceTransactionController@insert');
+            $router->get('getallunfinishedservice', 'ServiceTransactionController@getAllUnfinishedService');
+            $router->put('finish', 'ServiceTransactionController@finish');
+        });
+    });
+
+    $router->group(['prefix' => 'report', 'middleware' => ['jwt.auth', 'only.owner']], function () use ($router) {
+        $router->get('bestsellingservice/{this_year}', 'ReportController@bestSellingService');
+        $router->get('bestsellingproduct/{this_year}', 'ReportController@bestSellingProduct');
+        $router->get('yearlyincome/{this_year}', 'ReportController@yearlyIncome');
+        $router->get('yearlyrestockproduct/{this_year}', 'ReportController@yearlyRestockProduct');
+        $router->get('monthlyincome/{this_year}/{this_month}', 'ReportController@monthlyIncome');
+        $router->get('monthlyrestockproduct/{this_year}/{this_month}', 'ReportController@monthlyRestockProduct');
+    });
+
+    $router->group(['prefix' => 'log', 'middleware' => ['jwt.auth', 'only.owner']], function () use ($router) {
+        $router->get('productrestockdetail', 'LogController@productRestockDetail');
+        $router->get('product', 'LogController@product');
+        $router->get('productrestock', 'LogController@productRestock');
+        $router->get('supplier', 'LogController@supplier');
+        $router->get('customer', 'LogController@customer');
+        $router->get('employee', 'LogController@employee');
+        $router->get('fcm', 'LogController@fcm');
+        $router->get('pet', 'LogController@pet');
+        $router->get('petsize', 'LogController@petSize');
+        $router->get('pettype', 'LogController@petType');
+        $router->get('producttransactiondetail', 'LogController@productTransactionDetail');
+        $router->get('servicetransactiondetail', 'LogController@serviceTransactionDetail');
+        $router->get('producttransaction', 'LogController@productTransaction');
+        $router->get('servicetransaction', 'LogController@serviceTransaction');
+        $router->get('servicedetail', 'LogController@serviceDetail');
+        $router->get('service', 'LogController@service');
+    });
 });
